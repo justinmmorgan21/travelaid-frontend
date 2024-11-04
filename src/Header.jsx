@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 export function Header() {
   return (
     <header>
       <nav>
-        <a href="#">Home</a> | <a href="#">Link</a>
+        <Link to="/">Home</Link> | <Link to="/signup">Signup</Link> | <Link to="Login">Login</Link> | <Link to="logout">Logout</Link>
       </nav>
     </header>
   )
