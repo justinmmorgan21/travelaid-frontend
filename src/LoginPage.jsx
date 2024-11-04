@@ -8,7 +8,7 @@ if (jwt) {
 
 export function LoginPage() {
   const [errors, setErrors] = useState([]);
-
+  // const navigate = useNavigate;
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors([]);
@@ -20,7 +20,7 @@ export function LoginPage() {
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
         localStorage.setItem("jwt", response.data.jwt);
         event.target.reset();
-        window.location.href = "/"; // Change this to hide a modal, redirect to a specific page, etc.
+        window.location.href = "/trips"; // Change this to hide a modal, redirect to a specific page, etc.
       })
       .catch((error) => {
         console.log(error.response);
@@ -30,7 +30,7 @@ export function LoginPage() {
 
   return (
     <div id="login">
-      <h1>Login</h1>
+      {/* <h1>Login</h1> */}
       <ul>
         {errors.map((error) => (
           <li key={error}>{error}</li>

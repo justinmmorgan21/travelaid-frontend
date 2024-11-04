@@ -1,26 +1,45 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Modal } from "./Modal";
+import { TripsCreateModal } from "./TripsCreateModal";
 
 export function TripsIndexPage() {
   const trips = useLoaderData();
   console.log(trips);
   const navigate = useNavigate();
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const handleShow = (trip) => {
-    console.log("handleShow", trip);
+  const handleTripsShow = (trip) => {
+    console.log("handleTripsShow", trip);
     navigate(`/trips/${trip.id}`);
   };
 
+  const handleModalShow = () => {
+    setModalVisible(true);
+  }
+  const handleClose = (message) => {
+    console.log(message);
+    setModalVisible(false);
+  }
+
   return (
     <div>
-        <h1>All trips</h1>
+       <br />
+        <h1>Your Upcoming Trips</h1>
+        <hr />
         {trips.map((trip) => (
           <div key={trip.id}>
             <h2>{trip.title}</h2>
             <img src={trip.image_url} />
             <p>{trip.start_time} -- {trip.end_time}</p>
-            <button onClick={() => handleShow(trip)}>More info</button>
+            <button onClick={() => handleTripsShow(trip)}>More info</button>
           </div>
         ))}
+        <br /><br />
+        <button onClick={()=>handleModalShow()}>Add Trip</button>
+        <Modal onClose={handleClose} show={modalVisible}>
+          <TripsCreateModal onClose={handleClose}/>
+      </Modal>
       </div>
   );
 }
