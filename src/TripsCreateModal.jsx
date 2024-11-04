@@ -11,7 +11,7 @@ export function TripsCreateModal({onClose}) {
     console.log(params);
     axios.post("http://localhost:3000/trips.json", params).then(response=> {
       console.log(response.data);
-      onClose("CREATE");
+      onClose();
       navigate(`/trips/${response.data.id}`);
     });
   }
@@ -21,7 +21,7 @@ export function TripsCreateModal({onClose}) {
       <h2>New Trip</h2>
       <form onSubmit={(event) => handleCreate(event)}>
         <label htmlFor="title">Title:  </label>
-        <input type="text" name="title" placeholder="Title"/><br />
+        <input type="text" name="title"/><br />
         <label htmlFor="image_url">Image URL:  </label>
         <input type="text" name="image_url"></input><br />
         <label htmlFor="start_time">Start:  </label>
@@ -30,7 +30,7 @@ export function TripsCreateModal({onClose}) {
         <input type="date" name="end_time"></input><br />
         <br />
         <button type="submit">Submit</button>
-      <button onClick={()=>onClose("CLOSE")}>Cancel</button>
+      <button onClick={()=>onClose()}>Cancel</button>
       </form>
     </div>
   );

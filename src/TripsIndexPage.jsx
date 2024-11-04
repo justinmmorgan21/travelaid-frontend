@@ -5,7 +5,7 @@ import { TripsCreateModal } from "./TripsCreateModal";
 
 export function TripsIndexPage() {
   const trips = useLoaderData();
-  console.log(trips);
+  
   const navigate = useNavigate();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -17,29 +17,28 @@ export function TripsIndexPage() {
   const handleModalShow = () => {
     setModalVisible(true);
   }
-  const handleClose = (message) => {
-    console.log(message);
+  const handleClose = () => {
     setModalVisible(false);
   }
 
   return (
     <div>
-       <br />
-        <h1>Your Upcoming Trips</h1>
-        <hr />
-        {trips.map((trip) => (
-          <div key={trip.id}>
-            <h2>{trip.title}</h2>
-            <img src={trip.image_url} />
-            <p>{trip.start_time} -- {trip.end_time}</p>
-            <button onClick={() => handleTripsShow(trip)}>More info</button>
-          </div>
-        ))}
-        <br /><br />
-        <button onClick={()=>handleModalShow()}>Add Trip</button>
-        <Modal onClose={handleClose} show={modalVisible}>
-          <TripsCreateModal onClose={handleClose}/>
+      <br />
+      <h1>Your Upcoming Trips</h1>
+      <hr />
+      {trips.map((trip) => (
+        <div key={trip.id}>
+          <h2>{trip.title}</h2>
+          <img src={trip.image_url} />
+          <p>{trip.start_time} -- {trip.end_time}</p>
+          <button onClick={() => handleTripsShow(trip)}>More info</button>
+        </div>
+      ))}
+      <br /><br />
+      <button onClick={()=>handleModalShow()}>Add Trip</button>
+      <Modal onClose={handleClose} show={modalVisible}>
+        <TripsCreateModal onClose={handleClose}/>
       </Modal>
-      </div>
+    </div>
   );
 }
