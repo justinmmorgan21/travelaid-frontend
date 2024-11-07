@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 export function Header() {
 
-  // FROM blog-frontend
   const [currentUser, setCurrentUser] = useState({});
 
   const loadUserData = () => {
@@ -22,22 +21,13 @@ export function Header() {
     console.log("logged out")
     authLinks = (
       <>
-      <li>
-        <Link to="signup">Sign up</Link>
-      </li>
-      <li>
-        <Link to="login">Log in</Link>
-      </li>
+        <Link to="signup">Sign up</Link> | <Link to="login">Log in</Link>
       </>
     )
     welcomeMessage = <></>
   } else {
     console.log("logged in")
-    authLinks = (
-                <li>
-                  <LogoutLink />
-                </li>
-    )
+    authLinks = ( <LogoutLink /> )
     welcomeMessage = (
       <>
       Welcome, {currentUser.name}
@@ -48,8 +38,9 @@ export function Header() {
   return (
     <header>
       <nav>
-        <Link to="/">Home</Link> | <Link to="/trips">My Trips</Link> | <Link to="/signup">Signup</Link> | <Link to="Login">Login</Link> | <LogoutLink />
-        {/* {authLinks} */}
+        <Link to="/">Home</Link> | <Link to="/trips">My Trips</Link> | 
+        {/* <Link to="/signup">Signup</Link> | <Link to="Login">Login</Link> | <LogoutLink /> */}
+        {authLinks}
         {welcomeMessage}
         <img id="user-image" src={currentUser.image_url} alt="" />
       </nav>
