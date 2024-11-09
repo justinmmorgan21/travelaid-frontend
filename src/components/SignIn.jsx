@@ -6,7 +6,8 @@ if (jwt) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 }
 
-export function LoginPage() {
+export default function SignIn({ className , setSwitchAuth}) {
+
   const [errors, setErrors] = useState([]);
   // const navigate = useNavigate;
   const handleSubmit = (event) => {
@@ -28,23 +29,29 @@ export function LoginPage() {
       });
   };
 
+
+
   return (
-    <div id="login">
-      <h1>Login</h1>
+    <div className={ className }>
       <ul>
         {errors.map((error) => (
           <li key={error}>{error}</li>
         ))}
       </ul>
-      <form onSubmit={handleSubmit}>
-        <div>
-          Email: <input name="email" type="email" />
-        </div>
-        <div>
-          Password: <input name="password" type="password" />
-        </div>
-        <button type="submit">Login</button>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" placeholder="example@gmail.com" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
+        <label htmlFor="password">Password</label>
+        <input type="password" name="password" placeholder="password" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
+        <button type="submit" className="w-full bg-green-500 py-5 rounded-md text-white mb-10">
+          Sign In
+        </button>
       </form>
+      <p className="text-center mb-0">Don&apos;t have an account yet?{ " "}
+        <span className="text-blue-500 cursor-pointer" onClick={()=>setSwitchAuth(value => !value)}>
+          Sign Up
+        </span>
+      </p>
     </div>
-  );
+  )
 }
