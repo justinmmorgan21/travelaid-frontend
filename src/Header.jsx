@@ -79,7 +79,7 @@ export function Header() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse >
-        <Navbar.Link href="/home" active className="custom-hover text-white">
+        <Navbar.Link href="/home"  className="custom-hover text-white">
           Home
         </Navbar.Link>
         <Navbar.Link href="/about" className="custom-hover text-white">About</Navbar.Link>
