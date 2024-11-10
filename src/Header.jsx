@@ -1,15 +1,12 @@
 
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { LogoutLink } from "./LogoutLink";
 import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom"
 import axios from 'axios';
 import ReactLogo from './assets/logo.svg';
 export function Header() {
 
   const [currentUser, setCurrentUser] = useState({});
-  const navigate = useNavigate();
 
   const loadUserData = () => {
     axios.get("http://localhost:3000/users/current.json").then(response=> {

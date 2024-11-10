@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { Button, Label, TextInput, Datepicker } from "flowbite-react";
+
 
 export function TripsCreatePage() {
 
@@ -16,20 +18,38 @@ export function TripsCreatePage() {
   }
 
   return (
+
     <div>
-      <h2>New Trip</h2>
-      <form onSubmit={(event) => handleCreate(event)}>
-        <label htmlFor="title">Title:  </label>
-        <input type="text" name="title"/><br />
-        <label htmlFor="image_url">Image URL:  </label>
-        <input type="text" name="image_url"></input><br />
-        <label htmlFor="start_time">Start:  </label>
-        <input type="date" name="start_time"></input><br />
-        <label htmlFor="end_time">End:  </label>
-        <input type="date" name="end_time"></input><br />
-        <br />
-        <button type="submit">Submit</button>
+      <h1 className='text-xl'>New Trip</h1>
+      <hr className='my-4'/> 
+      <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleCreate(event)}>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="title" value="Trip Title" />
+          </div>
+          <TextInput id="title" name="title" type="text" placeholder="title" shadow required />
+        </div>
+        
+        <div className=' flex flex-row space-x-2'>
+          <div>
+            <Datepicker title="Arrive" name="start_time" />
+          </div>
+          <div>
+            <Datepicker title="Depart" name="end_time" />
+          </div>
+        </div>
+        
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="image_url" value="URL of trip image" />
+          </div>
+          <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow required />
+        </div>
+        <div className=' flex flex-row space-x-2'>
+          <Button className="w-1/2" type="submit">Submit</Button>
+        </div>
       </form>
+
     </div>
   );
 }

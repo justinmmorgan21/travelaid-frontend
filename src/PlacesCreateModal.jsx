@@ -36,6 +36,7 @@ export function PlacesCreateModal({onClose, trip}) {
     const params = new FormData(event.target);
     params.append('trip_id', trip_id);
     axios.post("http://localhost:3000/places.json", params).then(response=> {
+      console.log(response.data);
       navigate(`/trips/${trip_id}`)
       onClose();
     });

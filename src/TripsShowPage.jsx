@@ -19,7 +19,7 @@ export function TripsShowPage() {
 
   return (
     <div>
-      <a className="underline" href="/trips">{'<'}- Back to All Upcoming Trips</a>
+      <a className="underline" href="/trips">{'<'}- back to Upcoming Trips</a>
       <h1 className="text-4xl my-6">{trip.title}</h1>
       <img className="w-80" src={trip.image_url} />
       <p className="my-6 text-lg">Date: {trip.start_time} -- {trip.end_time}</p>
@@ -54,7 +54,7 @@ export function TripsShowPage() {
       ))}
     </Accordion>
 
-      <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Stop</button>
+      <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Place</button>
       <Modal onClose={handleClose} show={modalVisible}>
         <PlacesCreateModal onClose={handleClose} trip={trip}/>
       </Modal>
