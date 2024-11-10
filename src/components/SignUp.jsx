@@ -37,7 +37,7 @@ export default function SignUp({ className , setSwitchAuth }) {
         <input type="password" name="password" placeholder="password" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
         <label htmlFor="password_confirmation">Confirm Password</label>
         <input type="password" name="password_confirmation" placeholder="password" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
-        <button type="submit" className="w-full bg-green-500 py-5 rounded-md text-white text-xl mb-10">
+        <button type="submit" className="w-full bg-green-500 py-3 rounded-md text-white text-lg mb-10">
           Sign Up
         </button>
       </form>

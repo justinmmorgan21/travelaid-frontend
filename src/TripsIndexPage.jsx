@@ -22,22 +22,22 @@ export function TripsIndexPage() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col">
       <br />
       <h1 className="text-4xl mb-6">Upcoming Trips</h1>
       <hr className="mb-6"/>
       <div className="grid grid-cols-3 gap-16">
         {trips.map((trip) => (
-          <div key={trip.id}>
-            <h2>{trip.title}</h2>
+          <div key={trip.id} className="shadow-xl p-6 rounded-lg">
+            <h2 className="text-xl">{trip.title}</h2>
             <img src={trip.image_url} />
-            <p>{trip.start_time} -- {trip.end_time}</p>
-            <button onClick={() => handleTripsShow(trip)}>More info</button>
+            <p className="my-2">{trip.start_time} -- {trip.end_time}</p>
+            <button className="bg-blue-500 px-4 py-1 rounded text-white" onClick={() => handleTripsShow(trip)}>More info</button>
           </div>
         ))}
       </div>
       <br /><br />
-      <button onClick={()=>handleModalShow()}>Add Trip</button>
+      <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Trip</button>
       <Modal onClose={handleClose} show={modalVisible}>
         <TripsCreateModal onClose={handleClose}/>
       </Modal>

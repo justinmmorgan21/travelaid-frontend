@@ -43,7 +43,7 @@ export default function SignIn({ className , setSwitchAuth}) {
         <input type="email" name="email" placeholder="example@gmail.com" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
         <label htmlFor="password">Password</label>
         <input type="password" name="password" placeholder="password" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
-        <button type="submit" className="w-full bg-green-500 py-5 rounded-md text-white mb-10">
+        <button type="submit" className="w-full bg-green-500 py-3 text-md rounded-md text-white mb-10">
           Sign In
         </button>
       </form>
