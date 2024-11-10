@@ -28,25 +28,25 @@ export function Header() {
 
   useEffect(loadUserData, []);
 
-  let authLinks;
-  let welcomeMessage;
-  if (localStorage.jwt === undefined) {
-    console.log("logged out")
-    authLinks = (
-      <>
-        <Link to="signup">Sign up</Link> | <Link to="login">Log in</Link>
-      </>
-    )
-    welcomeMessage = <></>
-  } else {
-    console.log("logged in")
-    authLinks = ( <LogoutLink /> )
-    welcomeMessage = (
-      <>
-      Welcome, {currentUser.name}
-      </>
-    )
-  }
+  // let authLinks;
+  // let welcomeMessage;
+  // if (localStorage.jwt === undefined) {
+  //   console.log("logged out")
+  //   authLinks = (
+  //     <>
+  //       <Link to="signup">Sign up</Link> | <Link to="login">Log in</Link>
+  //     </>
+  //   )
+  //   welcomeMessage = <></>
+  // } else {
+  //   console.log("logged in")
+  //   authLinks = ( <LogoutLink /> )
+  //   welcomeMessage = (
+  //     <>
+  //     Welcome, {currentUser.name}
+  //     </>
+  //   )
+  // }
 
   console.log("HEADER USER", currentUser)
 

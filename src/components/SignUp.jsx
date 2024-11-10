@@ -30,13 +30,13 @@ export default function SignUp({ className , setSwitchAuth }) {
       </ul>
       <form onSubmit={handleSubmit} action="" className="flex flex-col gap-5">
         <label htmlFor="name">Name</label>
-        <input type="text" name="name" placeholder="name" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
+        <input type="text" name="name" placeholder="name" required className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" placeholder="example@gmail.com" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
+        <input type="email" name="email" placeholder="example@gmail.com" required className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" placeholder="password" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
+        <input type="password" name="password" placeholder="password" required className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
         <label htmlFor="password_confirmation">Confirm Password</label>
-        <input type="password" name="password_confirmation" placeholder="password" className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
+        <input type="password" name="password_confirmation" placeholder="password" required className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
         <button type="submit" className="w-full bg-green-500 py-3 rounded-md text-white text-lg mb-10">
           Sign Up
         </button>

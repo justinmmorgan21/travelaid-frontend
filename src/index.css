@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 .custom-hover:hover {
-  color: #1c64f2 !important;
+  color: white !important;
+  text-decoration-line: underline !important;
+}
+
+.datepicker-up .datepicker-dropdown {
+  bottom: 100% !important;
+  top: auto !important;
 }
