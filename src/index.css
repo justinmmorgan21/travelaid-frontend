@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-hover:hover {
+  color: #1c64f2 !important;
+}
