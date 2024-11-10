@@ -19,7 +19,9 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Header />
+        <div className="container mx-auto py-12 px-24 flex-auto">
         <Outlet />
+        </div>
         <Footer />
       </div>
     ),

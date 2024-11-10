@@ -5,7 +5,7 @@ import { LogoutLink } from "./LogoutLink";
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
 import axios from 'axios';
-import ReactLogo from './assets/logo1.jpg';
+import ReactLogo from './assets/logo.svg';
 export function Header() {
 
   const [currentUser, setCurrentUser] = useState({});

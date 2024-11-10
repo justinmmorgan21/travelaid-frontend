@@ -24,16 +24,18 @@ export function TripsIndexPage() {
   return (
     <div>
       <br />
-      <h1>Your Upcoming Trips</h1>
-      <hr />
-      {trips.map((trip) => (
-        <div key={trip.id}>
-          <h2>{trip.title}</h2>
-          <img src={trip.image_url} />
-          <p>{trip.start_time} -- {trip.end_time}</p>
-          <button onClick={() => handleTripsShow(trip)}>More info</button>
-        </div>
-      ))}
+      <h1 className="text-4xl mb-6">Upcoming Trips</h1>
+      <hr className="mb-6"/>
+      <div className="grid grid-cols-3 gap-16">
+        {trips.map((trip) => (
+          <div key={trip.id}>
+            <h2>{trip.title}</h2>
+            <img src={trip.image_url} />
+            <p>{trip.start_time} -- {trip.end_time}</p>
+            <button onClick={() => handleTripsShow(trip)}>More info</button>
+          </div>
+        ))}
+      </div>
       <br /><br />
       <button onClick={()=>handleModalShow()}>Add Trip</button>
       <Modal onClose={handleClose} show={modalVisible}>

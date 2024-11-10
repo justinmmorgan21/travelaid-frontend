@@ -14,21 +14,19 @@ export default function UserSettings() {
   const handleChange = e => {
     e.persist();
     setImage(e.target.files[0]);
-    console.log("IMAGE", image);
   };
 
   const handleSubmit = (event) => {
-    console.log("UPDATE");
-    console.log(event.target);
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
-    params.append('image', image);
+    const isFileSelected = image instanceof File;
+    params.append('image', isFileSelected ? image : "no-image");
     axios.patch(`http://localhost:3000/users/${currentUser.id}.json`, params)
       .then((response) => {
         console.log(response.data);
         event.target.reset();
-        window.location.href = "/dashboard"; // Change this to hide a modal, redirect to a specific page, etc.
+        window.location.href = "/dashboard";
       })
       .catch((error) => {
         console.log("ERRORS", error.response.data.errors);
@@ -37,8 +35,8 @@ export default function UserSettings() {
   };
 
   return (
-    <div id="signup">
-      <h1>Signup</h1>
+    <div >
+      <h1>Edit User Settings</h1>
       <ul>
         {errors.map((error) => (
           <li key={error}>{error}</li>
@@ -60,7 +58,8 @@ export default function UserSettings() {
         <div>
           Image upload: <input type="file" name="image" onChange={handleChange} />
         </div>
-        <button type="submit">Signup</button>
+        <button type="submit" className="mr-20">Submit Changes</button>
+        <button onClick={()=>{window.location.href = "/dashboard";}}>Cancel</button>
       </form>
     </div>
   );
