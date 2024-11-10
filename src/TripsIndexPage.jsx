@@ -26,16 +26,22 @@ export function TripsIndexPage() {
       <br />
       <h1 className="text-4xl mb-6">Upcoming Trips</h1>
       <hr className="mb-6"/>
+      
+      {/* Cards */}
       <div className="grid grid-cols-3 gap-16">
         {trips.map((trip) => (
-          <div key={trip.id} className="shadow-xl p-6 rounded-lg">
+          <div key={trip.id} className="shadow-xl p-6 rounded-lg flex flex-col h-full">
             <h2 className="text-xl">{trip.title}</h2>
-            <img src={trip.image_url} />
-            <p className="my-2">{trip.start_time} -- {trip.end_time}</p>
-            <button className="bg-blue-500 px-4 py-1 rounded text-white" onClick={() => handleTripsShow(trip)}>More info</button>
+            <img  src={trip.image_url} />
+            <div className="flex-grow"></div>
+            <div className="flex-end">
+              <p className="my-2">{trip.start_time} -- {trip.end_time}</p>
+              <button className="bg-blue-500 px-4 py-1 rounded text-white" onClick={() => handleTripsShow(trip)}>More info</button>
+            </div>
           </div>
         ))}
       </div>
+
       <br /><br />
       <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Trip</button>
       <Modal onClose={handleClose} show={modalVisible}>

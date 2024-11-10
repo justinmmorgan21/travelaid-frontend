@@ -40,10 +40,10 @@ export default function SignIn({ className , setSwitchAuth}) {
       </ul>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" placeholder="example@gmail.com" required className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
+        <input type="email" name="email" placeholder="example@gmail.com" required className="border-2 py-2 px-2 rounded-md focus-outline-none"/>
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" placeholder="password" required className="border-2 py-3 px-2 rounded-md focus-outline-none"/>
-        <button type="submit" className="w-full bg-green-500 py-3 text-md rounded-md text-white mb-10">
+        <input type="password" name="password" placeholder="password" required className="border-2 py-2 px-2 rounded-md focus-outline-none"/>
+        <button type="submit" className="w-full bg-green-500 py-2 text-md rounded-md text-white mb-10">
           Sign In
         </button>
       </form>

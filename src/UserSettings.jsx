@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { HiMail } from "react-icons/hi";
+import { Button, Label, TextInput, FileInput, Avatar } from "flowbite-react";
 
 export default function UserSettings() {
   
@@ -35,32 +37,101 @@ export default function UserSettings() {
   };
 
   return (
-    <div >
-      <h1>Edit User Settings</h1>
-      <ul>
-        {errors.map((error) => (
-          <li key={error}>{error}</li>
-        ))}
-      </ul>
-      <form onSubmit={handleSubmit}>
+
+    <div>
+      <h1 className='text-xl'>Profile Settings</h1>
+      <hr className='my-4'/> 
+      <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleSubmit(event)}>
         <div>
-          Name: <input name="name" type="text" defaultValue={currentUser.name}/>
+          <div className="mb-2 block">
+            <Label htmlFor="name" value="Your Name" />
+          </div>
+          <TextInput id="name" name="name" type="text" defaultValue={currentUser.name} shadow />
+        </div>
+        <div className="max-w-md">
+          <div className="mb-2 block">
+            <Label htmlFor="email" value="Your Email" />
+          </div>
+          <TextInput id="email" name="email" type="email" icon={HiMail} defaultValue={currentUser.email} shadow />
         </div>
         <div>
-          Email: <input name="email" type="email" defaultValue={currentUser.email} />
+          <Label htmlFor="" value="Current Image" />
+          <Avatar className="" alt="User settings" img={currentUser.image_url} rounded />
         </div>
-        {/* <div>
-          Password: <input name="password" type="password" />
+        <div id="fileUpload" className="max-w-md">
+          <div className="mb-2 block">
+            <Label htmlFor="file" value="Upload new image file" />
+          </div>
+          <FileInput name="image" id="file" helperText="A profile picture is useful to confirm your are logged into your account" onChange={handleChange}/>
         </div>
-        <div>
-          Password confirmation: <input name="password_confirmation" type="password" />
-        </div> */}
-        <div>
-          Image upload: <input type="file" name="image" onChange={handleChange} />
+
+        <div className=' flex flex-row space-x-2'>
+          <Button className="w-1/2" type="submit">Submit</Button>
         </div>
-        <button type="submit" className="mr-20">Submit Changes</button>
-        <button onClick={()=>{window.location.href = "/dashboard";}}>Cancel</button>
       </form>
+
     </div>
+
+
+
+
+
+
+
+
+    // <div >
+    //   <h1>Edit User Settings</h1>
+    //   <ul>
+    //     {errors.map((error) => (
+    //       <li key={error}>{error}</li>
+    //     ))}
+    //   </ul>
+    //   <form onSubmit={handleSubmit}>
+    //     <div>
+    //       Name: <input name="name" type="text" defaultValue={currentUser.name}/>
+    //     </div>
+    //     <div>
+    //       Email: <input name="email" type="email" defaultValue={currentUser.email} />
+    //     </div>
+
+    //     {/* <div>
+    //       Password: <input name="password" type="password" />
+    //     </div>
+    //     <div>
+    //       Password confirmation: <input name="password_confirmation" type="password" />
+    //     </div> */}
+    //     <div>
+    //       Image upload: <input type="file" name="image" onChange={handleChange} />
+    //     </div>
+    //     <button type="submit" className="mr-20">Submit Changes</button>
+    //     <button onClick={()=>{window.location.href = "/dashboard";}}>Cancel</button>
+    //   </form>
+    // </div>
   );
 }
+
+    // <div>
+    //   <h1 className='text-xl'>Profile Settings</h1>
+    //   <hr className='my-4'/> 
+    //   <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleCreate(event)}>
+    //     <div>
+    //       <div className="mb-2 block">
+    //         <Label htmlFor="name" value="Name" />
+    //       </div>
+    //       <TextInput id="name" name="name" type="text" placeholder="name" shadow required />
+    //     </div>
+    //     <div className="max-w-md">
+    //       <div className="mb-2 block">
+    //         <Label htmlFor="email4" value="Your email" />
+    //       </div>
+    //       <TextInput id="email4" type="email" icon={HiMail} placeholder="name@***.com" shadow required />
+    //     </div>
+
+
+
+    //     <div className=' flex flex-row space-x-2'>
+    //       <Button className="w-1/2" type="submit">Submit</Button>
+    //     </div>
+    //   </form>
+
+    // </div>
