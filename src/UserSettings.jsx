@@ -10,7 +10,6 @@ export default function UserSettings() {
   const currentUser = state?.currentUser;
   console.log("SETTINGS USER", currentUser)
 
-  const [errors, setErrors] = useState([]);
   const [image, setImage] = useState({});
   
   const handleChange = e => {
@@ -20,7 +19,6 @@ export default function UserSettings() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setErrors([]);
     const params = new FormData(event.target);
     const isFileSelected = image instanceof File;
     params.append('image', isFileSelected ? image : "no-image");
@@ -30,14 +28,9 @@ export default function UserSettings() {
         event.target.reset();
         window.location.href = "/dashboard";
       })
-      .catch((error) => {
-        console.log("ERRORS", error.response.data.errors);
-        setErrors(error.response.data.errors);
-      });
   };
 
   return (
-
     <div>
       <h1 className='text-xl'>Profile Settings</h1>
       <hr className='my-4'/> 
@@ -64,74 +57,10 @@ export default function UserSettings() {
           </div>
           <FileInput name="image" id="file" helperText="A profile picture is useful to confirm your are logged into your account" onChange={handleChange}/>
         </div>
-
         <div className=' flex flex-row space-x-2'>
           <Button className="w-1/2" type="submit">Submit</Button>
         </div>
       </form>
-
-    </div>
-
-
-
-
-
-
-
-
-    // <div >
-    //   <h1>Edit User Settings</h1>
-    //   <ul>
-    //     {errors.map((error) => (
-    //       <li key={error}>{error}</li>
-    //     ))}
-    //   </ul>
-    //   <form onSubmit={handleSubmit}>
-    //     <div>
-    //       Name: <input name="name" type="text" defaultValue={currentUser.name}/>
-    //     </div>
-    //     <div>
-    //       Email: <input name="email" type="email" defaultValue={currentUser.email} />
-    //     </div>
-
-    //     {/* <div>
-    //       Password: <input name="password" type="password" />
-    //     </div>
-    //     <div>
-    //       Password confirmation: <input name="password_confirmation" type="password" />
-    //     </div> */}
-    //     <div>
-    //       Image upload: <input type="file" name="image" onChange={handleChange} />
-    //     </div>
-    //     <button type="submit" className="mr-20">Submit Changes</button>
-    //     <button onClick={()=>{window.location.href = "/dashboard";}}>Cancel</button>
-    //   </form>
-    // </div>
+    </div>    
   );
 }
-
-    // <div>
-    //   <h1 className='text-xl'>Profile Settings</h1>
-    //   <hr className='my-4'/> 
-    //   <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleCreate(event)}>
-    //     <div>
-    //       <div className="mb-2 block">
-    //         <Label htmlFor="name" value="Name" />
-    //       </div>
-    //       <TextInput id="name" name="name" type="text" placeholder="name" shadow required />
-    //     </div>
-    //     <div className="max-w-md">
-    //       <div className="mb-2 block">
-    //         <Label htmlFor="email4" value="Your email" />
-    //       </div>
-    //       <TextInput id="email4" type="email" icon={HiMail} placeholder="name@***.com" shadow required />
-    //     </div>
-
-
-
-    //     <div className=' flex flex-row space-x-2'>
-    //       <Button className="w-1/2" type="submit">Submit</Button>
-    //     </div>
-    //   </form>
-
-    // </div>

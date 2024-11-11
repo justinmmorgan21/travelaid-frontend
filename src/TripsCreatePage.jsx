@@ -2,7 +2,6 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Button, Label, TextInput, Datepicker } from "flowbite-react";
 
-
 export function TripsCreatePage() {
 
   const navigate = useNavigate();
@@ -18,7 +17,6 @@ export function TripsCreatePage() {
   }
 
   return (
-
     <div>
       <h1 className='text-xl'>New Trip</h1>
       <hr className='my-4'/> 
@@ -29,7 +27,6 @@ export function TripsCreatePage() {
           </div>
           <TextInput id="title" name="title" type="text" placeholder="title" shadow required />
         </div>
-        
         <div className=' flex flex-row space-x-2'>
           <div>
             <Datepicker title="Arrive" name="start_time" />
@@ -38,7 +35,6 @@ export function TripsCreatePage() {
             <Datepicker title="Depart" name="end_time" />
           </div>
         </div>
-        
         <div>
           <div className="mb-2 block">
             <Label htmlFor="image_url" value="URL of trip image" />
@@ -49,7 +45,6 @@ export function TripsCreatePage() {
           <Button className="w-1/2" type="submit">Submit</Button>
         </div>
       </form>
-
     </div>
   );
 }

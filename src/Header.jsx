@@ -25,26 +25,6 @@ export function Header() {
 
   useEffect(loadUserData, []);
 
-  // let authLinks;
-  // let welcomeMessage;
-  // if (localStorage.jwt === undefined) {
-  //   console.log("logged out")
-  //   authLinks = (
-  //     <>
-  //       <Link to="signup">Sign up</Link> | <Link to="login">Log in</Link>
-  //     </>
-  //   )
-  //   welcomeMessage = <></>
-  // } else {
-  //   console.log("logged in")
-  //   authLinks = ( <LogoutLink /> )
-  //   welcomeMessage = (
-  //     <>
-  //     Welcome, {currentUser.name}
-  //     </>
-  //   )
-  // }
-
   console.log("HEADER USER", currentUser)
 
   return (
@@ -62,14 +42,13 @@ export function Header() {
           }
         >
           <Dropdown.Header>
-            <span className="block text-sm">{currentUser.name}</span>
-            <span className="block truncate text-sm font-medium">{currentUser.email}</span>
+            <span className="block text-sm font-medium">{currentUser.name}</span>
+            <span className="block truncate text-sm ">{currentUser.email}</span>
           </Dropdown.Header>
           <Dropdown.Item onClick={()=> {window.location.href = "/dashboard"}}>Dashboard</Dropdown.Item>
           <Dropdown.Item>
             <Link to="/userSettings" state={{ currentUser }}>Settings</Link>
           </Dropdown.Item>
-          <Dropdown.Item>Leave Feedback</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={()=>handleLogout()}>Sign out</Dropdown.Item>
         </Dropdown>
@@ -89,12 +68,5 @@ export function Header() {
         <Navbar.Link href="/" className="custom-hover text-white">Login</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
-      // {/* <nav>
-      //   <Link to="/">Home</Link> | <Link to="/trips">My Trips</Link> |  */}
-      //   {/* <Link to="/signup">Signup</Link> | <Link to="Login">Login</Link> | <LogoutLink /> */}
-      //   {/* {authLinks}
-      //   {welcomeMessage}
-      //   <img id="user-image" src={currentUser.image_url} alt="" />
-      // </nav> */}
   );
 }

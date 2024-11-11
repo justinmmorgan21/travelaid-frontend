@@ -54,7 +54,7 @@ export function TripsShowPage() {
       ))}
     </Accordion>
 
-      <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Place</button>
+      <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add a Place to your Itinerary</button>
       <Modal onClose={handleClose} show={modalVisible}>
         <PlacesCreateModal onClose={handleClose} trip={trip}/>
       </Modal>
