@@ -17,7 +17,7 @@ export default function SignUp({ className , setSwitchAuth }) {
           axios.defaults.headers.common["Authorization"] = "Bearer " + resp.data.jwt;
           localStorage.setItem("jwt", resp.data.jwt);
           event.target.reset();
-          window.location.href = "/trips/new"; // Change this to hide a modal, redirect to a specific page, etc.
+          window.location.href = "/trips/new";
         })
       })
       .catch((error) => {
@@ -25,28 +25,6 @@ export default function SignUp({ className , setSwitchAuth }) {
         setErrors(error.response.data.errors);
       });
   };
-
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   setErrors([]);
-  //   const params = new FormData(event.target);
-  //   axios
-  //     .post("http://localhost:3000/sessions.json", params)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
-  //       localStorage.setItem("jwt", response.data.jwt);
-  //       event.target.reset();
-  //       window.location.href = "/trips"; // Change this to hide a modal, redirect to a specific page, etc.
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response);
-  //       setErrors(["Invalid email or password"]);
-  //     });
-  // };
-
-
 
   return (
     <div className={className}>

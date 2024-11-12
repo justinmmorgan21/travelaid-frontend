@@ -37,7 +37,7 @@ export function TripsIndexPage() {
             <img  className="max-h-64 w-fit mx-auto" src={trip.image_url} />
             <div className="flex-grow"></div>
             <div className="flex-end">
-              <p className="my-2">{trip.start_time} -- {trip.end_time}</p>
+              <p className="my-2">{trip.start_time} &nbsp; to &nbsp; {trip.end_time}</p>
               {/* <button className="bg-blue-500 px-4 py-1 rounded text-white" onClick={() => handleTripsShow(trip)}>More info</button> */}
             </div>
           </div>

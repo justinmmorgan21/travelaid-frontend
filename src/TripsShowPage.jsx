@@ -25,7 +25,7 @@ export function TripsShowPage() {
       <a className="underline" href="/trips">{'<'}- back to Upcoming Trips</a>
       <h1 className="text-4xl my-6">{trip.title}</h1>
       <img className="w-80" src={trip.image_url} />
-      <p className="my-6 text-lg">Date: {trip.start_time} -- {trip.end_time}</p>
+      <p className="my-6 text-lg">Dates: &nbsp; {trip.start_time}  &nbsp; to &nbsp;  {trip.end_time}</p>
       <hr />
       <h2 className="mt-6 text-lg">Itinerary:</h2>
       <br />
@@ -33,11 +33,11 @@ export function TripsShowPage() {
       {trip.places.map(place => (
       <Accordion.Panel key={place.id}>
         <Accordion.Title className="flex flex-row">
-          <span className="pr-16">
+          <span className="pr-16 font-bold text-gray-700">
             {place.name}  
           </span>
           <span className="">
-            {place.start_time} -- {place.end_time}
+            {place.start_time}
           </span>
         </Accordion.Title>
         <Accordion.Content>

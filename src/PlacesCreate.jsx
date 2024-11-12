@@ -50,7 +50,7 @@ export function PlacesCreate({onClose, trip}) {
         <div className='mx-auto border-0'>
 
         <div>
-          <div className="mb-2 block">
+          <div className="mb-2 block w-80">
             <Label htmlFor="name" value="Name" />
           </div>
           <TextInput id="name" name="name" type="text" placeholder="name" shadow required />
@@ -61,13 +61,16 @@ export function PlacesCreate({onClose, trip}) {
           </div>
           <TextInput icon={AiFillEnvironment} id="address" name="address" type="text" placeholder="address" shadow required />
         </div>
-        <div className=' flex flex-row space-x-2'>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="start_time" value="Date" />
+          </div>
           <div ref={startDateContainerRef}>
-            <Datepicker title="Arrive" name="start_time" />
+            <Datepicker title="Date" name="start_time" />
           </div>
-          <div ref={endDateContainerRef}>
+          {/* <div ref={endDateContainerRef}>
             <Datepicker title="Depart" name="end_time" />
-          </div>
+          </div> */}
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">

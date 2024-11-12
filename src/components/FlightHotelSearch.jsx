@@ -33,19 +33,6 @@ export default function FlightHotelSearch() {
               onChange={newValue => setValue(newValue)}
               /> 
         </div>
-        {/* <div>
-          <div className="mb-2 block">
-            <Label htmlFor="Destination" value="Leave" />
-          </div>
-          <Datepicker title="Arrive" name="start_time" />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="Destination" value="Return" />
-          </div>
-          <Datepicker title="Arrive" name="start_time" />
-        </div> */}
-
         <Button className="bg-blue-500 text-white mt-8 h-11 border-2 rounded-md'" type="submit">Search</Button>
       </form>
     </div>

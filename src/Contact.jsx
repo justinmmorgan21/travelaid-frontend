@@ -2,6 +2,8 @@ import { useRef } from "react";
 import emailjs from '@emailjs/browser';
 import { Button, Textarea, Label, TextInput } from "flowbite-react";
 import { AiFillEnvironment } from "react-icons/ai";
+import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import { HiMail, HiPhone } from "react-icons/hi";
 import { useLoaderData } from "react-router-dom";
 // import PhoneInput from "react-phone-number-input";
 // import 'react-phone-number-input/style.css'
@@ -45,13 +47,13 @@ export function Contact() {
           <div className="mb-2 block">
             <Label htmlFor="email" value="Email" />
           </div>
-          <TextInput icon={AiFillEnvironment} id="email" name="email" type="text" placeholder="email" defaultValue={current_user.email} shadow required />
+          <TextInput icon={HiMail} id="email" name="email" type="text" placeholder="email" defaultValue={current_user.email} shadow required />
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">
             <Label htmlFor="phone_number" value="Phone Number" />
           </div>
-          <TextInput id="phone_number" name="phone_number" placeholder="555-555-5555" shadow required />
+          <TextInput icon={HiPhone} id="phone_number" name="phone_number" placeholder="555-555-5555" shadow required />
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">
@@ -67,7 +69,7 @@ export function Contact() {
         </div>
         <div className=' flex flex-row space-x-2'>
           <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
-          {/* <Button className="w-1/2" onClick={()=>onClose()}>Cancel</Button> */}
+          <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>window.location.href = "/home"}>Cancel</Button>
         </div>
       </form>
     </div>

@@ -45,7 +45,7 @@ export function Header() {
             <span className="block text-sm font-medium">{currentUser.name}</span>
             <span className="block truncate text-sm ">{currentUser.email}</span>
           </Dropdown.Header>
-          <Dropdown.Item onClick={()=> {window.location.href = "/dashboard"}}>?????</Dropdown.Item>
+          <Dropdown.Item onClick={()=> {window.location.href = "/home"}}>?????</Dropdown.Item>
           <Dropdown.Item>
             <Link to="/userSettings" state={{ currentUser }}>Settings</Link>
           </Dropdown.Item>

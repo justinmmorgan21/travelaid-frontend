@@ -47,15 +47,9 @@ export function TripsCreatePage() {
         </div>
         <div className=' flex flex-row space-x-2'>
           <Datepicker 
-              value={dates} 
-              onChange={newValue => setDates(newValue)}
-              />
-          {/* <div>
-            <Datepicker title="Arrive" name="start_time" />
-          </div>
-          <div>
-            <Datepicker title="Depart" name="end_time" />
-          </div> */}
+            value={dates} 
+            onChange={newValue => setDates(newValue)}
+          />
         </div>
         <div>
           <div className="mb-2 block">
