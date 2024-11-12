@@ -170,7 +170,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Home />
+        element: <Home />,
+        loader: () => axios.get(`http://localhost:3000/trips/next.json`).then(response => response.data)
       },
       {
         path: "/about",

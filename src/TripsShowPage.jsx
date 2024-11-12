@@ -19,7 +19,7 @@ export function TripsShowPage() {
 
   return (
     <div>
-      <div className='absolute top-24 left-1/3 z-10 ml-16 -mr-16 border-2 rounded-lg border-black'>
+      <div className='absolute top-24 left-1/3 z-10 ml-16 -mr-16 border-2 rounded-lg border-gray-500'>
         <FlightHotelSearch />
       </div>
       <a className="underline" href="/trips">{'<'}- back to Upcoming Trips</a>
