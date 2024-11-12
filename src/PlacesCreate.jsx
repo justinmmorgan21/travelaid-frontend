@@ -43,10 +43,12 @@ export function PlacesCreate({onClose, trip}) {
   }
 
   return (
-    <div>
+    <div className='w-full border-0 border-blue-700'>
       <h1 className='text-xl'>New Place</h1>
       <hr className='my-4'/> 
-      <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleCreate(event, trip.id)}>
+      <form className="flex flex-col gap-4 items-center w-full border-0 border-red-600" onSubmit={(event) => handleCreate(event, trip.id)}>
+        <div className='mx-auto border-0'>
+
         <div>
           <div className="mb-2 block">
             <Label htmlFor="name" value="Name" />
@@ -80,8 +82,9 @@ export function PlacesCreate({onClose, trip}) {
           <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow required />
         </div>
         <div className=' flex flex-row space-x-2'>
-          <Button className="w-1/2" type="submit">Submit</Button>
-          <Button className="w-1/2" onClick={()=>onClose()}>Cancel</Button>
+          <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
+          <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>onClose()}>Cancel</Button>
+        </div>
         </div>
       </form>
     </div>

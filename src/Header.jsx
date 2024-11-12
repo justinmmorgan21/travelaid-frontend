@@ -62,7 +62,7 @@ export function Header() {
         <Navbar.Link href="/trips/new" className="custom-hover text-white">New Trip</Navbar.Link>
         <Navbar.Link href="#" className="custom-hover text-white">Suggested Trips
         </Navbar.Link>
-        <Navbar.Link href="#" className="custom-hover text-white">Contact</Navbar.Link>
+        <Navbar.Link href="/contact" className="custom-hover text-white">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

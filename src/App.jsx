@@ -96,12 +96,13 @@ import { Dashboard } from "./Dashboard";
 import { LoginModal } from "./LoginModal";
 import UserSettings from "./UserSettings";
 import Home from "./Home";
+import { Contact } from "./Contact";
 
 
 
 const AppLayout = () => {
   const [showHero, setShowHero] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setCurrentUser] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleModalShow = () => {
@@ -190,6 +191,11 @@ const router = createBrowserRouter([
       {
         path: "/trips/new",
         element: <TripsCreatePage />
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+        loader: () => axios.get(`http://localhost:3000/users/current.json`).then(response => response.data)
       }
     ],
   },

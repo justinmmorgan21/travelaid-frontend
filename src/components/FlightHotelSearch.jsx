@@ -26,7 +26,7 @@ export default function FlightHotelSearch() {
         </div>
         <div className="w-72">
           <div className="mb-2 block">
-            <Label htmlFor="Destination" value="Dates" />
+            <Label htmlFor="Dates" value="Dates" />
           </div>
           <Datepicker 
               value={value} 
