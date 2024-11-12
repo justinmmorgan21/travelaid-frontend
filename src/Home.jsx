@@ -1,8 +1,12 @@
 import FlightHotelSearch from "./components/FlightHotelSearch"
 import { useLoaderData, useNavigate } from "react-router-dom"
-export function Home() {
+export default function Home() {
 
   const nextTrip = useLoaderData();
+  const nextImage = nextTrip ? nextTrip.image_url : "";
+  const nextTitle = nextTrip ? nextTrip.title : "";
+  const nextDate = nextTrip ? nextTrip.start_time : "";
+
   const navigate = useNavigate();
 
   return (
@@ -10,13 +14,13 @@ export function Home() {
       <div className="border-2 rounded-lg p-4" >
         <FlightHotelSearch />
       </div>
-      <div className="h-44 my-12 border-2 rounded-lg p-4" onClick={()=>{navigate(`/trips/${nextTrip.id}`);}}>
+      <div id="next-trip" className="h-44 my-12 border-2 rounded-lg p-4" onClick={()=>{navigate(`/trips/${nextTrip.id}`);}}>
         <h1 className="text-3xl">Next Trip</h1>
         <div className="flex flex-row">
-          <img src={nextTrip.image_url} alt="" className="h-24"/>
+          <img src={nextImage} alt="" className="h-24"/>
           <div className="ml-10">
-            <p>{nextTrip.title}</p>
-            <p>{nextTrip.start_time}</p>
+            <p>{nextTitle}</p>
+            <p>{nextDate}</p>
           </div>
         </div>
       </div>

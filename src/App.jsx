@@ -95,7 +95,7 @@ import { About } from "./About";
 import { Dashboard } from "./Dashboard";
 import { Modal } from "./Modal";
 import UserSettings from "./UserSettings";
-import { Home } from "./Home";
+import Home from "./Home";
 
 
 
@@ -133,12 +133,6 @@ const AppLayout = () => {
 
   return (
     <div>
-      <div hidden={!showHero}>
-        <Hero modalShow={handleModalShow} />
-        <Modal onClose={handleClose} show={modalVisible}>
-          <Authentication />
-        </Modal>
-      </div>
       <div id="main" hidden={showHero}>
         <Header />
         <div>
@@ -147,6 +141,12 @@ const AppLayout = () => {
           </div>
         </div>
         <Footer />
+      </div>
+      <div hidden={!showHero}>
+        <Hero modalShow={handleModalShow} />
+        <Modal onClose={handleClose} show={modalVisible}>
+          <Authentication />
+        </Modal>
       </div>
     </div>
   );
