@@ -1,7 +1,7 @@
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import { useState } from 'react';
-export function TripsPage() {
+export function Authentication() {
 
   const [switchAuth, setSwitchAuth] = useState(false);
   

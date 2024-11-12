@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Modal } from "./Modal";
 import { PlacesCreateModal } from "./PlacesCreateModal";
 import { Accordion } from "flowbite-react";
-
+import FlightHotelSearch from "./components/FlightHotelSearch";
 export function TripsShowPage() {
   const trip = useLoaderData();
   console.log(trip);
@@ -19,6 +19,9 @@ export function TripsShowPage() {
 
   return (
     <div>
+      <div className='absolute top-24 left-1/3 z-10 ml-16 -mr-16 border-2 rounded-lg border-black'>
+        <FlightHotelSearch />
+      </div>
       <a className="underline" href="/trips">{'<'}- back to Upcoming Trips</a>
       <h1 className="text-4xl my-6">{trip.title}</h1>
       <img className="w-80" src={trip.image_url} />

@@ -58,7 +58,7 @@ export default function UserSettings() {
           <FileInput name="image" id="file" helperText="A profile picture is useful to confirm your are logged into your account" onChange={handleChange}/>
         </div>
         <div className=' flex flex-row space-x-2'>
-          <Button className="w-1/2" type="submit">Submit</Button>
+          <Button className="bg-blue-500 px-4 py-1 rounded text-white my-12" type="submit">Submit</Button>
         </div>
       </form>
     </div>    

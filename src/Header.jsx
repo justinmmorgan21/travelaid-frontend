@@ -28,7 +28,7 @@ export function Header() {
   console.log("HEADER USER", currentUser)
 
   return (
-    <Navbar fluid rounded className="bg-slate-600 text-white">
+    <Navbar fluid rounded className="bg-my-blue text-white">
       <Navbar.Brand href="https://flowbite-react.com">
         <img src={ReactLogo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Travel Aid</span>
@@ -58,14 +58,11 @@ export function Header() {
         <Navbar.Link href="/home"  className="custom-hover text-white">
           Home
         </Navbar.Link>
-        <Navbar.Link href="/about" className="custom-hover text-white">About</Navbar.Link>
         <Navbar.Link href="/trips" className="custom-hover text-white">Upcoming Trips</Navbar.Link>
         <Navbar.Link href="/trips/new" className="custom-hover text-white">New Trip</Navbar.Link>
-        <Navbar.Link href="#" className="custom-hover text-white">Past Trips/Trip History</Navbar.Link>
         <Navbar.Link href="#" className="custom-hover text-white">Suggested Trips
         </Navbar.Link>
         <Navbar.Link href="#" className="custom-hover text-white">Contact</Navbar.Link>
-        <Navbar.Link href="/" className="custom-hover text-white">Login</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

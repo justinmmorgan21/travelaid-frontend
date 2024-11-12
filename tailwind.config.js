@@ -16,10 +16,14 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
     flowbite.content(),
   ],
   // this color strategy was from chatgpt, did not work
   theme: {
+    colors: {
+      'my-blue': '#38b6ff'
+    },
     extend: {
       colors: {
         // 'active': '#FF0000',

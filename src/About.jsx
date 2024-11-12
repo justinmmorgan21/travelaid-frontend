@@ -1,7 +1,8 @@
 export function About() {
   return (
     <div>
-      About Page
+      <h1 className="text-xl">About</h1>
+      <p></p>
     </div>
   )
 }

@@ -22,6 +22,9 @@ export default function SignIn({ className , setSwitchAuth}) {
         localStorage.setItem("jwt", response.data.jwt);
         event.target.reset();
         window.location.href = "/trips"; // Change this to hide a modal, redirect to a specific page, etc.
+        // axios.get("http://localhost:3000/trips.json").then(resp => {
+        //   if (resp.data.)
+        // })
       })
       .catch((error) => {
         console.log(error.response);

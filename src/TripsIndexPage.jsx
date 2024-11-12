@@ -24,7 +24,10 @@ export function TripsIndexPage() {
   return (
     <div className="flex flex-col">
       <br />
-      <h1 className="text-4xl mb-6">Upcoming Trips</h1>
+      <div className="flex flex-row mb-6">
+        <h1 className="text-4xl flex-grow">Upcoming Trips</h1>
+        <button className="bg-blue-500 rounded text-white flex-end px-2 ">Past Trips</button>
+      </div>
       <hr className="mb-6"/>
       {/* Cards */}
       <div className="grid grid-cols-3 gap-16">
