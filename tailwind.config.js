@@ -22,7 +22,7 @@ export default {
   // this color strategy was from chatgpt, did not work
   theme: {
     colors: {
-      'my-blue': '#38b6ff'
+      'my-blue': '#07a1fa'
     },
     extend: {
       colors: {
