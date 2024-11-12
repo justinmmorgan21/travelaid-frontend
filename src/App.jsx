@@ -93,7 +93,7 @@ import { TripsCreatePage } from "./TripsCreatePage";
 import { Hero } from "./Hero";
 import { About } from "./About";
 import { Dashboard } from "./Dashboard";
-import { Modal } from "./Modal";
+import { LoginModal } from "./LoginModal";
 import UserSettings from "./UserSettings";
 import Home from "./Home";
 
@@ -136,7 +136,7 @@ const AppLayout = () => {
       <div id="main" hidden={showHero}>
         <Header />
         <div>
-          <div className="container mx-auto py-12 px-24 flex-auto">
+          <div className="container mx-auto pt-24 pb-12 px-24 flex-auto">
             <Outlet />
           </div>
         </div>
@@ -144,9 +144,9 @@ const AppLayout = () => {
       </div>
       <div hidden={!showHero}>
         <Hero modalShow={handleModalShow} />
-        <Modal onClose={handleClose} show={modalVisible}>
+        <LoginModal onClose={handleClose} show={modalVisible}>
           <Authentication />
-        </Modal>
+        </LoginModal>
       </div>
     </div>
   );

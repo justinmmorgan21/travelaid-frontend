@@ -28,8 +28,8 @@ export function Header() {
   console.log("HEADER USER", currentUser)
 
   return (
-    <Navbar fluid rounded className="bg-my-blue text-white">
-      <Navbar.Brand href="https://flowbite-react.com">
+    <Navbar fluid rounded className="bg-my-blue text-white fixed top-0 left-0 w-full z-50">
+      <Navbar.Brand href="/home">
         <img src={ReactLogo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Travel Aid</span>
       </Navbar.Brand>
@@ -45,7 +45,7 @@ export function Header() {
             <span className="block text-sm font-medium">{currentUser.name}</span>
             <span className="block truncate text-sm ">{currentUser.email}</span>
           </Dropdown.Header>
-          <Dropdown.Item onClick={()=> {window.location.href = "/dashboard"}}>Dashboard</Dropdown.Item>
+          <Dropdown.Item onClick={()=> {window.location.href = "/dashboard"}}>?????</Dropdown.Item>
           <Dropdown.Item>
             <Link to="/userSettings" state={{ currentUser }}>Settings</Link>
           </Dropdown.Item>

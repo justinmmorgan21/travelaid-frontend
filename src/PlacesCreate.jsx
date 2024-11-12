@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Button, Textarea, Label, TextInput, Datepicker } from "flowbite-react";
 import { AiFillEnvironment } from "react-icons/ai";
-export function PlacesCreateModal({onClose, trip}) {
+export function PlacesCreate({onClose, trip}) {
   
   const navigate = useNavigate();
 

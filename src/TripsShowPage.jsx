@@ -1,7 +1,7 @@
 import {useLoaderData} from "react-router-dom";
 import { useState } from 'react';
 import { Modal } from "./Modal";
-import { PlacesCreateModal } from "./PlacesCreateModal";
+import { PlacesCreate } from "./PlacesCreate";
 import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 export function TripsShowPage() {
@@ -59,7 +59,7 @@ export function TripsShowPage() {
 
       <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add a Place to your Itinerary</button>
       <Modal onClose={handleClose} show={modalVisible}>
-        <PlacesCreateModal onClose={handleClose} trip={trip}/>
+        <PlacesCreate onClose={handleClose} trip={trip}/>
       </Modal>
     </div>
   );
