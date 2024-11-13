@@ -44,10 +44,6 @@ const AppLayout = () => {
     }
   }, []); // Empty dependency array ensures it runs only once
 
-  // const toggleHero = () => {
-  //   setShowHero(!showHero);
-  // };
-
   return (
     <div>
       <div id="main" hidden={showHero}>

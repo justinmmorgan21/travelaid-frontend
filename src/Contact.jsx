@@ -1,8 +1,6 @@
 import { useRef } from "react";
 import emailjs from '@emailjs/browser';
 import { Button, Textarea, Label, TextInput } from "flowbite-react";
-import { AiFillEnvironment } from "react-icons/ai";
-import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { HiMail, HiPhone } from "react-icons/hi";
 import { useLoaderData } from "react-router-dom";
 // import PhoneInput from "react-phone-number-input";
