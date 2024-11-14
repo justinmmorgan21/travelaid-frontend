@@ -5,7 +5,7 @@ import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
 import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
-import axios from 'axios'
+// import axios from 'axios'
 export function TripsShowPage() {
   
   let trip = useLoaderData();
@@ -30,10 +30,10 @@ export function TripsShowPage() {
   }
   const handleClose = () => {
     setModalVisible(false);
-    axios.get(`http://localhost:3000/trips/${params.id}.json`).then(response => {
-      trip = response.data;
-      window.location.href = `/trips/${trip.id}`;
-    })
+    // axios.get(`http://localhost:3000/trips/${params.id}.json`).then(response => {
+    //   trip = response.data;
+    //   window.location.href = `/trips/${trip.id}`;
+    // })
   }
 
   const PoiMarkers = ({ pois }) => {
@@ -87,7 +87,13 @@ export function TripsShowPage() {
           </APIProvider>
         </div>
       </div>
-      <p className="my-6 text-lg">Dates: &nbsp; {trip.start_time}  &nbsp; to &nbsp;  {trip.end_time}</p>
+      {/* <p className="my-6 text-lg">Dates: &nbsp; {trip.start_time}  &nbsp; to &nbsp;  {trip.end_time}</p> */}
+      {
+                trip.start_time ? 
+                <p className="my-2">{trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
+                :
+                <p>No Date Set</p>
+              }
       <hr />
       <h2 className="mt-6 text-lg">Itinerary:</h2>
       <br />
@@ -102,7 +108,7 @@ export function TripsShowPage() {
                 {place.name}  
               </span>
               <span className="">
-                {place.start_time}
+                { place.start_time ? place.start_time : "No Date Set" }
               </span>
             </Accordion.Title>
             <Accordion.Content>

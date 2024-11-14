@@ -16,13 +16,13 @@ export default function FlightHotelSearch() {
           <div className="mb-2 block">
             <Label htmlFor="departure" value="Departure" />
           </div>
-          <TextInput id="departure" type="text" placeholder="Departure" required />
+          <TextInput id="departure" type="text" placeholder="Where from?" required />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="Destination" value="Destination" />
           </div>
-          <TextInput id="Destination" type="text" placeholder="Destination" required />
+          <TextInput id="Destination" type="text" placeholder="Where to?" required />
         </div>
         <div className="w-72">
           <div className="mb-2 block">

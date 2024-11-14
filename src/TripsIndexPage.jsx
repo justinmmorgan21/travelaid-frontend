@@ -37,7 +37,13 @@ export function TripsIndexPage() {
             <img  className="max-h-64 w-fit mx-auto" src={trip.image_url} />
             <div className="flex-grow"></div>
             <div className="flex-end">
-              <p className="my-2">{trip.start_time} &nbsp; to &nbsp; {trip.end_time}</p>
+              {/* <p className="my-2">{trip.start_time || "No Date Set"} &nbsp; to &nbsp; {trip.end_time || "No Date Set"}</p> */}
+              {
+                trip.start_time ? 
+                <p className="my-2">{trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
+                :
+                <p>No Date Set</p>
+              }
               {/* <button className="bg-blue-500 px-4 py-1 rounded text-white" onClick={() => handleTripsShow(trip)}>More info</button> */}
             </div>
           </div>
