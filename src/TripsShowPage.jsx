@@ -5,10 +5,10 @@ import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
 import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
-
+import axios from 'axios'
 export function TripsShowPage() {
   
-  const trip = useLoaderData();
+  let trip = useLoaderData();
   console.log("TRIP",trip);
   // const Poi = { key: string, location: google.maps.LatLngLiteral }
   const locations = trip.places.map((place, i) => {
@@ -30,6 +30,10 @@ export function TripsShowPage() {
   }
   const handleClose = () => {
     setModalVisible(false);
+    axios.get(`http://localhost:3000/trips/${params.id}.json`).then(response => {
+      trip = response.data;
+      window.location.href = `/trips/${trip.id}`;
+    })
   }
 
   const PoiMarkers = ({ pois }) => {

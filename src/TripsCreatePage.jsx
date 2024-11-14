@@ -13,7 +13,10 @@ export function TripsCreatePage() {
   const handleCreate = (event) => {
     event.preventDefault();
     const params = new FormData(event.target);
+    params.append('start_time', dates.startDate);
+    params.append('end_time', dates.endDate);
     console.log(params);
+    console.log("DATES", dates)
     axios.post("http://localhost:3000/trips.json", params).then(response=> {
       console.log(response.data);
       navigate(`/trips/${response.data.id}`);
