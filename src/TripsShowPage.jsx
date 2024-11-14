@@ -72,7 +72,7 @@ export function TripsShowPage() {
 
           <APIProvider apiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY} onLoad={() => console.log('Maps API has loaded')}>
             <Map
-              defaultZoom={11}
+              defaultZoom={trip.initial_zoom}
               defaultCenter={{ lat: trip.center[0], lng: trip.center[1] }}
               mapId='97aaa7a8b424bee5'
               onCameraChanged={(ev) =>
