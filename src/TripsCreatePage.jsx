@@ -39,7 +39,8 @@ export function TripsCreatePage() {
 
   return (
     <div>
-      <h1 className='text-xl'>New Trip</h1>
+      <br />
+      <h1 className='text-4xl'>New Trip</h1>
       <hr className='my-4'/> 
       <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleCreate(event)}>
         <div>

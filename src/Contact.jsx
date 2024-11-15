@@ -32,7 +32,8 @@ export function Contact() {
 
   return (
     <div>
-      <h1 className='text-2xl'>Contact Me</h1>
+      <br />
+      <h1 className='text-4xl'>Contact Me</h1>
       <hr className='my-4'/> 
       <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => sendEmail(event)}>
         <div>

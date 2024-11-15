@@ -14,6 +14,7 @@ import UserSettings from "./UserSettings";
 import Home from "./Home";
 import { Contact } from "./Contact";
 import { FlightResult } from "./FlightResult";
+import { SuggestedTripsPage } from "./SuggestedTripsPage";
 
 
 
@@ -113,6 +114,11 @@ const router = createBrowserRouter([
       {
         path: "/flights",
         element: <FlightResult />
+      },
+      {
+        path: "/suggested",
+        element: <SuggestedTripsPage />,
+        loader: () => axios.get("http://localhost:3000/trips/suggested.json").then(response => response.data)
       }
     ],
   },
