@@ -13,6 +13,7 @@ import { LoginModal } from "./LoginModal";
 import UserSettings from "./UserSettings";
 import Home from "./Home";
 import { Contact } from "./Contact";
+import { FlightResult } from "./FlightResult";
 
 
 
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
         loader: () => axios.get(`http://localhost:3000/users/current.json`).then(response => response.data)
+      },
+      {
+        path: "/flights",
+        element: <FlightResult />
       }
     ],
   },
