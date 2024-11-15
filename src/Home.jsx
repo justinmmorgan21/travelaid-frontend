@@ -3,11 +3,15 @@ import { useLoaderData, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { MdFmdGood } from "react-icons/md";
+import { Button } from "flowbite-react";
+import { Modal } from "./Modal";
+import { AddSuggestedTrip } from "./components/AddSuggestedTrip";
+
 export default function Home() {
+
   const navigate = useNavigate();
 
   const nextTrip = useLoaderData();  
-  console.log("NEXT", nextTrip);
   const nextImage = nextTrip ? nextTrip.image_url : "";
   const nextTitle = nextTrip ? nextTrip.title : "";
   const nextDate = nextTrip ? nextTrip.start_time : "";
@@ -17,6 +21,12 @@ export default function Home() {
     axios.get("http://localhost:3000/trips/suggested.json").then(response => {
       setSuggestedTrips(response.data);
     })
+  }
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentTrip, setCurrentTrip] = useState(null);
+
+  const handleClose = () => {
+    setModalVisible(false);
   }
 
   useEffect(handleSuggestedTrips, []);
@@ -36,14 +46,16 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="h-72 w-full border-2 border-gray-400 rounded-lg p-4 shadow-md">
+      <div className="h-80 w-full border-2 border-gray-400 rounded-lg p-4 shadow-md">
         <p className="text-3xl pb-2">Suggested Trips</p>
-        <div>
+        <div className="flex flex-row space-x-4">
           {suggestedTrips.map(trip => (
-            <div key={trip.id} className="border-2 shadow-md w-fit p-2">
-              {trip.title}
-              <div className="flex flex-row space-x-2">
-                <img src={trip.image_url} className="w-36"></img>
+            <div key={trip.id} className="border-2 shadow-md w-fit p-2 flex flex-col">
+              <div>
+                {trip.title}
+              </div>
+              <div className="flex flex-row space-x-2 flex-grow">
+                <img src={trip.image_url} className="max-w-36 max-h-36"></img>
                 <div>
                   Points of Interest:
                   {trip.places.map(place => (
@@ -56,10 +68,16 @@ export default function Home() {
                   ))}
                 </div>
               </div>
+              <div className="w-full flex justify-end flex-end">
+                <Button className="bg-blue-500 -px-4 -py-1 rounded-md text-white" type="button" onClick={() => { setModalVisible(true); setCurrentTrip(trip)}}>Add to Trips</Button>
+              </div>
             </div>
           ))}
+          </div>
+          <Modal onClose={handleClose} show={modalVisible}>
+            {currentTrip && <AddSuggestedTrip onClose={handleClose} trip={currentTrip}/>}
+          </Modal>
         </div>
-      </div>
     </div>
   )
 }

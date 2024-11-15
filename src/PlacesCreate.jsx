@@ -66,11 +66,8 @@ export function PlacesCreate({onClose, trip}) {
             <Label htmlFor="start_time" value="Date" />
           </div>
           <div ref={startDateContainerRef}>
-            <Datepicker title="Date" name="start_time" />
+            <Datepicker title="Date" name="start_time" datepicker-buttons="true"/>
           </div>
-          {/* <div ref={endDateContainerRef}>
-            <Datepicker title="Depart" name="end_time" />
-          </div> */}
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">

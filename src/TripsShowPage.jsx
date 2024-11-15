@@ -5,23 +5,14 @@ import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
 import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
-// import axios from 'axios'
 export function TripsShowPage() {
   
   let trip = useLoaderData();
   console.log("TRIP",trip);
-  // const Poi = { key: string, location: google.maps.LatLngLiteral }
   const locations = trip.places.map((place, i) => {
     return {key: String.fromCharCode(65+i), location: { lat: place.lat, lng: place.lng } }
   })
   console.log("LOCATIONS",locations)
-  // const locations = 
-  // [
-  //   { key: 'A', location: { lat: -33.8567844, lng: 151.213108 } },
-  //   { key: 'B', location: { lat: -33.8472767, lng: 151.2188164 } },
-  //   { key: 'C', location: { lat: -33.8209738, lng: 151.2563253 } },
-  //   { key: 'D', location: { lat: -33.8690081, lng: 151.2052393 } }
-  // ];
   
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -30,10 +21,6 @@ export function TripsShowPage() {
   }
   const handleClose = () => {
     setModalVisible(false);
-    // axios.get(`http://localhost:3000/trips/${params.id}.json`).then(response => {
-    //   trip = response.data;
-    //   window.location.href = `/trips/${trip.id}`;
-    // })
   }
 
   const PoiMarkers = ({ pois }) => {
@@ -87,13 +74,12 @@ export function TripsShowPage() {
           </APIProvider>
         </div>
       </div>
-      {/* <p className="my-6 text-lg">Dates: &nbsp; {trip.start_time}  &nbsp; to &nbsp;  {trip.end_time}</p> */}
       {
-                trip.start_time ? 
-                <p className="my-2">{trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
-                :
-                <p>No Date Set</p>
-              }
+        trip.start_time ? 
+          <p className="my-2">{trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
+            :
+          <p>No Date Set</p>
+      }
       <hr />
       <h2 className="mt-6 text-lg">Itinerary:</h2>
       <br />
