@@ -15,7 +15,8 @@ import Home from "./Home";
 import { Contact } from "./Contact";
 import { FlightResult } from "./FlightResult";
 import { SuggestedTripsPage } from "./SuggestedTripsPage";
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import { SelectedFlight } from "./SelectedFlight";
 
 
 const AppLayout = () => {
@@ -120,6 +121,10 @@ const router = createBrowserRouter([
         element: <SuggestedTripsPage />,
         loader: () => axios.get("http://localhost:3000/trips/suggested.json").then(response => response.data)
       },
+      {
+        path: "/selected_flight",
+        element: <SelectedFlight />
+      }
     ],
   },
 ]);

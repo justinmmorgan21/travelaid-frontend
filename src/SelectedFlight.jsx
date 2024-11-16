@@ -1,18 +1,25 @@
 // import { useLoaderData, useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { Button, Textarea, Label, TextInput, Datepicker } from "flowbite-react";
 // import { Modal } from "./Modal";
 // import { TripsCreateModal } from "./TripsCreateModal";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
-export function FlightResult() {
+import { LuDot } from "react-icons/lu";
+
+export function SelectedFlight() {
   // const trips = useLoaderData();
   const location = useLocation();
+  // const { departureFlight, returnFlight, ...data } = location.state;
   const data = location.state;
-  console.log("FLIGHT SEARCH:", data);
+  console.log("SELECTED FLIGHT DATA:", data);
+  // console.log("LOWEST PRICE: ", data.selected_flights.price_insights)
+  const departureFlight = data.selected_flights[0];
+  const returnFlight = data.selected_flights[1];
   const navigate = useNavigate();
-  const [departureFlight, setDepartureFlight] = useState(null);
-  const [returnFlight, setReturnFlight] = useState(null);
+  // const [departureFlight, setDepartureFlight] = useState(null);
+  // const [returnFlight, setReturnFlight] = useState(null);
   const [departSet, setDepartSet] = useState(false);
   const [returnSet, setReturnSet] = useState(false);
   // const navigate = useNavigate();
@@ -45,18 +52,19 @@ export function FlightResult() {
       });
     } else {
       setReturnSet(true);
-      console.log("RETURN FLIGHT pre-set: ", flight);
       setReturnFlight(flight);
-      console.log("RETURN FLIGHT post-setA: ", returnFlight);
       console.log("TOKEN", flight.booking_token)
       fetch(`http://localhost:3001/?engine=${data.search_parameters.engine}&departure_id=${data.search_parameters.departure_id}&arrival_id=${data.search_parameters.arrival_id}&outbound_date=${data.search_parameters.outbound_date}&return_date=${data.search_parameters.return_date}&booking_token=${flight.booking_token}`)
       .then(response => response.json())
       .then(data => {
-        console.log("RETURN FLIGHT post-setB: ", returnFlight);
         console.log("SUCCESS both routes", data);
-        navigate("/selected_flight", { state: { ...data, departureFlight, returnFlight } });
+        // navigate("/selected_flight", { state: data });
       });
     }
+  }
+
+  const handleConfirmBooking = () => {
+    window.open(`${data.search_metadata.google_flights_url}`, "_blank");
   }
 
   return (
@@ -67,34 +75,55 @@ export function FlightResult() {
       </div>
       <hr className="mb-6"/>
       <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
-        <div >
+        {/* <div hidden={returnFlight != null}>
           <p className='mx-48' hidden={departSet}>Departing flights</p>
           <p className='mx-48' hidden={!departSet}>Return flights</p>
-          {/* Cards */}
-          {(data.best_flights && data.best_flights || data.other_flights).map((flight, i) => (
+          Cards
+          {data.best_flights.map((flight, i) => (
             <div key={i}>
               <Flight flight={flight} onFlightSelect={handleFlightSelect} selected={false}/>
             </div>
           ))}
-        </div>
-        {/* <div hidden={returnFlight == null}>
-          <h1 className='text-center text-2xl font-bold mb-6'>Selected flights</h1>
-          <p className='mx-48'>Departing flight</p> 
-          {departureFlight == null ?
-            <></>:<Flight flight={departureFlight} selected={true} />
-          }
-          <br />  
-          <p className='mx-48'>Return flight</p>
-          {returnFlight == null ?
-            <></>:<Flight flight={returnFlight} selected={true} />
-          }
         </div> */}
+        <div >
+          <h1 className='text-center text-2xl font-bold mb-6'>Selected flights</h1>
+          <div className='mx-48 flex flex-row mb-2'>
+            <p >Departing flight</p>
+            <div className='pt-1 px-1'>
+              <LuDot />
+            </div>
+            {new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date(departureFlight.flights[0].departure_airport["time"]))
+            }
+          </div>
+
+          <Flight flight={departureFlight} selected={true} />
+
+          <br />  
+          <div className='mx-48 flex flex-row mb-2'>
+            <p >Return flight</p>
+            <div className='pt-1 px-1'>
+              <LuDot />
+            </div>
+            {new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date(returnFlight.flights[0].departure_airport["time"]))
+            }
+          </div>
+
+          <Flight flight={returnFlight} selected={true} />
+
+        </div>
         {/* <div hidden={returnFlight != null}>
 
         </div> */}
       </div>
-      
-      <br /><br />
+
+      <div className='mx-auto flex flex-row w-full mt-4'>
+          <div className='mx-48 '>
+            <p className='font-bold text-2xl'>${data.price_insights.lowest_price}</p>
+            <p className='text-sm font-light'>Lowest Total Price</p>
+          </div>
+          <Button className="ml-20 pt-1 bg-blue-500 h-12 px-2 rounded-md text-white" onClick={()=>handleConfirmBooking()}>Continue to Booking</Button>
+          {/* <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>onClose()}>Cancel</Button> */}
+        </div>
       {/* <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Trip</button>
       <Modal onClose={handleClose} show={modalVisible}>
         <TripsCreateModal onClose={handleClose}/>
