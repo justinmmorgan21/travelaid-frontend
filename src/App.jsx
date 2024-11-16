@@ -119,7 +119,7 @@ const router = createBrowserRouter([
         path: "/suggested",
         element: <SuggestedTripsPage />,
         loader: () => axios.get("http://localhost:3000/trips/suggested.json").then(response => response.data)
-      }
+      },
     ],
   },
 ]);

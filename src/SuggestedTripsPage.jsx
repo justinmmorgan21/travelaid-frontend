@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useState } from 'react';
 import { Modal } from "./Modal";
 import { AddSuggestedTrip } from "./components/AddSuggestedTrip";
@@ -9,7 +9,7 @@ import { Button, Tooltip } from "flowbite-react";
 export function SuggestedTripsPage() {
   const suggestedTrips = useLoaderData();
   
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTrip, setCurrentTrip] = useState(null);
