@@ -7,49 +7,89 @@ import Datepicker from "react-tailwindcss-datepicker";
 export function AddSuggestedTrip({onClose, trip}) {
   console.log("TRIP: ", trip);
   const [title, setTitle] = useState(trip.title);
+  const [dates, setDates] = useState({ 
+    startDate: null, 
+    endDate: null
+  });
 
   const navigate = useNavigate();
   
-  const handleCreateTripWithPlaces = (event) => {
+  const handleCreateTripWithPlaces = async (event) => {
     event.preventDefault();
-    const params = new FormData(event.target);
+    // console.log(event);
+    // console.log(event.type == "click");
+    // console.log(event.type == "submit");
+    let params = null;
+    if (event.type == "submit") {
+      params = new FormData(event.target);
+    } else {
+      params = new FormData();
+      params.append('title', title);
+    } 
     params.append('image_url', trip.image_url);
     params.append('start_time', dates.startDate);
     params.append('end_time', dates.endDate);
     console.log(params);
     console.log("DATES", dates);
     console.log("IMAGE", trip.image_url);
-    axios.post("http://localhost:3000/trips.json", params).then(response=> {
-      console.log("TRIP: ", response.data);
-      // Trip has been created with
-      // id - generated through creation
-      // user_id - added by create action in backend
-      // title - through event
-      // image_url - appended
-      // dates - appended
-      // does not have the places yet
-      // map through trip.places and create a new Place
-      // for each one with a trip id to match the one
-      // just created
+    // axios.post("http://localhost:3000/trips.json", params).then(response=> {
+    //   console.log("TRIP: ", response.data);
+    //   // Trip has been created with
+    //   // id - generated through creation
+    //   // user_id - added by create action in backend
+    //   // title - through event
+    //   // image_url - appended
+    //   // dates - appended
+    //   // does not have the places yet
+    //   // map through trip.places and create a new Place
+    //   // for each one with a trip id to match the one
+    //   // just created
 
-      trip.places.map(place => {
+    //   trip.places.map(place => {
+    //     const placeParams = new FormData();
+    //     placeParams.append('trip_id', response.data.id);
+    //     placeParams.append('address', place.address);
+    //     placeParams.append('lat', place.lat);
+    //     placeParams.append('lng', place.lng);
+    //     placeParams.append('name', place.name);
+    //     placeParams.append('description', place.description);
+    //     placeParams.append('image_url', place.image_url);
+    //     axios.post("http://localhost:3000/places.json", placeParams).then(response=> {
+    //       console.log("PLACE: ", response.data);
+    //     });
+    //   })
+    //   onClose();
+    //   navigate(`/trips/${response.data.id}`);
+    // });
+    try {
+      const tripResponse = await axios.post("http://localhost:3000/trips.json", params);
+      console.log("TRIP:", tripResponse.data);
+  
+      const tripId = tripResponse.data.id;
+  
+      // Use Promise.all to wait for all places to be created
+      const placeCreationPromises = trip.places.map(place => {
         const placeParams = new FormData();
-        placeParams.append('trip_id', response.data.id);
-        placeParams.append('address', place.address);
-        placeParams.append('lat', place.lat);
-        placeParams.append('lng', place.lng);
-        placeParams.append('name', place.name);
-        placeParams.append('description', place.description);
-        placeParams.append('image_url', place.image_url);
-        axios.post("http://localhost:3000/places.json", placeParams).then(response=> {
-          console.log("PLACE: ", response.data);
+        placeParams.append("trip_id", tripId);
+        placeParams.append("address", place.address);
+        placeParams.append("lat", place.lat);
+        placeParams.append("lng", place.lng);
+        placeParams.append("name", place.name);
+        placeParams.append("description", place.description);
+        placeParams.append("image_url", place.image_url);
+  
+        return axios.post("http://localhost:3000/places.json", placeParams).then(placeResponse => {
+          console.log("PLACE:", placeResponse.data);
         });
-      })
-
-
-      navigate(`/trips/${response.data.id}`);
+      });
+  
+      await Promise.all(placeCreationPromises);
+  
       onClose();
-    });
+      navigate(`/trips/${tripId}`);
+    } catch (error) {
+      console.error("Error creating trip or places:", error);
+    }
   }
 
   // const handleReset = () => {
@@ -61,7 +101,6 @@ export function AddSuggestedTrip({onClose, trip}) {
   // };
 
   const handleSkip = (event) => {
-    event.preventDefault();
     setTitle(trip.title);
     setDates({ 
       startDate: null, 
@@ -69,11 +108,6 @@ export function AddSuggestedTrip({onClose, trip}) {
     });
     handleCreateTripWithPlaces(event);
   }
-
-  const [dates, setDates] = useState({ 
-    startDate: null, 
-    endDate: null
-  });
 
   return (
     <div>
@@ -98,7 +132,7 @@ export function AddSuggestedTrip({onClose, trip}) {
         </div>
         <div className=' flex flex-row space-x-2'>
           <Button className="bg-blue-500 px-2 py-0 rounded-md text-white" type="submit">Submit</Button>
-          <p onClick={() => handleSkip()} className='p-2 pl-4 underline cursor-pointer'>skip customization</p>
+          <p onClick={(event) => handleSkip(event)} className='p-2 pl-4 underline cursor-pointer'>skip customization</p>
         </div>
       </form>
     </div>
