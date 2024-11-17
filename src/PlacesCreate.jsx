@@ -15,8 +15,9 @@ export function PlacesCreate({onClose, trip}) {
     params.append('trip_id', trip_id);
     axios.post("http://localhost:3000/places.json", params).then(response=> {
       console.log(response.data);
-      navigate(`/trips/${trip_id}`)
+      console.log("TRIP in PlaceCreate: ", trip);
       onClose();
+      navigate(`/trips/${trip_id}`);
     });
   }
 

@@ -7,8 +7,9 @@ import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 export function TripsShowPage() {
   
-  let trip = useLoaderData();
-  console.log("TRIP",trip);
+  const trip = useLoaderData();
+
+  console.log("TRIP in TripShow: ", trip);
   const locations = trip.places.map((place, i) => {
     return {key: String.fromCharCode(65+i), location: { lat: place.lat, lng: place.lng } }
   })
