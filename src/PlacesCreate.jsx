@@ -1,8 +1,11 @@
 import axios from 'axios'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Textarea, Label, TextInput, Datepicker } from "flowbite-react";
 import { AiFillEnvironment } from "react-icons/ai";
 export function PlacesCreate({onClose, trip}) {
+  console.log(trip);
+  const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
   
   const navigate = useNavigate();
 
@@ -41,7 +44,7 @@ export function PlacesCreate({onClose, trip}) {
             <Label htmlFor="start_time" value="Date" />
           </div>
           <div >
-            <Datepicker title="Date" name="start_time" datepicker-buttons="true"/>
+            <Datepicker id="date-picker" title="Date" name="start_time" value={selectedDate} onChange={(date) => setSelectedDate(date)} datepicker-buttons="true"/>
           </div>
         </div>
         <div className="max-w-md">

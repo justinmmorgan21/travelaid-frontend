@@ -16,7 +16,6 @@ export default function Home() {
   const nextImage = nextTrip ? nextTrip.image_url : "";
   const nextTitle = nextTrip ? nextTrip.title : "";
   const nextDate = nextTrip ? nextTrip.start_time : "";
-  
   const [ suggestedTrips, setSuggestedTrips ] = useState([]);
   const handleSuggestedTrips = () => {
     axios.get("http://localhost:3000/trips/suggested.json").then(response => {
@@ -37,7 +36,7 @@ export default function Home() {
       <div className="border-2 rounded-lg p-4 border-gray-400 shadow-lg" >
         <FlightHotelSearch />
       </div>
-      <div id="next-trip" className="h-44 my-12 border-2 border-gray-400 rounded-lg p-4 shadow-md cursor-pointer" onClick={()=>{navigate(`/trips/${nextTrip.id}`);}}>
+      <div id="next-trip" className={`h-44 my-12 border-2 border-gray-400 rounded-lg p-4 shadow-md ${nextTrip ? "cursor-pointer" : "cursor-not-allowed pointer-events-none"}`} onClick={()=>{if(nextTitle) {navigate(`/trips/${nextTrip.id}`);}}}>
         <h1 className="text-3xl">Next Trip</h1>
         <div className="flex flex-row">
           <img src={nextImage} alt="" className="h-24"/>
@@ -47,7 +46,6 @@ export default function Home() {
             <div className="w-full border-0 flex flex-row justify-center pt-4 pr-4">
               <div className="border-2 border-opacity-80 border-gray-600 rounded-full p-1 shadow-md">
                 <HiChevronDoubleRight />
-
               </div>
             </div>
           </div>

@@ -105,7 +105,7 @@ export default function FlightHotelSearch() {
   }
 
   return (
-    <div className="border-2 border-green-600 pt-1 px-2 bg-white rounded-lg">
+    <div className="border-0 border-green-600 pt-1 px-2 bg-white rounded-lg">
       Check Flights
       <form className="flex max-w-4xl flex-row gap-4 mt-1" onSubmit={event => handleSearch(event)}>
         <div>

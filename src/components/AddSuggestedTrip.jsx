@@ -98,7 +98,7 @@ export function AddSuggestedTrip({onClose, trip}) {
         </div>
         <div className=' flex flex-row space-x-2'>
           <Button className="bg-blue-500 px-2 py-0 rounded-md text-white" type="submit">Submit</Button>
-          <p onClick={() => handleSkip()} className='p-2 pl-4 underline cursor-pointer'>skip customizing</p>
+          <p onClick={() => handleSkip()} className='p-2 pl-4 underline cursor-pointer'>skip customization</p>
         </div>
       </form>
     </div>
