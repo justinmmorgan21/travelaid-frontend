@@ -1,35 +1,10 @@
 import axios from 'axios'
-import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Button, Textarea, Label, TextInput, Datepicker } from "flowbite-react";
 import { AiFillEnvironment } from "react-icons/ai";
 export function PlacesCreate({onClose, trip}) {
   
   const navigate = useNavigate();
-
-  const startDateContainerRef = useRef(null);
-  const endDateContainerRef = useRef(null);
-
-  // Function to adjust datepicker position, DOES NOT WORK
-  const adjustDatepickerPosition = (container) => {
-    if (!container) return;
-    const rect = container.getBoundingClientRect();
-    if (rect.bottom > window.innerHeight) {
-      container.classList.add('datepicker-up');
-    } else {
-      container.classList.remove('datepicker-up');
-    }
-  };
-
-  // Use effect to adjust position when the component mounts
-  useEffect(() => {
-    if (startDateContainerRef.current) {
-      adjustDatepickerPosition(startDateContainerRef.current);
-    }
-    if (endDateContainerRef.current) {
-      adjustDatepickerPosition(endDateContainerRef.current);
-    }
-  }, []);
 
   const handleCreate = (event, trip_id) => {
     event.preventDefault();
@@ -65,7 +40,7 @@ export function PlacesCreate({onClose, trip}) {
           <div className="mb-2 block">
             <Label htmlFor="start_time" value="Date" />
           </div>
-          <div ref={startDateContainerRef}>
+          <div >
             <Datepicker title="Date" name="start_time" datepicker-buttons="true"/>
           </div>
         </div>

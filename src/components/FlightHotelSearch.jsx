@@ -2,6 +2,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 import { Button, Label, TextInput } from "flowbite-react";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 export default function FlightHotelSearch() {
   const [dates, setDates] = useState({ 
@@ -20,18 +21,33 @@ export default function FlightHotelSearch() {
     const arrival_id = formObject.destination;
     const outbound_date = new Date(dates.startDate).toISOString().split('T')[0];
     const return_date = new Date(dates.endDate).toISOString().split('T')[0];
-    console.log("DEP: ", departure_id);
-    console.log("ARR: ", arrival_id);
-    console.log("OUT: ", outbound_date);
-    console.log("RET: ", return_date);
-    fetch(`http://localhost:3001/?engine=${engine}&departure_id=${departure_id}&arrival_id=${arrival_id}&outbound_date=${outbound_date}&return_date=${return_date}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-      navigate("/flights", { state: data });
+
+    axios.get("http://localhost:3001/search-flights", {
+      params: {
+        engine,
+        departure_id,
+        arrival_id,
+        outbound_date,
+        return_date,
+      },
+    }).then(response => {
+      console.log(response.data);
+      navigate("/flights", { state: response.data });
     });
   }
 
+  const handleTextChange = (text) => {
+    console.log("TEXT");
+    axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+      params: {
+        input: text,
+        radius: 500,
+        types: "airport",
+      },
+    }).then(response=> {
+      console.log(response.data);
+    })  
+  }
 
   return (
     <div className="border-2 border-white pt-1 px-2 bg-white rounded-lg">
@@ -41,7 +57,7 @@ export default function FlightHotelSearch() {
           <div className="mb-2 block">
             <Label htmlFor="departure" value="Departure" />
           </div>
-          <TextInput id="departure" name="departure" type="text" placeholder="Where from?" required />
+          <TextInput id="departure" name="departure" type="text" placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value)}/>
         </div>
         <div>
           <div className="mb-2 block">

@@ -1,10 +1,10 @@
 // import { useLoaderData, useNavigate } from "react-router-dom";
-import { useState } from 'react';
-import { Button, Textarea, Label, TextInput, Datepicker } from "flowbite-react";
+// import { useState } from 'react';
+import { Button } from "flowbite-react";
 // import { Modal } from "./Modal";
 // import { TripsCreateModal } from "./TripsCreateModal";
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ProgressBar } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+// import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
 import { LuDot } from "react-icons/lu";
 
@@ -14,14 +14,8 @@ export function SelectedFlight() {
   // const { departureFlight, returnFlight, ...data } = location.state;
   const data = location.state;
   console.log("SELECTED FLIGHT DATA:", data);
-  // console.log("LOWEST PRICE: ", data.selected_flights.price_insights)
   const departureFlight = data.selected_flights[0];
   const returnFlight = data.selected_flights[1];
-  const navigate = useNavigate();
-  // const [departureFlight, setDepartureFlight] = useState(null);
-  // const [returnFlight, setReturnFlight] = useState(null);
-  const [departSet, setDepartSet] = useState(false);
-  const [returnSet, setReturnSet] = useState(false);
   // const navigate = useNavigate();
   // const [modalVisible, setModalVisible] = useState(false);
 
@@ -38,30 +32,6 @@ export function SelectedFlight() {
   // }
   console.log("DEP FLIGHT: ", departureFlight);
   console.log("RET FLIGHT: ", returnFlight);
-
-  const handleFlightSelect = (flight) => {
-    if (!departSet) {
-      setDepartSet(true);
-      setDepartureFlight(flight);
-      console.log("TOKEN", flight.departure_token)
-      fetch(`http://localhost:3001/?engine=${data.search_parameters.engine}&departure_id=${data.search_parameters.departure_id}&arrival_id=${data.search_parameters.arrival_id}&outbound_date=${data.search_parameters.outbound_date}&return_date=${data.search_parameters.return_date}&departure_token=${flight.departure_token}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log("RETURN", data);
-        navigate("/flights", { state: data });
-      });
-    } else {
-      setReturnSet(true);
-      setReturnFlight(flight);
-      console.log("TOKEN", flight.booking_token)
-      fetch(`http://localhost:3001/?engine=${data.search_parameters.engine}&departure_id=${data.search_parameters.departure_id}&arrival_id=${data.search_parameters.arrival_id}&outbound_date=${data.search_parameters.outbound_date}&return_date=${data.search_parameters.return_date}&booking_token=${flight.booking_token}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log("SUCCESS both routes", data);
-        // navigate("/selected_flight", { state: data });
-      });
-    }
-  }
 
   const handleConfirmBooking = () => {
     window.open(`${data.search_metadata.google_flights_url}`, "_blank");
@@ -100,7 +70,7 @@ export function SelectedFlight() {
 
           <br />  
           <div className='mx-48 flex flex-row mb-2'>
-            <p >Return flight</p>
+            <p >Returning flight</p>
             <div className='pt-1 px-1'>
               <LuDot />
             </div>

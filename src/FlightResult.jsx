@@ -3,8 +3,9 @@ import { useState } from 'react';
 // import { Modal } from "./Modal";
 // import { TripsCreateModal } from "./TripsCreateModal";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ProgressBar } from 'react-bootstrap';
+// import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
+import axios from 'axios';
 export function FlightResult() {
   // const trips = useLoaderData();
   const location = useLocation();
@@ -37,11 +38,19 @@ export function FlightResult() {
       setDepartSet(true);
       setDepartureFlight(flight);
       console.log("TOKEN", flight.departure_token)
-      fetch(`http://localhost:3001/?engine=${data.search_parameters.engine}&departure_id=${data.search_parameters.departure_id}&arrival_id=${data.search_parameters.arrival_id}&outbound_date=${data.search_parameters.outbound_date}&return_date=${data.search_parameters.return_date}&departure_token=${flight.departure_token}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log("RETURN", data);
-        navigate("/flights", { state: data });
+      
+      axios.get("http://localhost:3001/search-flights", {
+        params: {
+          engine: data.search_parameters.engine,
+          departure_id: data.search_parameters.departure_id,
+          arrival_id: data.search_parameters.arrival_id,
+          outbound_date: data.search_parameters.outbound_date,
+          return_date: data.search_parameters.return_date,
+          departure_token: flight.departure_token
+        },
+      }).then(response => {
+        console.log(response.data);
+        navigate("/flights", { state: response.data });
       });
     } else {
       setReturnSet(true);
@@ -49,12 +58,19 @@ export function FlightResult() {
       setReturnFlight(flight);
       console.log("RETURN FLIGHT post-setA: ", returnFlight);
       console.log("TOKEN", flight.booking_token)
-      fetch(`http://localhost:3001/?engine=${data.search_parameters.engine}&departure_id=${data.search_parameters.departure_id}&arrival_id=${data.search_parameters.arrival_id}&outbound_date=${data.search_parameters.outbound_date}&return_date=${data.search_parameters.return_date}&booking_token=${flight.booking_token}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log("RETURN FLIGHT post-setB: ", returnFlight);
-        console.log("SUCCESS both routes", data);
-        navigate("/selected_flight", { state: { ...data, departureFlight, returnFlight } });
+
+      axios.get("http://localhost:3001/search-flights", {
+        params: {
+          engine: data.search_parameters.engine,
+          departure_id: data.search_parameters.departure_id,
+          arrival_id: data.search_parameters.arrival_id,
+          outbound_date: data.search_parameters.outbound_date,
+          return_date: data.search_parameters.return_date,
+          booking_token: flight.booking_token
+        },
+      }).then(response => {
+        console.log(response.data);
+        navigate("/selected_flight", { state: { ...response.data, departureFlight, returnFlight } });
       });
     }
   }
@@ -77,21 +93,6 @@ export function FlightResult() {
             </div>
           ))}
         </div>
-        {/* <div hidden={returnFlight == null}>
-          <h1 className='text-center text-2xl font-bold mb-6'>Selected flights</h1>
-          <p className='mx-48'>Departing flight</p> 
-          {departureFlight == null ?
-            <></>:<Flight flight={departureFlight} selected={true} />
-          }
-          <br />  
-          <p className='mx-48'>Return flight</p>
-          {returnFlight == null ?
-            <></>:<Flight flight={returnFlight} selected={true} />
-          }
-        </div> */}
-        {/* <div hidden={returnFlight != null}>
-
-        </div> */}
       </div>
       
       <br /><br />

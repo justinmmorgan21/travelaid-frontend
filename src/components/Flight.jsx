@@ -3,8 +3,6 @@ import { FaSuitcaseRolling } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa";
 
 export function Flight({flight, onFlightSelect, selected}) {
-  // console.log("SINGLE FLIGHT: ", flight_data);
-  // const flight = flight_data.flight;
   console.log("SINGLE FLIGHT: ", flight);
   console.log("SELECTED: " , selected);
   return (
@@ -55,7 +53,7 @@ export function Flight({flight, onFlightSelect, selected}) {
             </div>
           </div>
         </div>
-        
+
         {/* <div className='w-20 opacity-60' hidden={!returnSet}>
           <ProgressBar >
             <ProgressBar variant="success" now={30} key={1} />
