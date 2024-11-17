@@ -15,7 +15,6 @@ export function FlightResult() {
   const [departureFlight, setDepartureFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
   const [departSet, setDepartSet] = useState(false);
-  const [returnSet, setReturnSet] = useState(false);
   // const navigate = useNavigate();
   // const [modalVisible, setModalVisible] = useState(false);
 
@@ -53,7 +52,6 @@ export function FlightResult() {
         navigate("/flights", { state: response.data });
       });
     } else {
-      setReturnSet(true);
       console.log("RETURN FLIGHT pre-set: ", flight);
       setReturnFlight(flight);
       console.log("RETURN FLIGHT post-setA: ", returnFlight);
