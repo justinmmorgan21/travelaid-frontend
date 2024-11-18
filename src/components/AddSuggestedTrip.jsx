@@ -16,9 +16,6 @@ export function AddSuggestedTrip({onClose, trip}) {
   
   const handleCreateTripWithPlaces = async (event) => {
     event.preventDefault();
-    // console.log(event);
-    // console.log(event.type == "click");
-    // console.log(event.type == "submit");
     let params = null;
     if (event.type == "submit") {
       params = new FormData(event.target);
@@ -29,44 +26,21 @@ export function AddSuggestedTrip({onClose, trip}) {
     params.append('image_url', trip.image_url);
     params.append('start_time', dates.startDate);
     params.append('end_time', dates.endDate);
-    console.log(params);
-    console.log("DATES", dates);
-    console.log("IMAGE", trip.image_url);
-    // axios.post("http://localhost:3000/trips.json", params).then(response=> {
-    //   console.log("TRIP: ", response.data);
-    //   // Trip has been created with
-    //   // id - generated through creation
-    //   // user_id - added by create action in backend
-    //   // title - through event
-    //   // image_url - appended
-    //   // dates - appended
-    //   // does not have the places yet
-    //   // map through trip.places and create a new Place
-    //   // for each one with a trip id to match the one
-    //   // just created
 
-    //   trip.places.map(place => {
-    //     const placeParams = new FormData();
-    //     placeParams.append('trip_id', response.data.id);
-    //     placeParams.append('address', place.address);
-    //     placeParams.append('lat', place.lat);
-    //     placeParams.append('lng', place.lng);
-    //     placeParams.append('name', place.name);
-    //     placeParams.append('description', place.description);
-    //     placeParams.append('image_url', place.image_url);
-    //     axios.post("http://localhost:3000/places.json", placeParams).then(response=> {
-    //       console.log("PLACE: ", response.data);
-    //     });
-    //   })
-    //   onClose();
-    //   navigate(`/trips/${response.data.id}`);
-    // });
     try {
       const tripResponse = await axios.post("http://localhost:3000/trips.json", params);
       console.log("TRIP:", tripResponse.data);
-  
+      // Trip has been created with
+      // id - generated through creation
+      // user_id - added by create action in backend
+      // title - through event
+      // image_url - appended
+      // dates - appended
+      // does not have the places yet
+      // map through trip.places and create a new Place
+      // for each one with a trip id to match the one
+      // just created
       const tripId = tripResponse.data.id;
-  
       // Use Promise.all to wait for all places to be created
       const placeCreationPromises = trip.places.map(place => {
         const placeParams = new FormData();
@@ -91,14 +65,6 @@ export function AddSuggestedTrip({onClose, trip}) {
       console.error("Error creating trip or places:", error);
     }
   }
-
-  // const handleReset = () => {
-  //   setTitle('');
-  //   setDates({ 
-  //     startDate: null, 
-  //     endDate: null
-  //   });
-  // };
 
   const handleSkip = (event) => {
     setTitle(trip.title);

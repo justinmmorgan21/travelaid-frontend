@@ -8,9 +8,6 @@ import { Button, Tooltip } from "flowbite-react";
 
 export function SuggestedTripsPage() {
   const suggestedTrips = useLoaderData();
-  
-  // const navigate = useNavigate();
-
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTrip, setCurrentTrip] = useState(null);
 
@@ -33,7 +30,6 @@ export function SuggestedTripsPage() {
         <hr className="my-6"/>
         <div className="grid grid-cols-2 gap-6">
           {suggestedTrips.map(trip => (
-            // one card
             <div key={trip.id} className="border-2 shadow-md w-full p-4 flex flex-col rounded-md">
               <div className="text-2xl pb-2">
                 {trip.title}
@@ -76,7 +72,6 @@ export function SuggestedTripsPage() {
           <Modal onClose={handleClose} show={modalVisible}>
             {currentTrip && <AddSuggestedTrip onClose={handleClose} trip={currentTrip}/>}
           </Modal>
-        {/* </div> */}
     </div>
   );
 }

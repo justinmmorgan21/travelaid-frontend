@@ -1,19 +1,44 @@
 import { AdvancedMarker, APIProvider, Map, useMap, Pin } from "@vis.gl/react-google-maps";
 import {useLoaderData} from "react-router-dom";
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
 import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
+import axios from "axios";
 export function TripsShowPage() {
   
   const trip = useLoaderData();
 
-  console.log("TRIP in TripShow: ", trip);
+  const [coords, setCoords] = useState({ lat: 0, lng: 0 });
+
+  const fetchDefaultCenter = useCallback(() => {
+    axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+      params: {
+        input: trip.title,
+        radius: 500,
+        types: "airport",
+      },
+    }).then(response=> {
+      axios.get("http://127.0.0.1:3001/google-places-details", {
+        params: {
+          place_id: response.data.predictions[0].place_id,
+        },
+      }).then(resp => {
+        setCoords(resp.data.result.geometry.location)
+      })
+    });
+  }, [trip]);
+
+  useEffect(() => {
+    if (trip.places.length === 0) {
+      fetchDefaultCenter();
+    }
+  }, [trip.places, fetchDefaultCenter]);
+
   const locations = trip.places.map((place, i) => {
     return {key: String.fromCharCode(65+i), location: { lat: place.lat, lng: place.lng } }
   })
-  console.log("LOCATIONS",locations)
   
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -52,7 +77,7 @@ export function TripsShowPage() {
 
   return (
     <div>
-      <div className='absolute top-16 left-1/2 transform -translate-x-1/2 z-10 ml-16 -mr-16 border-2 rounded-lg border-gray-500'>
+      <div className='absolute top-16 left-1/2 transform -translate-x-1/4 z-10 ml-16 -mr-16 border-2 rounded-lg border-gray-500'>
         <FlightHotelSearch />
       </div>
       <a className="underline" href="/trips">{'<'}- back to Upcoming Trips</a>
@@ -64,12 +89,16 @@ export function TripsShowPage() {
 
           <APIProvider apiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY} onLoad={() => console.log('Maps API has loaded')}>
             <Map
-              defaultZoom={trip.initial_zoom}
-              defaultCenter={{ lat: trip.center[0], lng: trip.center[1] }}
+              defaultZoom={trip.places.length != 0 ? trip.initial_zoom : 10}
+              defaultCenter={ 
+                { lat: trip.center[0] , lng: trip.center[1] }}
               mapId='97aaa7a8b424bee5'
               onCameraChanged={(ev) =>
                 console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
-              }>
+              }
+              center = {trip.places.length != 0 ?
+                { lat: trip.center[0] , lng: trip.center[1] } : coords}
+            >
               <PoiMarkers pois={locations} />
             </Map>
           </APIProvider>

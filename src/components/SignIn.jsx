@@ -9,7 +9,6 @@ if (jwt) {
 export default function SignIn({ className , setSwitchAuth}) {
 
   const [errors, setErrors] = useState([]);
-  // const navigate = useNavigate;
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors([]);
@@ -21,7 +20,6 @@ export default function SignIn({ className , setSwitchAuth}) {
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
         localStorage.setItem("jwt", response.data.jwt);
         event.target.reset();
-        // window.location.href = "/trips"; // Change this to hide a modal, redirect to a specific page, etc.
         axios.get("http://localhost:3000/trips.json").then(resp => {
           if (resp.data.length == 0)
             window.location.href = "/trips/new";

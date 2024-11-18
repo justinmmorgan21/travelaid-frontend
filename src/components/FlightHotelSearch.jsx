@@ -84,7 +84,6 @@ export default function FlightHotelSearch() {
       > 
         {
         depart ?
-        
           showDepartureAutocomplete ?
             searchDepartureResults.predictions.map( (result,i) => (
               <p key={i} className="rounded-sm border-2 border-gray-400 text-sm p-2" onClick={() => handleResultChoice(result.structured_formatting.main_text, depart)}>{result.structured_formatting.main_text}</p>
@@ -98,7 +97,6 @@ export default function FlightHotelSearch() {
             ))
             :
             <></>
-
         }
       </div>
     )

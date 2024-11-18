@@ -1,13 +1,9 @@
-// import { useLoaderData, useNavigate } from "react-router-dom";
 import { useState } from 'react';
-// import { Modal } from "./Modal";
-// import { TripsCreateModal } from "./TripsCreateModal";
 import { useLocation, useNavigate } from 'react-router-dom';
-// import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
 import axios from 'axios';
 export function FlightResult() {
-  // const trips = useLoaderData();
+
   const location = useLocation();
   const data = location.state;
   console.log("FLIGHT SEARCH:", data);
@@ -15,28 +11,12 @@ export function FlightResult() {
   const [departureFlight, setDepartureFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
   const [departSet, setDepartSet] = useState(false);
-  // const navigate = useNavigate();
-  // const [modalVisible, setModalVisible] = useState(false);
-
-  // const handleTripsShow = (trip) => {
-  //   console.log("handleTripsShow", trip);
-  //   navigate(`/trips/${trip.id}`);
-  // };
-
-  // const handleModalShow = () => {
-  //   setModalVisible(true);
-  // }
-  // const handleClose = () => {
-  //   setModalVisible(false);
-  // }
-  console.log("DEP FLIGHT: ", departureFlight);
-  console.log("RET FLIGHT: ", returnFlight);
 
   const handleFlightSelect = (flight) => {
     if (!departSet) {
       setDepartSet(true);
       setDepartureFlight(flight);
-      console.log("TOKEN", flight.departure_token)
+      console.log("DEPARTURE TOKEN", flight.departure_token)
       
       axios.get("http://localhost:3001/search-flights", {
         params: {
@@ -52,10 +32,8 @@ export function FlightResult() {
         navigate("/flights", { state: response.data });
       });
     } else {
-      console.log("RETURN FLIGHT pre-set: ", flight);
       setReturnFlight(flight);
-      console.log("RETURN FLIGHT post-setA: ", returnFlight);
-      console.log("TOKEN", flight.booking_token)
+      console.log("BOOKING TOKEN", flight.booking_token)
 
       axios.get("http://localhost:3001/search-flights", {
         params: {
@@ -84,7 +62,6 @@ export function FlightResult() {
         <div >
           <p className='mx-48' hidden={departSet}>Departing flights</p>
           <p className='mx-48' hidden={!departSet}>Return flights</p>
-          {/* Cards */}
           {(data.best_flights && data.best_flights || data.other_flights).map((flight, i) => (
             <div key={i}>
               <Flight flight={flight} onFlightSelect={handleFlightSelect} selected={false}/>

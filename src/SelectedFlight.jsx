@@ -1,37 +1,15 @@
-// import { useLoaderData, useNavigate } from "react-router-dom";
-// import { useState } from 'react';
 import { Button } from "flowbite-react";
-// import { Modal } from "./Modal";
-// import { TripsCreateModal } from "./TripsCreateModal";
 import { useLocation } from 'react-router-dom';
 // import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
 import { LuDot } from "react-icons/lu";
 
 export function SelectedFlight() {
-  // const trips = useLoaderData();
   const location = useLocation();
-  // const { departureFlight, returnFlight, ...data } = location.state;
   const data = location.state;
   console.log("SELECTED FLIGHT DATA:", data);
   const departureFlight = data.selected_flights[0];
   const returnFlight = data.selected_flights[1];
-  // const navigate = useNavigate();
-  // const [modalVisible, setModalVisible] = useState(false);
-
-  // const handleTripsShow = (trip) => {
-  //   console.log("handleTripsShow", trip);
-  //   navigate(`/trips/${trip.id}`);
-  // };
-
-  // const handleModalShow = () => {
-  //   setModalVisible(true);
-  // }
-  // const handleClose = () => {
-  //   setModalVisible(false);
-  // }
-  console.log("DEP FLIGHT: ", departureFlight);
-  console.log("RET FLIGHT: ", returnFlight);
 
   const handleConfirmBooking = () => {
     window.open(`${data.search_metadata.google_flights_url}`, "_blank");
@@ -45,16 +23,6 @@ export function SelectedFlight() {
       </div>
       <hr className="mb-6"/>
       <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
-        {/* <div hidden={returnFlight != null}>
-          <p className='mx-48' hidden={departSet}>Departing flights</p>
-          <p className='mx-48' hidden={!departSet}>Return flights</p>
-          Cards
-          {data.best_flights.map((flight, i) => (
-            <div key={i}>
-              <Flight flight={flight} onFlightSelect={handleFlightSelect} selected={false}/>
-            </div>
-          ))}
-        </div> */}
         <div >
           <h1 className='text-center text-2xl font-bold mb-6'>Selected flights</h1>
           <div className='mx-48 flex flex-row mb-2'>
@@ -81,9 +49,6 @@ export function SelectedFlight() {
           <Flight flight={returnFlight} selected={true} />
 
         </div>
-        {/* <div hidden={returnFlight != null}>
-
-        </div> */}
       </div>
 
       <div className='mx-auto flex flex-row w-full mt-4'>

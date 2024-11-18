@@ -8,7 +8,6 @@ export function Flight({flight, onFlightSelect, selected}) {
   return (
     <div className="w-3/4 px-6 py-2 rounded-xl flex flex-row h-28 border-2 border-gray-200 mx-auto">
       <div id="flight times" className="w-4/5 border-0 border-red-500 flex flex-row items-center justify-evenly">
-        {/* <div className="w-full h-full border-4 border-green-600 flex flex-row items-center justify-evenly"> */}
         <div className="">
           <img src={flight.airline_logo} alt="" className=" w-12 -ml-2"/>
         </div>
