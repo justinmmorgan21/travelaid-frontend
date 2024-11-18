@@ -3,7 +3,7 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ReactLogo from './assets/logo.svg';
+import Logo from './assets/small logo.png';
 export function Header() {
 
   const [currentUser, setCurrentUser] = useState({});
@@ -28,24 +28,24 @@ export function Header() {
   console.log("HEADER USER", currentUser)
 
   return (
-    <Navbar fluid rounded className="bg-my-blue text-white fixed top-0 left-0 w-full z-50">
-      <Navbar.Brand href="/home">
-        <img src={ReactLogo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Travel Aid</span>
+    <Navbar fluid rounded className="bg-gray-600 text-white fixed top-0 left-0 w-full z-100">
+      <Navbar.Brand href="/home" >
+        <img src={Logo} className="mr-3 sm:h-9 w-48" alt="Flowbite React Logo" />
+        {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Travel Aid</span> */}
       </Navbar.Brand>
       <div className="flex md:order-2">
         <Dropdown
           arrowIcon={false}
           inline
           label={
-            <Avatar alt="User settings" img={currentUser.image_url} rounded />
+            <Avatar size="md" alt="User settings" img={currentUser.image_url} rounded />
           }
         >
-          <Dropdown.Header>
+          <Dropdown.Header >
             <span className="block text-sm font-medium">{currentUser.name}</span>
             <span className="block truncate text-sm ">{currentUser.email}</span>
           </Dropdown.Header>
-          <Dropdown.Item onClick={()=> {window.location.href = "/home"}}>?????</Dropdown.Item>
+          <Dropdown.Item onClick={()=> {window.location.href = "/home"}}>Home</Dropdown.Item>
           <Dropdown.Item>
             <Link to="/userSettings" state={{ currentUser }}>Settings</Link>
           </Dropdown.Item>
@@ -54,15 +54,15 @@ export function Header() {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse >
-        <Navbar.Link href="/home"  className="custom-hover text-white">
+      <Navbar.Collapse className="pr-44" >
+        <Navbar.Link href="/home"  className="custom-hover text-white text-lg font-light">
           Home
         </Navbar.Link>
-        <Navbar.Link href="/trips" className="custom-hover text-white">Upcoming Trips</Navbar.Link>
-        <Navbar.Link href="/trips/new" className="custom-hover text-white">New Trip</Navbar.Link>
-        <Navbar.Link href="/suggested" className="custom-hover text-white">Suggested Trips
+        <Navbar.Link href="/trips" className="custom-hover text-white text-lg font-light">Upcoming Trips</Navbar.Link>
+        <Navbar.Link href="/trips/new" className="custom-hover text-white text-lg font-light">New Trip</Navbar.Link>
+        <Navbar.Link href="/suggested" className="custom-hover text-white text-lg font-light">Suggested Trips
         </Navbar.Link>
-        <Navbar.Link href="/contact" className="custom-hover text-white">Contact</Navbar.Link>
+        <Navbar.Link href="/contact" className="custom-hover text-white text-lg font-light">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

@@ -16,16 +16,16 @@ export function SelectedFlight() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-screen">
       <br />
       <div className="flex flex-row mb-6">
-        <h1 className="text-4xl">Flight Search Results</h1>
+        <h1 className="text-4xl text-white">Flight Search Results</h1>
       </div>
       <hr className="mb-6"/>
       <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
         <div >
-          <h1 className='text-center text-2xl font-bold mb-6'>Selected flights</h1>
-          <div className='mx-48 flex flex-row mb-2'>
+          <h1 className='text-center text-2xl font-bold mb-6 text-white'>Selected flights</h1>
+          <div className='mx-48 flex flex-row mb-2 text-white'>
             <p >Departing flight</p>
             <div className='pt-1 px-1'>
               <LuDot />
@@ -37,7 +37,7 @@ export function SelectedFlight() {
           <Flight flight={departureFlight} selected={true} />
 
           <br />  
-          <div className='mx-48 flex flex-row mb-2'>
+          <div className='mx-48 flex flex-row mb-2 text-white'>
             <p >Returning flight</p>
             <div className='pt-1 px-1'>
               <LuDot />
@@ -51,14 +51,15 @@ export function SelectedFlight() {
         </div>
       </div>
 
-      <div className='mx-auto flex flex-row w-full mt-4'>
-          <div className='mx-48 '>
-            <p className='font-bold text-2xl'>${data.price_insights.lowest_price}</p>
-            <p className='text-sm font-light'>Lowest Total Price</p>
+      <div className='mx-auto ml-20 flex flex-row w-full text-white border-0 border-black'>
+          <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-2 rounded-md text-white mx-auto" onClick={()=>handleConfirmBooking()}>Continue to Booking</Button>
+          <div className='mr-72 -ml-72  py-1 px-4 bg-white mt-2 rounded-md'>
+            <p className='text-gray-700 text-2xl'>${data.price_insights.lowest_price}</p>
+            <p className='text-gray-700 text-sm font-light'>Lowest Total Price</p>
           </div>
-          <Button className="ml-20 pt-1 bg-blue-500 h-12 px-2 rounded-md text-white" onClick={()=>handleConfirmBooking()}>Continue to Booking</Button>
+
           {/* <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>onClose()}>Cancel</Button> */}
-        </div>
+      </div>
       {/* <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Trip</button>
       <Modal onClose={handleClose} show={modalVisible}>
         <TripsCreateModal onClose={handleClose}/>

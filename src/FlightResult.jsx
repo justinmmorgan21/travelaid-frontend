@@ -52,16 +52,16 @@ export function FlightResult() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-screen">
       <br />
       <div className="flex flex-row mb-6">
-        <h1 className="text-4xl">Flight Search Results</h1>
+        <h1 className="text-white text-4xl">Flight Search Results</h1>
       </div>
       <hr className="mb-6"/>
       <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
         <div >
-          <p className='mx-48' hidden={departSet}>Departing flights</p>
-          <p className='mx-48' hidden={!departSet}>Return flights</p>
+          <p className='mx-48 text-white' hidden={departSet}>Departing flights</p>
+          <p className='mx-48 text-white' hidden={!departSet}>Return flights</p>
           {(data.best_flights && data.best_flights || data.other_flights).map((flight, i) => (
             <div key={i}>
               <Flight flight={flight} onFlightSelect={handleFlightSelect} selected={false}/>

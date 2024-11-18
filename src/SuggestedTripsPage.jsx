@@ -26,12 +26,12 @@ export function SuggestedTripsPage() {
     <div className="mx-auto border-0">
       {/* <div className="h-80 w-full border-2 border-gray-400 rounded-lg p-4 shadow-md"> */}
       <br />
-        <p className="text-4xl pb-2">Suggested Trips</p>
+        <p className="text-4xl pb-2 text-white">Suggested Trips</p>
         <hr className="my-6"/>
         <div className="grid grid-cols-2 gap-6">
           {suggestedTrips.map(trip => (
-            <div key={trip.id} className="border-2 shadow-md w-full p-4 flex flex-col rounded-md">
-              <div className="text-2xl pb-2">
+            <div key={trip.id} className="border-0 shadow-lg w-full p-4 flex flex-col rounded-md bg-white">
+              <div className="text-2xl pb-2 text-gray-600">
                 {trip.title}
               </div>
               <div className="flex flex-row space-x-2 flex-grow border-0 mb-4">
@@ -64,7 +64,7 @@ export function SuggestedTripsPage() {
                 </div>
               </div>
               <div className="w-full flex justify-end flex-end">
-                <Button className="bg-blue-500 -px-4 -py-1 rounded-md text-white" type="button" onClick={() => { setModalVisible(true); setCurrentTrip(trip)}}>Add to Trips</Button>
+                <Button className="bg-blue-700 -px-4 -py-1 rounded-md text-white" type="button" onClick={() => { setModalVisible(true); setCurrentTrip(trip)}}>Add to Trips</Button>
               </div>
             </div>
           ))}

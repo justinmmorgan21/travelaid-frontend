@@ -32,11 +32,11 @@ export default function Home() {
   useEffect(handleSuggestedTrips, []);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="border-2 rounded-lg p-4 border-gray-400 shadow-lg" >
+    <div className="flex flex-col items-center ">
+      <div className="border-0 rounded-lg p-4 border-gray-400 shadow-lg bg-white" >
         <FlightHotelSearch />
       </div>
-      <div id="next-trip" className={`h-44 my-12 border-2 border-gray-400 rounded-lg p-4 shadow-md ${nextTrip ? "cursor-pointer" : "cursor-not-allowed pointer-events-none"}`} onClick={()=>{if(nextTitle) {navigate(`/trips/${nextTrip.id}`);}}}>
+      <div id="next-trip" className={`h-44 my-12 border-0 border-gray-400 rounded-lg p-4 shadow-md bg-white ${nextTrip ? "cursor-pointer" : "cursor-not-allowed pointer-events-none"}`} onClick={()=>{if(nextTitle) {navigate(`/trips/${nextTrip.id}`);}}}>
         <h1 className="text-3xl">Next Trip</h1>
         <div className="flex flex-row">
           <img src={nextImage} alt="" className="h-24"/>
@@ -51,17 +51,17 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="h-80 w-full border-2 border-gray-400 rounded-lg p-4 shadow-md">
-        <p className="text-3xl pb-2">Suggested Trips</p>
+      <div className="h-80 w-fit border-0 border-gray-400 rounded-lg py-4 px-8 shadow-md bg-white">
+        <p className="text-2xl font-bold pb-2">Suggested Trips</p>
         <div className="flex flex-row space-x-4">
           {suggestedTrips.map(trip => (
-            <div key={trip.id} className="border-2 shadow-md w-fit p-2 flex flex-col">
+            <div key={trip.id} className="border-2 shadow-md w-96 p-2 flex flex-col">
               <div>
                 {trip.title}
               </div>
               <div className="flex flex-row space-x-2 flex-grow">
                 <img src={trip.image_url} className="max-w-36 max-h-36"></img>
-                <div>
+                <div className="p-1">
                   Points of Interest:
                   {trip.places.map(place => (
                     <div key={place.id} className="flex flex-row py-1" >
@@ -74,7 +74,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="w-full flex justify-end flex-end">
-                <Button className="bg-blue-500 -px-4 -py-1 rounded-md text-white" type="button" onClick={() => { setModalVisible(true); setCurrentTrip(trip)}}>Add to Trips</Button>
+                <Button className="bg-blue-700 -px-4 -py-1 rounded-md text-white" type="button" onClick={() => { setModalVisible(true); setCurrentTrip(trip)}}>Add to Trips</Button>
               </div>
             </div>
           ))}

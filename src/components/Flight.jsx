@@ -6,7 +6,7 @@ export function Flight({flight, onFlightSelect, selected}) {
   console.log("SINGLE FLIGHT: ", flight);
   console.log("SELECTED: " , selected);
   return (
-    <div className="w-3/4 px-6 py-2 rounded-xl flex flex-row h-28 border-2 border-gray-200 mx-auto">
+    <div className="w-3/4 px-6 py-2 rounded-xl flex flex-row h-24 border-2 border-gray-200 mx-auto bg-white">
       <div id="flight times" className="w-4/5 border-0 border-red-500 flex flex-row items-center justify-evenly">
         <div className="">
           <img src={flight.airline_logo} alt="" className=" w-12 -ml-2"/>
@@ -27,28 +27,28 @@ export function Flight({flight, onFlightSelect, selected}) {
           <span className="font-light text-sm">{flight.flights[0].departure_airport["id"]}-{flight.flights[0].arrival_airport["id"]}</span>
         </div>
         <div hidden={selected}>
-          <button className="border-2 border-gray-400 rounded-3xl text-sm text-blue-600 flex-end px-4 py-2 shadow" onClick={()=>onFlightSelect(flight)}>Select flight</button>
+          <button className="border-2 border-gray-400 rounded-3xl text-sm text-blue-700 flex-end px-4 py-2 shadow" onClick={()=>onFlightSelect(flight)}>Select flight</button>
         </div>
       </div>
       <div className='border-r-2 border-gray-400'></div>
       <div className="flex flex-col items-center justify-center w-1/5 border-0 border-blue-500">
         <div hidden={selected}>
-          <p className="text-center">${flight.price}</p>
+          <p className="text-center text-xl font-bold text-gray-600">${flight.price}</p>
         </div>
         <div hidden={!selected}>
           <div className="flex flex-col ">
             <span className="mb-2">Baggage Info</span>
-            <div className="flex flex-row border-0">
-              <div className="h-4 mt-1">
+            <div className="flex flex-row border-0 text-gray-700">
+              <div className="h-4 mt-1 text-gray-700">
                 <FaSuitcase />
               </div>
-              <span className="ml-2 font-light">1 free carry-on</span>
+              <span className="ml-2 font-light text-gray-700">1 free carry-on</span>
             </div>
-            <div className="flex flex-row border-0">
-              <div className="h-4 mt-1">
+            <div className="flex flex-row border-0 text-gray-700">
+              <div className="h-4 mt-1 text-gray-700">
                 <FaSuitcaseRolling />
               </div>
-              <span className="ml-2 font-light">1st checked bag: $35</span>
+              <span className="ml-2 font-light text-gray-700">1st checked bag: $35</span>
             </div>
           </div>
         </div>

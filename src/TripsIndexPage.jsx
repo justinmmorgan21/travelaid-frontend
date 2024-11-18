@@ -1,4 +1,5 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { SlActionRedo } from "react-icons/sl";
 
 export function TripsIndexPage() {
   const trips = useLoaderData();
@@ -18,16 +19,21 @@ export function TripsIndexPage() {
   // }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-transparent" >
       <br />
       <div className="flex flex-row mb-6">
-        <h1 className="text-4xl flex-grow">Upcoming Trips</h1>
-        <button className="bg-blue-500 rounded text-white flex-end px-2 ">Past Trips</button>
+        <h1 className="text-4xl flex-grow text-white">Upcoming Trips</h1>
+        <button className="bg-blue-500 rounded text-white flex-end px-2 ">
+          <div className="flex flex-row">
+           <span >Past Trips</span>
+           <SlActionRedo className="ml-2 mt-1"/>
+          </div>
+        </button>
       </div>
       <hr className="mb-6"/>
       <div className="grid grid-cols-3 gap-16">
         {trips.map((trip) => (
-          <div onClick={() => handleTripsShow(trip)} key={trip.id} className="shadow-xl p-6 rounded-lg flex flex-col w-96 cursor-pointer">
+          <div onClick={() => handleTripsShow(trip)} key={trip.id} className="shadow-xl p-6 rounded-lg flex flex-col w-96 cursor-pointer bg-white">
             <h2 className="text-xl">{trip.title}</h2>
             <img  className="max-h-64 w-fit mx-auto" src={trip.image_url} />
             <div className="flex-grow"></div>

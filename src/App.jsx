@@ -15,6 +15,7 @@ import Home from "./Home";
 import { Contact } from "./Contact";
 import { FlightResult } from "./FlightResult";
 import { SuggestedTripsPage } from "./SuggestedTripsPage";
+import myImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg'; // Import your image
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { SelectedFlight } from "./SelectedFlight";
 
@@ -48,8 +49,9 @@ const AppLayout = () => {
   }, []); // Empty dependency array ensures it runs only once
 
   return (
-    <div>
-      <div id="main" hidden={showHero}>
+    <div className="bg-cover bg-center bg-gradient-to-b from-blue-700 to-blue-200" 
+    style={{ backgroundImage: `url(${myImage})`, backgroundAttachment: 'fixed', }}>
+      <div id="main" hidden={showHero}  >
         <Header />
         <div>
           <div className="container mx-auto pt-24 pb-12 px-24 flex-auto">

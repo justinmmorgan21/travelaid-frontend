@@ -60,8 +60,8 @@ export function PlacesCreate({onClose, trip}) {
           <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow required />
         </div>
         <div className=' flex flex-row space-x-2'>
-          <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
-          <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>onClose()}>Cancel</Button>
+          <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
+          <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>onClose()}>Cancel</Button>
         </div>
         </div>
       </form>

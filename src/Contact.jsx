@@ -33,42 +33,42 @@ export function Contact() {
   return (
     <div>
       <br />
-      <h1 className='text-4xl'>Contact Me</h1>
+      <h1 className='text-4xl text-white'>Contact Me</h1>
       <hr className='my-4'/> 
       <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => sendEmail(event)}>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="user_name" value="Name" />
+            <Label htmlFor="user_name" value="Name" className='text-white'/>
           </div>
           <TextInput id="user_name" name="user_name" type="text" placeholder="your name" defaultValue={current_user.name} shadow required />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email" value="Email" />
+            <Label htmlFor="email" value="Email" className='text-white'/>
           </div>
           <TextInput icon={HiMail} id="email" name="email" type="text" placeholder="email" defaultValue={current_user.email} shadow required />
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">
-            <Label htmlFor="phone_number" value="Phone Number" />
+            <Label htmlFor="phone_number" value="Phone Number" className='text-white'/>
           </div>
           <TextInput icon={HiPhone} id="phone_number" name="phone_number" placeholder="555-555-5555" shadow required />
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">
-            <Label htmlFor="subject" value="Subject" />
+            <Label htmlFor="subject" value="Subject" className='text-white'/>
           </div>
           <TextInput id="subject" name="subject" placeholder="subject" shadow required />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="message" value="Message" />
+            <Label htmlFor="message" value="Message" className='text-white'/>
           </div>
           <Textarea id="message" name="message" placeholder="message" shadow required rows={4} />
         </div>
         <div className=' flex flex-row space-x-2'>
-          <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
-          <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>window.location.href = "/home"}>Cancel</Button>
+          <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-6 w-1/2" type="submit">Submit</Button>
+          <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-6 w-1/2" onClick={()=>window.location.href = "/home"}>Cancel</Button>
         </div>
       </form>
     </div>

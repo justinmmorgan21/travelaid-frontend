@@ -3,12 +3,20 @@ import { Button, Label, TextInput } from "flowbite-react";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { useGeoLocation } from 'use-geo-location';
 
-export default function FlightHotelSearch() {
+export default function FlightHotelSearch({destinationTitle}) {
+  // text -> airport string w (DAL) at end
+  // computer lat/lng -> to get same
+
+  // destinationLocation lat / lng -> to get same
+  console.log("FHS loc: ", destinationTitle);
+  // console.log("FHS lng: ", lng);
+
   const [dates, setDates] = useState({ 
     startDate: null, 
     endDate: null
-  });
+  });   
 
   const navigate = useNavigate();
   const [ searchDepartureResults, setSearchDepartureResults ] = useState({predictions: [{structured_formatting: ""}]});
@@ -17,7 +25,37 @@ export default function FlightHotelSearch() {
   const [ searchReturnResults, setSearchReturnResults ] = useState({predictions: [{structured_formatting: ""}]});
   const [ searchReturnInput, setSearchReturnInput ] = useState("");
   const [ showReturnAutocomplete, setShowReturnAutocomplete ] = useState(false)
+
   
+  const { latitude, longitude, loading, error, timestamp, googleMapsResults } = useGeoLocation();
+  console.log("latitude: ", latitude);
+  console.log("longitude: ", longitude);
+  console.log("loading: ", loading);
+  console.log("error: ", error);
+  console.log("timestamp: ", timestamp);
+  console.log("googleMapsResults: ", googleMapsResults);
+  axios.get("http://127.0.0.1:3001/google-places-nearby", {
+    params: {
+      location: `${latitude},${longitude}`,
+      radius: 50000,
+      type: "airport",
+    },
+  }).then(response=> {
+    console.log("AIRPORTS RESULT: ", response.data);
+    console.log("AIRPORT: ", response.data.results[0].name)
+    axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+      params: {
+        input: response.data.results[0].name,
+        radius: 500,
+        types: "airport",
+      },
+    }).then(response=> {
+      console.log(response.data);
+      console.log(response.data.predictions[0].structured_formatting.main_text);
+      setSearchDepartureInput(response.data.predictions[0].structured_formatting.main_text);
+    });
+  });
+
   const handleSearch = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -43,6 +81,7 @@ export default function FlightHotelSearch() {
   }
 
   const handleTextChange = (text, depart) => {
+    console.log(text + " " + depart);
     if (depart) {
       setSearchDepartureInput(text);
       setShowDepartureAutocomplete(text === "" ? false : true);
@@ -66,6 +105,35 @@ export default function FlightHotelSearch() {
     });
   }
 
+  // const fillReturnAirport = (text, depart, returnKnownLoc) => {
+  //   console.log(text + " " + depart + " " + returnKnownLoc);
+  //   if (depart) {
+  //     setSearchDepartureInput(text);
+  //     setShowDepartureAutocomplete(text === "" ? false : true);
+  //   } else {
+  //     setSearchReturnInput(text);
+  //     setShowReturnAutocomplete(text === "" ? false : true);
+  //   }
+  //   console.log("TEXT:", text);
+  //   axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+  //     params: {
+  //       input: text,
+  //       radius: 500,
+  //       types: "airport",
+  //     },
+  //   }).then(response=> {
+  //     console.log(response.data);
+  //     if (returnKnownLoc) {
+  //       setSearchDepartureInput(response.data[0].structured_formatting.main_text)
+  //     } else if (depart)
+  //       setSearchDepartureResults(response.data);
+  //     else
+  //       setSearchReturnResults(response.data);
+  //   });
+  // }
+
+  // useEffect(handleTextChange(destinationTitle, false, true), [])
+
   const handleResultChoice = (choice, depart) => {
     if (depart) {
       setShowDepartureAutocomplete(false)
@@ -80,7 +148,7 @@ export default function FlightHotelSearch() {
     return (
       <div id="autocomplete" 
       className="max-w-sm"
-      style={{position: "absolute", zIndex: 1000, backgroundColor: "white", width: "100%",}}
+      style={{position: "absolute", zIndex: 10, backgroundColor: "white", width: "100%",}}
       > 
         {
         depart ?
@@ -104,16 +172,16 @@ export default function FlightHotelSearch() {
 
   return (
     <div className="border-0 border-green-600 pt-1 px-2 bg-white rounded-lg">
-      Check Flights
-      <form className="flex max-w-4xl flex-row gap-4 mt-1" onSubmit={event => handleSearch(event)}>
-        <div>
+      {/* Check Flights */}
+      <form className="flex max-w-5xl flex-row gap-4 mt-1" onSubmit={event => handleSearch(event)}>
+        <div className="w-1/4">
           <div className="mb-2 block">
             <Label htmlFor="departure" value="Departure" />
           </div>
           <TextInput id="departure" name="departure" type="text" value={searchDepartureInput} placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value, true)}/>
           <SearchAutompleteList depart={true}/>
         </div>
-        <div>
+        <div className="w-1/4">
           <div className="mb-2 block">
             <Label htmlFor="destination" value="Destination" />
           </div>
@@ -129,7 +197,7 @@ export default function FlightHotelSearch() {
               onChange={newValue => setDates(newValue)}
               /> 
         </div>
-        <Button className="bg-blue-500 text-white mt-8 h-11 border-2 rounded-md'" type="submit">Search</Button>
+        <Button className="bg-blue-700 text-white mt-8 h-11 border-2 rounded-md'" type="submit">Search</Button>
       </form>
     </div>
   )

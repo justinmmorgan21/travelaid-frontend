@@ -39,14 +39,14 @@ export function TripsCreatePage() {
   });
 
   return (
-    <div>
-      <h1 className='text-4xl'>New Trip</h1>
+    <div className='h-screen'>
+      <h1 className='text-4xl text-white'>New Trip</h1>
       <hr className='my-4'/>
       <div className='flex flex-row'>
         <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleCreate(event)}>
           <div>
-            <div className="mb-2 block">
-              <Label htmlFor="title" value="Trip Title" />
+            <div className="mb-2 block ">
+              <Label htmlFor="title" value="Trip Title" className='text-white'/>
             </div>
             <TextInput id="title" name="title" type="text" placeholder="title" shadow required value={title} onChange={(e) => setTitle(e.target.value)}/>
           </div>
@@ -58,16 +58,16 @@ export function TripsCreatePage() {
           </div>
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="image_url" value="URL of trip image" />
+              <Label htmlFor="image_url" value="URL of trip image" className='text-white'/>
             </div>
             <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow required value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
           </div>
           <div className=' flex flex-row space-x-2'>
-            <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
-            <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>handleReset()}>Clear</Button>
+            <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
+            <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>handleReset()}>Clear</Button>
           </div>
         </form>
-        <div className="border-2 rounded-lg p-4 border-gray-400 shadow-lg mx-auto w-fit h-fit" >
+        <div className="border-0 rounded-lg p-4 border-gray-400 shadow-lg mx-auto w-fit h-fit bg-white" >
           <FlightHotelSearch />
         </div>
       </div>
