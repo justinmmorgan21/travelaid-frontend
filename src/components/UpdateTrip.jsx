@@ -8,78 +8,31 @@ export function UpdateTrip({onClose, trip}) {
   console.log("TRIP: ", trip);
   const [title, setTitle] = useState(trip.title);
   const [dates, setDates] = useState({ 
-    startDate: null, 
-    endDate: null
+    startDate: new Date(trip.start_time), 
+    endDate: new Date(trip.end_time)
   });
+  const [imageUrl, setImageUrl] = useState(trip.image_url);
 
   const navigate = useNavigate();
   
-  const handleCreateTripWithPlaces = async (event) => {
+  const handleUpdateTrip = (event) => {
     event.preventDefault();
-    let params = null;
-    if (event.type == "submit") {
-      params = new FormData(event.target);
-    } else {
-      params = new FormData();
-      params.append('title', title);
-    } 
-    params.append('image_url', trip.image_url);
+    const params = new FormData(event.target);
     params.append('start_time', dates.startDate);
     params.append('end_time', dates.endDate);
-
-    try {
-      const tripResponse = await axios.post("http://localhost:3000/trips.json", params);
-      console.log("TRIP:", tripResponse.data);
-      // Trip has been created with
-      // id - generated through creation
-      // user_id - added by create action in backend
-      // title - through event
-      // image_url - appended
-      // dates - appended
-      // does not have the places yet
-      // map through trip.places and create a new Place
-      // for each one with a trip id to match the one
-      // just created
-      const tripId = tripResponse.data.id;
-      // Use Promise.all to wait for all places to be created
-      const placeCreationPromises = trip.places.map(place => {
-        const placeParams = new FormData();
-        placeParams.append("trip_id", tripId);
-        placeParams.append("address", place.address);
-        placeParams.append("lat", place.lat);
-        placeParams.append("lng", place.lng);
-        placeParams.append("name", place.name);
-        placeParams.append("description", place.description);
-        placeParams.append("image_url", place.image_url);
-  
-        return axios.post("http://localhost:3000/places.json", placeParams).then(placeResponse => {
-          console.log("PLACE:", placeResponse.data);
-        });
-      });
-  
-      await Promise.all(placeCreationPromises);
-  
+    console.log("DATES", dates)
+    axios.patch(`http://localhost:3000/trips/${trip.id}.json`, params).then(response=> {
+      console.log(response.data);
       onClose();
-      navigate(`/trips/${tripId}`);
-    } catch (error) {
-      console.error("Error creating trip or places:", error);
-    }
-  }
-
-  const handleSkip = (event) => {
-    setTitle(trip.title);
-    setDates({ 
-      startDate: null, 
-      endDate: null
+      navigate(`/trips/${response.data.id}`);
     });
-    handleCreateTripWithPlaces(event);
   }
 
   return (
     <div>
-      <h1 className='text-xl'>Customize Your New Trip</h1>
+      <h1 className='text-xl'>Update Trip</h1>
       <hr className='my-4'/> 
-      <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleCreateTripWithPlaces(event)}>
+      <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleUpdateTrip(event)}>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="title" value="Trip Title" />
@@ -88,17 +41,24 @@ export function UpdateTrip({onClose, trip}) {
         </div>
         <div >
           <div className="mb-2 block">
-            <Label htmlFor="title" value="Possible Dates" />
+            <Label htmlFor="title" value="Dates" />
           </div>
           <Datepicker 
+            displayFormat="MM/DD/YYYY"
             value={dates} 
             onChange={newValue => setDates(newValue)}
             placeholderText="Select possible dates"
           />
         </div>
+        <div>
+            <div className="mb-2 block">
+              <Label htmlFor="image_url" value="URL of trip image" className='text-black'/>
+            </div>
+            <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow required value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
+          </div>
         <div className=' flex flex-row space-x-2'>
           <Button className="bg-blue-700 px-2 py-0 rounded-md text-white" type="submit">Submit</Button>
-          <p onClick={(event) => handleSkip(event)} className='p-2 pl-4 underline cursor-pointer font-light'>skip customization</p>
+          <Button className="bg-blue-700 px-2 py-0 rounded-md text-white" onClick={()=>onClose()}>Cancel</Button>
         </div>
       </form>
     </div>

@@ -6,14 +6,6 @@ import axios from 'axios'
 import { useGeoLocation } from 'use-geo-location';
 
 export default function FlightHotelSearch({destinationTitle}) {
-  // text -> airport string w (DAL) at end
-  // computer lat/lng -> to get same
-
-  // destinationLocation lat / lng -> to get same
-
-  console.log("FHS loc: ", destinationTitle);
-  // console.log("FHS lng: ", lng);
-
   const [dates, setDates] = useState({ 
     startDate: null, 
     endDate: null
