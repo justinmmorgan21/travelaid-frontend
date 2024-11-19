@@ -22,7 +22,7 @@ export function PlacesCreate({onClose, trip}) {
 
   return (
     <div className='w-full border-0 border-blue-700'>
-      <h1 className='text-xl'>New Place</h1>
+      <h1 className='text-xl'>New Point of Interest</h1>
       <hr className='my-4'/> 
       <form className="flex flex-col gap-4 items-center w-full border-0 border-red-600" onSubmit={(event) => handleCreate(event, trip.id)}>
         <div className='mx-auto border-0'>

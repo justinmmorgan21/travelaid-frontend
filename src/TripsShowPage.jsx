@@ -1,5 +1,5 @@
 import { AdvancedMarker, APIProvider, Map, useMap, Pin } from "@vis.gl/react-google-maps";
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from 'react';
 import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
@@ -7,10 +7,12 @@ import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 import axios from "axios";
 import { UpdateTrip } from "./components/UpdateTrip";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 export function TripsShowPage() {
   const trip = useLoaderData();
 
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
+  const navigate = useNavigate();
 
   const fetchDefaultCenter = useCallback(() => {
     axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
@@ -54,6 +56,14 @@ export function TripsShowPage() {
     setTripUpdateModalVisible(false);
   }
 
+  const handleDeletePlace = (place) => {
+    console.log(place);
+    axios.delete(`http://localhost:3000/places/${place.id}.json`).then(response => {
+      console.log(response.data);
+      navigate(`/trips/${trip.id}`);
+    })
+  }
+
   const PoiMarkers = ({ pois }) => {
     const map = useMap();
     const handleClick = useCallback((ev) => {
@@ -82,7 +92,7 @@ export function TripsShowPage() {
 
   return (
     <div className="flex flex-col border-0 border-black">
-      <div className='mt-2 p-2 mx-auto w-4/5 bg-white border-0 rounded-lg border-gray-500'>
+      <div className=' p-2 mx-auto w-4/5 bg-white border-0 rounded-lg border-gray-500'>
         <FlightHotelSearch destinationTitle={trip.title} />
       </div>
       <div className="mx-auto w-4/5 items-center border-0 border-green-600 pt-1">
@@ -113,7 +123,10 @@ export function TripsShowPage() {
             <div className="flex flex-row justify-between mt-2">
               <div className="mt-1">
                 {trip.start_time ? 
-                  <p className="my-2 text-lg text-gray-700">Dates:  {trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
+                  <p className="my-2 text-lg text-gray-700">Dates:  
+                    {` ${trip.start_time.slice(0,3)+' '+trip.start_time.slice(trip.start_time.indexOf(' '))} to 
+                        ${trip.end_time.slice(0,3)+' '+trip.end_time.slice(trip.end_time.indexOf(' '))}`}
+                  </p>
                   :
                   <p>No Date Set</p>
                 }
@@ -122,21 +135,29 @@ export function TripsShowPage() {
             </div>
           </div>
           <hr className="mx-4 -my-2"/>
-          <h2 className="mt-6 ml-4 text-lg text-gray-700">Itinerary:</h2>
+          <h2 className="mt-8 ml-4 text-lg text-gray-700">Itinerary</h2>
           <br />
-          <Accordion collapseAll className="w-full shadow-lg">
+          <div className="mx-4">
+
+          <Accordion collapseAll className="w-full shadow-md rounded-md">
             {trip.places.map((place, i) => (
               <Accordion.Panel key={place.id}>
-                <Accordion.Title className="flex flex-row bg-white">
-                  <span className="pr-4">
-                    {locations[i].key}.
-                  </span>
-                  <span className="pr-16 font-bold text-gray-700">
-                    {place.name}  
-                  </span>
-                  <span className="">
-                    { place.start_time ? place.start_time : "No Date Set" }
-                  </span>
+                <Accordion.Title className="border-0 border-red-500">
+                  <div className="flex flex-row border-0 w-[950px] border-green-500">
+                    <span className="pr-4">
+                      {locations[i].key}.
+                    </span>
+                    <span className="font-bold text-gray-700 w-1/3">
+                      {place.name}  
+                    </span>
+                    <div className="flex-auto flex flex-row">
+                      <span className="">
+                        { place.start_time ? place.start_time : "No Date Set" }
+                      </span>
+                      <button className="rounded-sm px-2 mx-2 border-2 border-gray-300 bg-gray-200 text-black font-light -px-24  flex-initial">change</button>
+                    </div>
+                    <button className="text-gray-700 px-2  flex-initial" onClick={()=>handleDeletePlace(place)}><RiDeleteBin5Fill /></button>
+                  </div>
                 </Accordion.Title>
                 <Accordion.Content>
                   <div className="flex flex-row bg-white">
@@ -154,7 +175,8 @@ export function TripsShowPage() {
               </Accordion.Panel>
             ))}
           </Accordion>
-          <button className="bg-blue-700 ml-4 px-4 py-1 rounded text-white my-12" onClick={()=>handlePlacesCreateModalShow()}>Add a Place to your Itinerary</button>
+            </div>
+          <button className="bg-blue-700 ml-4 px-4 py-1 rounded text-white mt-4 mb-12" onClick={()=>handlePlacesCreateModalShow()}>Add a Point of Interest</button>
         </div>
         <Modal onClose={handlePlacesCreateClose} show={placesCreateModalVisible}>
           <PlacesCreate onClose={handlePlacesCreateClose} trip={trip}/>
