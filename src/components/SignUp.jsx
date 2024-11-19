@@ -47,7 +47,7 @@ export default function SignUp({ className , setSwitchAuth }) {
         </button>
       </form>
       <p className="text-center mb-0">Already have an account?{ " "}
-        <span className="text-blue-500 cursor-pointer" onClick={()=>setSwitchAuth(value => !value)}>
+        <span className="text-blue-600 cursor-pointer" onClick={()=>setSwitchAuth(value => !value)}>
           Sign In
         </span>
       </p>

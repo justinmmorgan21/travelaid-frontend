@@ -52,7 +52,7 @@ export default function SignIn({ className , setSwitchAuth}) {
         </button>
       </form>
       <p className="text-center mb-0">Don&apos;t have an account yet?{ " "}
-        <span className="text-blue-500 cursor-pointer" onClick={()=>setSwitchAuth(value => !value)}>
+        <span className="text-blue-600 cursor-pointer" onClick={()=>setSwitchAuth(value => !value)}>
           Sign Up
         </span>
       </p>
