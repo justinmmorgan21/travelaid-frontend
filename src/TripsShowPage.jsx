@@ -3,13 +3,19 @@ import {useLoaderData, useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from 'react';
 import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
-import { Accordion } from "flowbite-react";
+import { Accordion, Datepicker } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 import axios from "axios";
 import { UpdateTrip } from "./components/UpdateTrip";
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import { RiDeleteBin5Fill } from "react-icons/ri"
+import { PlacesUpdate } from "./PlacesUpdate";
+// import { MdDeleteForever } from "react-icons/md";
+// import { TiDelete } from "react-icons/ti";
 export function TripsShowPage() {
   const trip = useLoaderData();
+  const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
+  const [editDate, setEditDate] = useState(false);
+  const [placeToEdit, setPlaceToEdit] = useState(null);
 
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
   const navigate = useNavigate();
@@ -55,6 +61,15 @@ export function TripsShowPage() {
   const handleTripUpdateClose = () => {
     setTripUpdateModalVisible(false);
   }
+  
+  const [placeUpdateModalVisible, setPlaceUpdateModalVisible] = useState(false);
+  const handlePlaceUpdateModalShow = (place) => {
+    setPlaceToEdit(place)
+    setPlaceUpdateModalVisible(true);
+  }
+  const handlePlaceUpdateClose = () => {
+    setPlaceUpdateModalVisible(false);
+  }
 
   const handleDeletePlace = (place) => {
     console.log(place);
@@ -89,6 +104,42 @@ export function TripsShowPage() {
       </>
     )
   }
+
+  // const PlaceDate = ({ place }) => {
+  //   // const map = useMap();
+  //   // const handleClick = useCallback((ev) => {
+  //   //   if (!map) return;
+  //   //   if (!ev.latLng) return;
+  //   //   console.log('marker clicked:', ev.latLng.toString());
+  //   //   map.panTo(ev.latLng);
+  //   // })
+  //   console.log(place);
+  //   return (
+  //     <>
+  //       {
+  //         editDate ? 
+  //           <div className="absolute left-1/3 top-4/5">
+  //             <Datepicker id="date-picker" title="Date" name="start_time" value={new Date(place.start_time)} onChange={(date) => setSelectedDate(date)} datepicker-buttons="true"/>
+  //           </div>
+  //           :
+  //           <></>
+  //       }
+  //       {/* {pois.map((poi) => (
+  //         <AdvancedMarker
+  //           key={poi.key}
+  //           title={poi.key}
+  //           position={poi.location}
+  //           clickable={true}
+  //           onClick={handleClick}
+  //         >
+  //           <Pin background={'#FBBC04'} glyphColor={'#000'} glyph={poi.key} borderColor={'#000'} />
+  //         </AdvancedMarker>
+  //       ))} */}
+  //     </>
+  //   )
+  // }
+
+  const toggleDate = () => {setEditDate(!editDate); console.log(editDate)}
 
   return (
     <div className="flex flex-col border-0 border-black">
@@ -139,9 +190,16 @@ export function TripsShowPage() {
           <br />
           <div className="mx-4">
 
-          <Accordion collapseAll className="w-full shadow-md rounded-md">
+{/* 
+          <div >
+            <Datepicker id="date-picker" title="Date" name="start_time" value={selectedDate} onChange={(date) => setSelectedDate(date)} datepicker-buttons="true"/>
+          </div>
+          const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time)); */}
+
+
+          <Accordion collapseAll openAll className="w-full shadow-md rounded-md">
             {trip.places.map((place, i) => (
-              <Accordion.Panel key={place.id}>
+              <Accordion.Panel open key={place.id}>
                 <Accordion.Title className="border-0 border-red-500">
                   <div className="flex flex-row border-0 w-[950px] border-green-500">
                     <span className="pr-4">
@@ -150,14 +208,17 @@ export function TripsShowPage() {
                     <span className="font-bold text-gray-700 w-1/3">
                       {place.name}  
                     </span>
-                    <div className="flex-auto flex flex-row">
-                      <span className="">
+                    <div  className="flex-auto flex flex-row ">
+                      <span className="text-gray-700">
                         { place.start_time ? place.start_time : "No Date Set" }
                       </span>
-                      <button className="rounded-sm px-2 mx-2 border-2 border-gray-300 bg-gray-200 text-black font-light -px-24  flex-initial">change</button>
+                      <button className="rounded-3xl px-2 mx-3 border-2 border-gray-300 bg-gray-200 text-black text-sm font-light -px-24  flex-initial" onClick={()=>handlePlaceUpdateModalShow(place)}>change</button>
                     </div>
-                    <button className="text-gray-700 px-2  flex-initial" onClick={()=>handleDeletePlace(place)}><RiDeleteBin5Fill /></button>
+                    <button className="text-gray-700 flex-initial mr-4" onClick={()=>handleDeletePlace(place)}><RiDeleteBin5Fill /></button>
                   </div>
+                  <Modal onClose={handlePlaceUpdateClose} show={placeUpdateModalVisible}>
+                    <PlacesUpdate onClose={handlePlaceUpdateClose} place={placeToEdit} trip={trip}/>
+                  </Modal>
                 </Accordion.Title>
                 <Accordion.Content>
                   <div className="flex flex-row bg-white">
