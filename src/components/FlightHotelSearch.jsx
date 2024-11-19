@@ -1,6 +1,6 @@
 import Datepicker from "react-tailwindcss-datepicker";
 import { Button, Label, TextInput } from "flowbite-react";
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useGeoLocation } from 'use-geo-location';
@@ -16,7 +16,16 @@ export default function FlightHotelSearch({destinationTitle}) {
   const [dates, setDates] = useState({ 
     startDate: null, 
     endDate: null
-  });   
+  });
+
+  const inputDepartRef = useRef(null);
+  const handleDepartFocus = () => {
+    inputDepartRef.current.select();
+  }
+  const inputReturnRef = useRef(null);
+  const handleReturnFocus = () => {
+    inputReturnRef.current.select();
+  }
 
   const navigate = useNavigate();
   const [ searchDepartureResults, setSearchDepartureResults ] = useState({predictions: [{structured_formatting: ""}]});
@@ -25,36 +34,37 @@ export default function FlightHotelSearch({destinationTitle}) {
   const [ searchReturnResults, setSearchReturnResults ] = useState({predictions: [{structured_formatting: ""}]});
   const [ searchReturnInput, setSearchReturnInput ] = useState("");
   const [ showReturnAutocomplete, setShowReturnAutocomplete ] = useState(false)
+  const { latitude, longitude } = useGeoLocation();
 
-  
-  const { latitude, longitude, loading, error, timestamp, googleMapsResults } = useGeoLocation();
-  console.log("latitude: ", latitude);
-  console.log("longitude: ", longitude);
-  console.log("loading: ", loading);
-  console.log("error: ", error);
-  console.log("timestamp: ", timestamp);
-  console.log("googleMapsResults: ", googleMapsResults);
-  axios.get("http://127.0.0.1:3001/google-places-nearby", {
-    params: {
-      location: `${latitude},${longitude}`,
-      radius: 50000,
-      type: "airport",
-    },
-  }).then(response=> {
-    console.log("AIRPORTS RESULT: ", response.data);
-    console.log("AIRPORT: ", response.data.results[0].name)
-    axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
-      params: {
-        input: response.data.results[0].name,
-        radius: 500,
-        types: "airport",
-      },
-    }).then(response=> {
-      console.log(response.data);
-      console.log(response.data.predictions[0].structured_formatting.main_text);
-      setSearchDepartureInput(response.data.predictions[0].structured_formatting.main_text);
-    });
-  });
+  useEffect(() => {
+    if (latitude && longitude) {
+      axios
+        .get("http://127.0.0.1:3001/google-places-nearby", {
+          params: {
+            location: `${latitude},${longitude}`,
+            radius: 50000,
+            type: "airport",
+          },
+        })
+        .then((response) => {
+          console.log("AIRPORTS RESULT: ", response.data);
+          console.log("AIRPORT: ", response.data.results[0].name);
+          axios
+            .get("http://127.0.0.1:3001/google-places-autocomplete", {
+              params: {
+                input: response.data.results[0].name,
+                radius: 500,
+                types: "airport",
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              console.log(response.data.predictions[0].structured_formatting.main_text);
+              setSearchDepartureInput(response.data.predictions[0].structured_formatting.main_text);
+            });
+        });
+    }
+  }, [latitude, longitude]);
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -105,35 +115,6 @@ export default function FlightHotelSearch({destinationTitle}) {
     });
   }
 
-  // const fillReturnAirport = (text, depart, returnKnownLoc) => {
-  //   console.log(text + " " + depart + " " + returnKnownLoc);
-  //   if (depart) {
-  //     setSearchDepartureInput(text);
-  //     setShowDepartureAutocomplete(text === "" ? false : true);
-  //   } else {
-  //     setSearchReturnInput(text);
-  //     setShowReturnAutocomplete(text === "" ? false : true);
-  //   }
-  //   console.log("TEXT:", text);
-  //   axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
-  //     params: {
-  //       input: text,
-  //       radius: 500,
-  //       types: "airport",
-  //     },
-  //   }).then(response=> {
-  //     console.log(response.data);
-  //     if (returnKnownLoc) {
-  //       setSearchDepartureInput(response.data[0].structured_formatting.main_text)
-  //     } else if (depart)
-  //       setSearchDepartureResults(response.data);
-  //     else
-  //       setSearchReturnResults(response.data);
-  //   });
-  // }
-
-  // useEffect(handleTextChange(destinationTitle, false, true), [])
-
   const handleResultChoice = (choice, depart) => {
     if (depart) {
       setShowDepartureAutocomplete(false)
@@ -178,14 +159,14 @@ export default function FlightHotelSearch({destinationTitle}) {
           <div className="mb-2 block">
             <Label htmlFor="departure" value="Departure" />
           </div>
-          <TextInput id="departure" name="departure" type="text" value={searchDepartureInput} placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value, true)}/>
+          <TextInput id="departure" name="departure" type="text" value={searchDepartureInput} placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value, true)} ref={inputDepartRef} onFocus={handleDepartFocus}/>
           <SearchAutompleteList depart={true}/>
         </div>
         <div className="w-1/4">
           <div className="mb-2 block">
             <Label htmlFor="destination" value="Destination" />
           </div>
-          <TextInput id="destination" name="destination" type="text" value={searchReturnInput} placeholder="Where to?" required onChange={(event)=>handleTextChange(event.target.value, false)}/>
+          <TextInput id="destination" name="destination" type="text" value={searchReturnInput} placeholder="Where to?" required onChange={(event)=>handleTextChange(event.target.value, false)} ref={inputReturnRef} onFocus={handleReturnFocus}/>
           <SearchAutompleteList depart={false}/>
         </div>
         <div className="w-72">
