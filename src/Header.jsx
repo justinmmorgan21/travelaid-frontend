@@ -26,9 +26,9 @@ export function Header() {
   useEffect(loadUserData, []);
 
   console.log("HEADER USER", currentUser)
-
+  //<Navbar className="fixed top-0 left-0 w-full z-[10000] h-16 bg-gray-600" />
   return (
-    <Navbar fluid rounded className="bg-gray-600 text-white fixed top-0 left-0 w-full z-100">
+    <Navbar  rounded className="bg-gray-600 text-white fixed h-16 top-0 left-0 w-full z-[10000]">
       <Navbar.Brand href="/home" >
         <img src={Logo} className="mr-3 sm:h-9 w-48" alt="Flowbite React Logo" />
         {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Travel Aid</span> */}

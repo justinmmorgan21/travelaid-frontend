@@ -10,6 +10,7 @@ export default function FlightHotelSearch({destinationTitle}) {
   // computer lat/lng -> to get same
 
   // destinationLocation lat / lng -> to get same
+
   console.log("FHS loc: ", destinationTitle);
   // console.log("FHS lng: ", lng);
 
@@ -65,6 +66,24 @@ export default function FlightHotelSearch({destinationTitle}) {
         });
     }
   }, [latitude, longitude]);
+
+  useEffect(() => {
+    console.log("Destination Location:", destinationTitle);
+    if (destinationTitle) {
+      axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+        params: {
+          input: destinationTitle,
+          radius: 500,
+          types: "airport",
+        },
+      }).then(response=> {
+        if (response.data.predictions && response.data.predictions.length > 0) {
+          console.log("Destination Airport: ", response.data.predictions[0]);
+          setSearchReturnInput(response.data.predictions[0].structured_formatting.main_text);
+        }
+      });
+    }
+  }, [destinationTitle]);
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -152,14 +171,13 @@ export default function FlightHotelSearch({destinationTitle}) {
   }
 
   return (
-    <div className="border-0 border-green-600 pt-1 px-2 bg-white rounded-lg">
-      {/* Check Flights */}
+    <div className="pt-1 px-2 bg-white rounded-lg">
       <form className="flex max-w-5xl flex-row gap-4 mt-1" onSubmit={event => handleSearch(event)}>
         <div className="w-1/4">
           <div className="mb-2 block">
             <Label htmlFor="departure" value="Departure" />
           </div>
-          <TextInput id="departure" name="departure" type="text" value={searchDepartureInput} placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value, true)} ref={inputDepartRef} onFocus={handleDepartFocus}/>
+          <TextInput id="departure" name="departure" type="text" value={searchDepartureInput} placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value, true)} ref={inputDepartRef} onFocus={handleDepartFocus}  />
           <SearchAutompleteList depart={true}/>
         </div>
         <div className="w-1/4">
