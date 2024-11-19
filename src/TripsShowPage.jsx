@@ -6,6 +6,7 @@ import { PlacesCreate } from "./PlacesCreate";
 import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 import axios from "axios";
+import { UpdateTrip } from "./components/UpdateTrip";
 export function TripsShowPage() {
   const trip = useLoaderData();
 
@@ -37,13 +38,20 @@ export function TripsShowPage() {
     return {key: String.fromCharCode(65+i), location: { lat: place.lat, lng: place.lng } }
   })
   
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const handleModalShow = () => {
-    setModalVisible(true);
+  const [placesCreateModalVisible, setPlacesCreateModalVisible] = useState(false);
+  const handlePlacesCreateModalShow = () => {
+    setPlacesCreateModalVisible(true);
   }
-  const handleClose = () => {
-    setModalVisible(false);
+  const handlePlacesCreateClose = () => {
+    setPlacesCreateModalVisible(false);
+  }
+
+  const [tripUpdateModalVisible, setTripUpdateModalVisible] = useState(false);
+  const handleTripUpdateModalShow = () => {
+    setTripUpdateModalVisible(true);
+  }
+  const handleTripUpdateClose = () => {
+    setTripUpdateModalVisible(false);
   }
 
   const PoiMarkers = ({ pois }) => {
@@ -102,15 +110,19 @@ export function TripsShowPage() {
                 </APIProvider>
               </div>
             </div>
-            {
-              trip.start_time ? 
-              <p className="my-2 text-lg text-gray-700">Dates:  {trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
-              :
-              <p>No Date Set</p>
-            }
+            <div className="flex flex-row justify-between mt-2">
+              <div className="mt-1">
+                {trip.start_time ? 
+                  <p className="my-2 text-lg text-gray-700">Dates:  {trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
+                  :
+                  <p>No Date Set</p>
+                }
+              </div>
+              <button className="bg-blue-700 px-4 h-8 mt-2 rounded text-white" onClick={()=>handleTripUpdateModalShow()}>Edit Trip</button>
+            </div>
           </div>
-          <hr className="mx-4"/>
-          <h2 className="mt-6 ml-6 text-lg text-gray-700">Itinerary:</h2>
+          <hr className="mx-4 -my-2"/>
+          <h2 className="mt-6 ml-4 text-lg text-gray-700">Itinerary:</h2>
           <br />
           <Accordion collapseAll className="w-full shadow-lg">
             {trip.places.map((place, i) => (
@@ -142,10 +154,13 @@ export function TripsShowPage() {
               </Accordion.Panel>
             ))}
           </Accordion>
-          <button className="bg-blue-700 ml-4 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add a Place to your Itinerary</button>
+          <button className="bg-blue-700 ml-4 px-4 py-1 rounded text-white my-12" onClick={()=>handlePlacesCreateModalShow()}>Add a Place to your Itinerary</button>
         </div>
-        <Modal onClose={handleClose} show={modalVisible}>
-          <PlacesCreate onClose={handleClose} trip={trip}/>
+        <Modal onClose={handlePlacesCreateClose} show={placesCreateModalVisible}>
+          <PlacesCreate onClose={handlePlacesCreateClose} trip={trip}/>
+        </Modal>
+        <Modal onClose={handleTripUpdateClose} show={tripUpdateModalVisible}>
+          <UpdateTrip onClose={handleTripUpdateClose} trip={trip}/>
         </Modal>
       </div>
     </div>

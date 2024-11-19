@@ -40,6 +40,7 @@ export function TripsCreatePage() {
 
   return (
     <div className='h-screen'>
+      <br />
       <h1 className='text-4xl text-white'>New Trip</h1>
       <hr className='my-4'/>
       <div className='flex flex-row'>

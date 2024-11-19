@@ -17,9 +17,6 @@ import { FlightResult } from "./FlightResult";
 import { SuggestedTripsPage } from "./SuggestedTripsPage";
 import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg'; // Import your image
 
-import { Avatar, TextInput, Navbar } from "flowbite-react";
-import Test from "./components/Test";
-
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { SelectedFlight } from "./SelectedFlight";
 
@@ -53,25 +50,11 @@ const AppLayout = () => {
   }, []); // Empty dependency array ensures it runs only once
 
   return (
-    // <div>
-    //   {/* <Navbar className="fixed top-0 left-0 w-full z-[10000] h-16 bg-gray-600" /> */}
-    //   <Header />
-    //   <Test />
-    // </div>
-    // <div id="main" hidden={showHero}  >
-    //   <Header />
-    //     <div className="container mx-auto pt-16 pb-12 px-24 flex-auto">
-    //       <Outlet />
-    //     </div>
-    //   <Footer />
-    // </div>
-
-
     <div className="bg-cover bg-center bg-gradient-to-b from-blue-700 to-blue-200" 
     style={{ backgroundImage: `url(${BackgroundImage})`, backgroundAttachment: 'fixed', }}>
       <div id="main" hidden={showHero}  >
         <Header />
-          <div className="container mx-auto pt-16 pb-12 px-24 flex-auto">
+          <div className="container mx-auto pt-24 pb-12 px-24 flex-auto">
             <Outlet />
           </div>
         <Footer />
