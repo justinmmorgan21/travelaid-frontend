@@ -1,4 +1,4 @@
-require('dotenv').config
+require('dotenv').config()
 const { getJson } = require("serpapi");
 const { createServer } = require('node:http');
 const axios = require("axios");
@@ -6,10 +6,11 @@ const axios = require("axios");
 const hostname = '127.0.0.1';
 const port = 3001;
 
-const serpApiKey = process.env.VITE_APP_SERPAPI_KEY;
-const googleMapsKey = process.env.VITE_APP_GOOGLE_MAPS_KEY;
+const serpApiKey = process.env.SERPAPI_API_KEY;
+const googleMapsKey = process.env.GOOGLE_MAPS_API_KEY;
 
 const server = createServer(async (req, res) => {
+  
   const allowed_domain = "http://localhost:5173"; // Specify the client's domain here
   const method = req.method.toUpperCase();
 
@@ -29,6 +30,7 @@ const server = createServer(async (req, res) => {
   const searchParams = url.searchParams;
 
   if (path === "/search-flights") {
+    console.log("key", serpApiKey);
     // Handle the request for flight search
     const engine = searchParams.get("engine");
     const departure_id = searchParams.get("departure_id");
@@ -63,6 +65,7 @@ const server = createServer(async (req, res) => {
     }
 
   } else if (path === "/google-places-autocomplete") {
+    console.log("key", serpApiKey);
     // Handle the request for Google Places Autocomplete
     const input = searchParams.get("input");
     const radius = searchParams.get("radius") || 500;
@@ -97,6 +100,7 @@ const server = createServer(async (req, res) => {
       res.end(JSON.stringify({ error: error.message }));
     }
   } else if (path === "/google-places-details") {
+    console.log("key", serpApiKey);
     const place_id = searchParams.get("place_id");
 
     if (!place_id) {
@@ -126,6 +130,7 @@ const server = createServer(async (req, res) => {
       res.end(JSON.stringify({ error: error.message }));
     }
   } else if (path === "/google-places-nearby") {
+    console.log("key", serpApiKey);
     const location = searchParams.get("location");
     const radius = searchParams.get("radius") || 50000;
     const type = "airport"
