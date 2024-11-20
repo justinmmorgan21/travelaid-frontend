@@ -4,12 +4,15 @@ import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useGeoLocation } from 'use-geo-location';
+import { Alert } from "flowbite-react";
+
 
 export default function FlightHotelSearch({destinationTitle}) {
   const [dates, setDates] = useState({ 
     startDate: null, 
     endDate: null
   });
+  const [showAlert, setShowAlert] = useState(false);
 
   const inputDepartRef = useRef(null);
   const handleDepartFocus = () => {
@@ -97,7 +100,11 @@ export default function FlightHotelSearch({destinationTitle}) {
       },
     }).then(response => {
       console.log(response.data);
-      navigate("/flights", { state: response.data });
+      if (response.data.error) {
+        setShowAlert(true);
+      } else {
+        navigate("/flights", { state: response.data });
+      }
     });
   }
 
@@ -188,7 +195,20 @@ export default function FlightHotelSearch({destinationTitle}) {
               onChange={newValue => setDates(newValue)}
               /> 
         </div>
-        <Button className="bg-blue-700 text-white mt-8 h-11 border-2 rounded-md'" type="submit">Search</Button>
+        {showAlert && (
+          <div className="border-0 -mt-3">
+            <Alert color="info" className="border-0 border-green-500 p-2">
+              <span className="text-red-500 font-medium border-0 border-red-500">No matching flights!</span>
+            </Alert>
+            <Button className="bg-blue-700 text-white mt-1 h-11 border-0 rounded-md'" type="submit">Search</Button>
+          </div>
+        )}
+        {!showAlert && (
+          <Button className="bg-blue-700 text-white mt-7 h-11 border-0 rounded-md'" type="submit">Search</Button>
+        )}
+
+
+
       </form>
     </div>
   )

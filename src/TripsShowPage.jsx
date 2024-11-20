@@ -3,7 +3,7 @@ import {useLoaderData, useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from 'react';
 import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
-import { Accordion, Datepicker } from "flowbite-react";
+import { Accordion } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 import axios from "axios";
 import { UpdateTrip } from "./components/UpdateTrip";
@@ -13,8 +13,8 @@ import { PlacesUpdate } from "./PlacesUpdate";
 // import { TiDelete } from "react-icons/ti";
 export function TripsShowPage() {
   const trip = useLoaderData();
-  const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
-  const [editDate, setEditDate] = useState(false);
+  // const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
+  // const [editDate, setEditDate] = useState(false);
   const [placeToEdit, setPlaceToEdit] = useState(null);
 
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
@@ -105,42 +105,6 @@ export function TripsShowPage() {
     )
   }
 
-  // const PlaceDate = ({ place }) => {
-  //   // const map = useMap();
-  //   // const handleClick = useCallback((ev) => {
-  //   //   if (!map) return;
-  //   //   if (!ev.latLng) return;
-  //   //   console.log('marker clicked:', ev.latLng.toString());
-  //   //   map.panTo(ev.latLng);
-  //   // })
-  //   console.log(place);
-  //   return (
-  //     <>
-  //       {
-  //         editDate ? 
-  //           <div className="absolute left-1/3 top-4/5">
-  //             <Datepicker id="date-picker" title="Date" name="start_time" value={new Date(place.start_time)} onChange={(date) => setSelectedDate(date)} datepicker-buttons="true"/>
-  //           </div>
-  //           :
-  //           <></>
-  //       }
-  //       {/* {pois.map((poi) => (
-  //         <AdvancedMarker
-  //           key={poi.key}
-  //           title={poi.key}
-  //           position={poi.location}
-  //           clickable={true}
-  //           onClick={handleClick}
-  //         >
-  //           <Pin background={'#FBBC04'} glyphColor={'#000'} glyph={poi.key} borderColor={'#000'} />
-  //         </AdvancedMarker>
-  //       ))} */}
-  //     </>
-  //   )
-  // }
-
-  const toggleDate = () => {setEditDate(!editDate); console.log(editDate)}
-
   return (
     <div className="flex flex-col border-0 border-black">
       <div className=' p-2 mx-auto w-4/5 bg-white border-0 rounded-lg border-gray-500'>
@@ -190,14 +154,7 @@ export function TripsShowPage() {
           <br />
           <div className="mx-4">
 
-{/* 
-          <div >
-            <Datepicker id="date-picker" title="Date" name="start_time" value={selectedDate} onChange={(date) => setSelectedDate(date)} datepicker-buttons="true"/>
-          </div>
-          const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time)); */}
-
-
-          <Accordion collapseAll openAll className="w-full shadow-md rounded-md">
+          <Accordion collapseAll className="w-full shadow-md rounded-md">
             {trip.places.map((place, i) => (
               <Accordion.Panel open key={place.id}>
                 <Accordion.Title className="border-0 border-red-500">
