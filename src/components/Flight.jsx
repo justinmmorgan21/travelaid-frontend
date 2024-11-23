@@ -2,9 +2,10 @@
 import { FaSuitcaseRolling } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa";
 
-export function Flight({flight, onFlightSelect, selected}) {
+export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparting}) {
   console.log("SINGLE FLIGHT: ", flight);
   console.log("SELECTED: " , selected);
+  console.log("BOTH: ", bothFlights);
   return (
     <div className="w-3/4 px-6 py-2 rounded-xl flex flex-row h-24 border-2 border-gray-200 mx-auto bg-white">
       <div id="flight times" className="w-4/5 border-0 border-red-500 flex flex-row items-center justify-evenly">
@@ -36,21 +37,66 @@ export function Flight({flight, onFlightSelect, selected}) {
           <p className="text-center text-xl font-bold text-gray-600">${flight.price}</p>
         </div>
         <div hidden={!selected}>
-          <div className="flex flex-col ">
-            <span className="mb-2">Baggage Info</span>
-            <div className="flex flex-row border-0 text-gray-700">
-              <div className="h-4 mt-1 text-gray-700">
-                <FaSuitcase />
-              </div>
-              <span className="ml-2 font-light text-gray-700">1 free carry-on</span>
+          { selected && bothFlights && bothFlights.baggage_prices.together ?
+            <div>
+              { isDeparting ?
+                <div className="flex flex-col ">
+                  <span className="mb-2">Baggage Info</span>
+                  <div className="flex flex-row border-0 text-gray-700">
+                    <div className="h-4 mt-1 text-gray-700">
+                      <FaSuitcase />
+                    </div>
+                    <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices.together[0]}</span>
+                  </div>
+                  <div className="flex flex-row border-0 text-gray-700">
+                    <div className="h-4 mt-1 text-gray-700">
+                      <FaSuitcaseRolling />
+                    </div>
+                    <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices.together[1].slice(bothFlights.baggage_prices.together[1].lastIndexOf(" ")+1)}`}</span>
+                  </div>
+                </div>
+                :
+                null
+              }
             </div>
-            <div className="flex flex-row border-0 text-gray-700">
-              <div className="h-4 mt-1 text-gray-700">
-                <FaSuitcaseRolling />
+          :
+          <div>
+          {selected && isDeparting && bothFlights? 
+            <div className="flex flex-col ">
+              <span className="mb-2">Baggage Info</span>
+              <div className="flex flex-row border-0 text-gray-700">
+                <div className="h-4 mt-1 text-gray-700">
+                  <FaSuitcase />
+                </div>
+                <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices.departing[0]}</span>
               </div>
-              <span className="ml-2 font-light text-gray-700">1st checked bag: $35</span>
+              <div className="flex flex-row border-0 text-gray-700">
+                <div className="h-4 mt-1 text-gray-700">
+                  <FaSuitcaseRolling />
+                </div>
+                <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices.departing[1].slice(bothFlights.baggage_prices.departing[1].lastIndexOf(" ")+1)}`}</span>
+              </div>
             </div>
+            :
+            <div className="flex flex-col ">
+              <span className="mb-2">Baggage Info</span>
+              <div className="flex flex-row border-0 text-gray-700">
+                <div className="h-4 mt-1 text-gray-700">
+                  <FaSuitcase />
+                </div>
+                <span className="ml-2 font-light text-gray-700">{selected && bothFlights && bothFlights.baggage_prices.returning[0]}</span>
+              </div>
+              <div className="flex flex-row border-0 text-gray-700">
+                <div className="h-4 mt-1 text-gray-700">
+                  <FaSuitcaseRolling />
+                </div>
+                <span className="ml-2 font-light text-gray-700">{selected && bothFlights && `1st checked bag: $${bothFlights.baggage_prices.returning[1].slice(bothFlights.baggage_prices.returning[1].lastIndexOf(" ")+1)}`}</span>
+              </div>
+            </div>
+
+          }
           </div>
+              }
         </div>
 
         {/* <div className='w-20 opacity-60' hidden={!returnSet}>

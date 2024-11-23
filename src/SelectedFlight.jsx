@@ -34,7 +34,7 @@ export function SelectedFlight() {
             }
           </div>
 
-          <Flight flight={departureFlight} selected={true} />
+          <Flight flight={departureFlight} selected={true} bothFlights={data} isDeparting={true}/>
 
           <br />  
           <div className='mx-48 flex flex-row mb-2 text-white'>
@@ -46,7 +46,7 @@ export function SelectedFlight() {
             }
           </div>
 
-          <Flight flight={returnFlight} selected={true} />
+          <Flight flight={returnFlight} selected={true} bothFlights={data} isDeparting={false}/>
 
         </div>
       </div>
