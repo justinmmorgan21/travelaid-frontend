@@ -104,14 +104,15 @@ export default function FlightHotelSearch({destinationTitle}) {
       },
     }).then(response => {
       console.log(response.data);
+      setSearching(false);
       if (response.data.error) {
         setShowAlert(true);
         setAlertMessage("No matching flights!")
       } else {
-        setSearching(false);
         navigate("/flights", { state: response.data });
       }
     }).catch(error => {
+      setSearching(false);
       console.error("Error fetching flight data:", error);
       // Add any additional error handling here
       setShowAlert(true); // Display the alert in case of error
