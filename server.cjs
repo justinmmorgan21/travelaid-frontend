@@ -30,7 +30,7 @@ const server = createServer(async (req, res) => {
   const searchParams = url.searchParams;
 
   if (path === "/search-flights") {
-    console.log("key", serpApiKey);
+    // console.log("key", serpApiKey);
     // Handle the request for flight search
     const engine = searchParams.get("engine");
     const departure_id = searchParams.get("departure_id");
@@ -59,6 +59,7 @@ const server = createServer(async (req, res) => {
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(response));
     } catch (error) {
+      console.log("ERROR");
       res.statusCode = 500;
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify({ error: error.message }));
