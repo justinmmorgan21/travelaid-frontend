@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 // import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
 import { LuDot } from "react-icons/lu";
+import { FaRepeat } from "react-icons/fa6";
 
 export function SelectedFlight() {
   const location = useLocation();
@@ -24,6 +25,8 @@ export function SelectedFlight() {
       <hr className="mb-6"/>
       <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
         <div >
+          <h1 className='ml-48 text-4xl text-white flex flex-row items-center' >{data.selected_flights[0].flights[0].departure_airport.id} &nbsp; <FaRepeat /> &nbsp;
+          {data.selected_flights[1].flights[0].departure_airport.id} </h1>
           <h1 className='text-center text-2xl font-bold mb-6 text-white'>Selected flights</h1>
           <div className='mx-48 flex flex-row mb-2 text-white'>
             <p >Departing flight</p>

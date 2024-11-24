@@ -29,7 +29,7 @@ export function FlightResult() {
           departure_token: flight.departure_token
         },
       }).then(response => {
-        console.log(response.data);
+        console.log("Returning Flights: ", response.data);
         setDepartSet(true);
         navigate("/flights", { state: response.data });
       }).finally(() => {
@@ -66,8 +66,8 @@ export function FlightResult() {
       <hr className="mb-6"/>
       <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
         <div >
-          <p className='mx-48 text-white' hidden={departSet}>Departing flights</p>
-          <p className='mx-48 text-white' hidden={!departSet}>Return flights</p>
+          <p className='mx-48 text-white mb-1' hidden={departSet}>Departing flights</p>
+          <p className='mx-48 text-white mb-1' hidden={!departSet}>Return flights</p>
           {(data.best_flights && data.best_flights || data.other_flights).map((flight, i) => (
             <div key={i}>
               <Flight flight={flight} onFlightSelect={handleFlightSelect} selected={false}/>
