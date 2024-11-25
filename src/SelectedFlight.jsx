@@ -1,20 +1,58 @@
 import { Button } from "flowbite-react";
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react'
 // import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
 import { LuDot } from "react-icons/lu";
 import { FaRepeat } from "react-icons/fa6";
-
+import { AddFlightsModal } from "./components/AddFlightsModal";
+import { Modal } from "./Modal";
+import axios from 'axios'
 export function SelectedFlight() {
   const location = useLocation();
   const data = location.state;
-  console.log("SELECTED FLIGHT DATA:", data);
   const departureFlight = data.selected_flights[0];
   const returnFlight = data.selected_flights[1];
 
   const handleConfirmBooking = () => {
     window.open(`${data.search_metadata.google_flights_url}`, "_blank");
   }
+
+  const [trips, setTrips] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const handleClose = () => {
+    setModalVisible(false);
+  }
+
+  const handleAddFlights = () => {
+    axios.get("http://localhost:3000/trips.json").then(response => {
+      setTrips(response.data);
+      setModalVisible(true);
+    })
+  }
+
+
+
+  // id of airport to city
+  // axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+  //   params: {
+  //     type: "airport",
+  //     input: departureFlight.flights[0].departure_airport.id
+  //   },
+  // }).then((response) => {
+  //   console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
+  //   axios.get("http://127.0.0.1:3001/google-places-details", {
+  //     params: {
+  //       place_id: response.data.predictions[0].place_id,
+  //     },
+  //   }).then(resp => {
+  //     console.log(resp.data);
+  //     console.log("Airport PLACES-DETAIL result for airport city: ", resp.data.result.address_components.find(component => component.types.includes('locality')).long_name);
+  //   })
+  // })
+
+
+
 
   return (
     <div className="flex flex-col h-screen">
@@ -63,10 +101,12 @@ export function SelectedFlight() {
 
           {/* <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>onClose()}>Cancel</Button> */}
       </div>
-      {/* <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Trip</button>
+      <div className="mx-auto">
+        <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-3 rounded-md text-white ml-3" onClick={()=>handleAddFlights()}>Add flights to a trip</Button>
+      </div>
       <Modal onClose={handleClose} show={modalVisible}>
-        <TripsCreateModal onClose={handleClose}/>
-      </Modal> */}
+        <AddFlightsModal onClose={handleClose} trips={trips} flights={data.selected_flights}/>
+      </Modal>
     </div>
   );
 }

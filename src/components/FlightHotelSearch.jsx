@@ -47,8 +47,6 @@ export default function FlightHotelSearch({destinationTitle}) {
           },
         })
         .then((response) => {
-          console.log("AIRPORTS RESULT: ", response.data);
-          console.log("AIRPORT: ", response.data.results[0].name);
           axios
             .get("http://127.0.0.1:3001/google-places-autocomplete", {
               params: {
@@ -58,8 +56,6 @@ export default function FlightHotelSearch({destinationTitle}) {
               },
             })
             .then((response) => {
-              console.log(response.data);
-              console.log(response.data.predictions[0].structured_formatting.main_text);
               setSearchDepartureInput(response.data.predictions[0].structured_formatting.main_text);
             });
         });
@@ -67,7 +63,6 @@ export default function FlightHotelSearch({destinationTitle}) {
   }, [latitude, longitude]);
 
   useEffect(() => {
-    console.log("Destination Location:", destinationTitle);
     if (destinationTitle) {
       axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
         params: {
@@ -77,7 +72,6 @@ export default function FlightHotelSearch({destinationTitle}) {
         },
       }).then(response=> {
         if (response.data.predictions && response.data.predictions.length > 0) {
-          console.log("Destination Airport: ", response.data.predictions[0]);
           setSearchReturnInput(response.data.predictions[0].structured_formatting.main_text);
         }
       });
@@ -103,7 +97,6 @@ export default function FlightHotelSearch({destinationTitle}) {
         return_date,
       },
     }).then(response => {
-      console.log(response.data);
       setSearching(false);
       if (response.data.error) {
         setShowAlert(true);
@@ -121,7 +114,6 @@ export default function FlightHotelSearch({destinationTitle}) {
   }
 
   const handleTextChange = (text, depart) => {
-    console.log(text + " " + depart);
     if (depart) {
       setSearchDepartureInput(text);
       setShowDepartureAutocomplete(text === "" ? false : true);
@@ -129,7 +121,6 @@ export default function FlightHotelSearch({destinationTitle}) {
       setSearchReturnInput(text);
       setShowReturnAutocomplete(text === "" ? false : true);
     }
-    console.log("TEXT:", text);
     axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
       params: {
         input: text,
@@ -137,7 +128,7 @@ export default function FlightHotelSearch({destinationTitle}) {
         types: "airport",
       },
     }).then(response=> {
-      console.log(response.data);
+      console.log("Destination airport: ", response.data);
       if (depart)
         setSearchDepartureResults(response.data);
       else
@@ -188,14 +179,14 @@ export default function FlightHotelSearch({destinationTitle}) {
           <div className="mb-2 block">
             <Label htmlFor="departure" value="Departure" />
           </div>
-          <TextInput id="departure" name="departure" type="text" value={searchDepartureInput} placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value, true)} ref={inputDepartRef} onFocus={handleDepartFocus}  />
+          <TextInput id="departure" name="departure" type="text" value={searchDepartureInput} placeholder="Where from?" required onChange={(event)=>handleTextChange(event.target.value, true)} ref={inputDepartRef} onFocus={handleDepartFocus} />
           <SearchAutompleteList depart={true}/>
         </div>
         <div className="w-1/4">
           <div className="mb-2 block">
             <Label htmlFor="destination" value="Destination" />
           </div>
-          <TextInput id="destination" name="destination" type="text" value={searchReturnInput} placeholder="Where to?" required onChange={(event)=>handleTextChange(event.target.value, false)} ref={inputReturnRef} onFocus={handleReturnFocus}/>
+          <TextInput id="destination" name="destination" type="text" value={searchReturnInput} placeholder="Where to?" required onChange={(event)=>handleTextChange(event.target.value, false)} ref={inputReturnRef} onFocus={handleReturnFocus} />
           <SearchAutompleteList depart={false}/>
         </div>
         <div className="w-72">

@@ -30,8 +30,7 @@ const server = createServer(async (req, res) => {
   const searchParams = url.searchParams;
 
   if (path === "/search-flights") {
-    // console.log("key", serpApiKey);
-    // Handle the request for flight search
+    // Handle the request for flight search through serpapi
     const engine = searchParams.get("engine");
     const departure_id = searchParams.get("departure_id");
     const arrival_id = searchParams.get("arrival_id");
@@ -66,8 +65,7 @@ const server = createServer(async (req, res) => {
     }
 
   } else if (path === "/google-places-autocomplete") {
-    console.log("key", serpApiKey);
-    // Handle the request for Google Places Autocomplete
+    // Handle the request for Google Places Autocomplete for airports being entered into input fields
     const input = searchParams.get("input");
     const radius = searchParams.get("radius") || 500;
     const types = searchParams.get("types");
@@ -101,9 +99,10 @@ const server = createServer(async (req, res) => {
       res.end(JSON.stringify({ error: error.message }));
     }
   } else if (path === "/google-places-details") {
-    console.log("key", serpApiKey);
+    // Handle the request for Google Places details to get lat/lng closest to trip center
+    // or to get the city for an airport code
     const place_id = searchParams.get("place_id");
-
+    const type = searchParams.get("type");
     if (!place_id) {
       res.statusCode = 400;
       res.setHeader("Content-Type", "application/json");
@@ -116,6 +115,7 @@ const server = createServer(async (req, res) => {
         `https://maps.googleapis.com/maps/api/place/details/json`,
         {
           params: {
+            type,
             place_id,
             key: googleMapsKey,
           },
@@ -131,7 +131,7 @@ const server = createServer(async (req, res) => {
       res.end(JSON.stringify({ error: error.message }));
     }
   } else if (path === "/google-places-nearby") {
-    console.log("key", serpApiKey);
+    // Handle the request for Google Places nearby for airports near to user computer
     const location = searchParams.get("location");
     const radius = searchParams.get("radius") || 50000;
     const type = "airport"

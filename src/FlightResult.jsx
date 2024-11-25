@@ -7,7 +7,6 @@ export function FlightResult() {
 
   const location = useLocation();
   const data = location.state;
-  console.log("FLIGHT SEARCH:", data);
   const navigate = useNavigate();
   const [departureFlight, setDepartureFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
@@ -17,7 +16,6 @@ export function FlightResult() {
   const handleFlightSelect = (flight) => {
     if (!departSet) {
       setDepartureFlight(flight);
-      console.log("DEPARTURE TOKEN", flight.departure_token)
       setSearching(true);
       axios.get("http://localhost:3001/search-flights", {
         params: {
@@ -29,7 +27,6 @@ export function FlightResult() {
           departure_token: flight.departure_token
         },
       }).then(response => {
-        console.log("Returning Flights: ", response.data);
         setDepartSet(true);
         navigate("/flights", { state: response.data });
       }).finally(() => {
@@ -37,7 +34,6 @@ export function FlightResult() {
       });
     } else {
       setReturnFlight(flight);
-      console.log("BOOKING TOKEN", flight.booking_token)
       setSearching(true);
       axios.get("http://localhost:3001/search-flights", {
         params: {
@@ -49,7 +45,6 @@ export function FlightResult() {
           booking_token: flight.booking_token
         },
       }).then(response => {
-        console.log(response.data);
         navigate("/selected_flight", { state: { ...response.data, departureFlight, returnFlight } });
       }).finally(() => {
         setSearching(false);
@@ -66,8 +61,8 @@ export function FlightResult() {
       <hr className="mb-6"/>
       <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
         <div >
-          <p className='mx-48 text-white mb-1' hidden={departSet}>Departing flights</p>
-          <p className='mx-48 text-white mb-1' hidden={!departSet}>Return flights</p>
+          <p className='mx-48 text-white mb-2 text-center text-lg font-bold' hidden={departSet}>Departing flights</p>
+          <p className='mx-48 text-white mb-2 text-center text-lg font-bold' hidden={!departSet}>Return flights</p>
           {(data.best_flights && data.best_flights || data.other_flights).map((flight, i) => (
             <div key={i}>
               <Flight flight={flight} onFlightSelect={handleFlightSelect} selected={false}/>

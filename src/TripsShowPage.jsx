@@ -72,9 +72,7 @@ export function TripsShowPage() {
   }
 
   const handleDeletePlace = (place) => {
-    console.log(place);
-    axios.delete(`http://localhost:3000/places/${place.id}.json`).then(response => {
-      console.log(response.data);
+    axios.delete(`http://localhost:3000/places/${place.id}.json`).then(() => {
       navigate(`/trips/${trip.id}`);
     })
   }
@@ -84,7 +82,6 @@ export function TripsShowPage() {
     const handleClick = useCallback((ev) => {
       if (!map) return;
       if (!ev.latLng) return;
-      console.log('marker clicked:', ev.latLng.toString());
       map.panTo(ev.latLng);
     })
   

@@ -1,16 +1,10 @@
 
 import { FaSuitcaseRolling } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa";
-import { Accordion, Button, Timeline } from "flowbite-react";
-import { HiArrowNarrowRight } from "react-icons/hi";
+import { Accordion, Timeline } from "flowbite-react";
 import { LuDot } from "react-icons/lu";
-import { FlightResult } from "../FlightResult";
 
 export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparting}) {
-  console.log("SINGLE FLIGHT: ", flight);
-  console.log("SELECTED: " , selected);
-  console.log("BOTH: ", bothFlights);
-
   const convert_string_time = dateTime => {
     const date = new Date(dateTime);
 
@@ -142,18 +136,18 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                     <div className="">
                       <img src={flight.airline_logo} alt="" className=" w-12"/>
                     </div>
-                    <div className="className='mb-1 w-72 text-center ml-2">
+                    <div className="className='mb-1 w-56 ml-14">
                         <p className=''>
                           {new Date(flight.flights[0].departure_airport.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(" ","")} - {new Date(flight.flights[flight.flights.length-1].arrival_airport.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(" ","")}
                         </p>
                         <span className="font-light text-sm">{flight.flights[0].airline} - {flight.flights[0].flight_number}</span>
                       </div>
-                      <div className=" border-0 -mt-7 border-yellow-300">
+                      <div className=" border-0 -mt-7 ml-2 border-yellow-300">
                         <span className="flex flex-row w-24">
                           {flight.flights.length - 1} stop{flight.flights.length > 2 ? 's':''}
                         </span>
                       </div>
-                      <div className="w-40 ml-5">
+                      <div className="w-40 ml-6 mr-2">
                         <p className=''>
                           {Math.floor((flight.flights.reduce((acc, nextFlight) => acc += nextFlight.duration, 0) + flight.layovers.reduce((acc, nextLayover) => acc += nextLayover.duration, 0) )/ 60)}hr {(flight.flights.reduce((acc, nextFlight) => acc += nextFlight.duration, 0) + flight.layovers.reduce((acc, nextLayover) => acc += nextLayover.duration, 0)) % 60}min
                         </p>

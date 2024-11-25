@@ -7,7 +7,6 @@ export function TripsIndexPage() {
   const navigate = useNavigate();
 
   const handleTripsShow = (trip) => {
-    console.log("handleTripsShow", trip);
     navigate(`/trips/${trip.id}`);
   };
 
