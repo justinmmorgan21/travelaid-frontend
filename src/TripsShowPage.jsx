@@ -3,7 +3,7 @@ import {useLoaderData, useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from 'react';
 import { Modal } from "./Modal";
 import { PlacesCreate } from "./PlacesCreate";
-import { Accordion } from "flowbite-react";
+import { Accordion, Timeline } from "flowbite-react";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 import axios from "axios";
 import { UpdateTrip } from "./components/UpdateTrip";
@@ -106,62 +106,210 @@ export function TripsShowPage() {
 
   return (
     <div className="flex flex-col border-0 border-black">
-      {
-        trip.flight_booked ?
-        <div className="flex flex-col items-center mb-2">
-              <p className="text-center text-white mb-1 font-bold">Booked Flights</p>
-              <div className="border-2 border-gray-300 flex flex-row justify-evenly rounded-md bg-white w-4/5">
-                <img className="h-12" src={trip.flights[0].legs[0].airline_logo} alt="" />
-                <div>
-                  <div className="flex flex-row">
-                    {trip.flights[0].legs[0].departure_day} <LuDot className="mt-1 mx-1" /> {trip.flights[0].legs[0].departure_airport_time} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_time}
-                  </div>
-                  <p className="font-light text-sm">{trip.flights[0].legs[0].airline}</p>
-                </div>
-                <div>
-                  {trip.flights[0].total_duration}
-                  <div className="flex flex-row text-sm font-light">
-                    {trip.flights[0].legs[0].departure_airport_id} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_id}
-                  </div>
-                </div>
-                <div>
-                  {trip.flights[0].legs.length == 1 ?
-                    <p>nonstop</p>
-                    :
-                    null
-                  }
-                </div>
+      {trip.flight_booked ?
+      <div className="flex flex-col items-center mb-2 space-y-1">
+        <p className="text-white font-bold">Booked Flights</p>
+
+        {/* DEPARTING flight */}
+        <div className="border-2 border-gray-300 flex flex-row justify-evenly rounded-md bg-white w-4/5">
+          {trip.flights[0].legs.length == 1 ?
+          <div className="flex flex-row justify-evenly w-full py-1">
+            <p className="-mx-12">Departing Flight</p>
+            <img className="h-12" src={trip.flights[0].legs[0].airline_logo} alt="" />
+            <div>
+              <div className="flex flex-row">
+                {trip.flights[0].legs[0].departure_day} <LuDot className="mt-1 mx-1" /> {trip.flights[0].legs[0].departure_airport_time} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_time}
               </div>
-              <br />
-              <div className="border-2 border-gray-300 flex flex-row justify-evenly rounded-md bg-white w-4/5">
-                <img className="h-12" src={trip.flights[0].legs[0].airline_logo} alt="" />
-                <div>
-                  <div className="flex flex-row">
-                    {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_day} <LuDot className="mt-1 mx-1" /> {trip.flights[1].legs[0].departure_airport_time} - {trip.flights[1].legs[trip.flights[0].legs.length-1].arrival_airport_time}
-                  </div>
-                  <p className="font-light text-sm">{trip.flights[0].legs[0].airline}</p>
-                </div>
-                <div>
-                  {trip.flights[1].total_duration}
-                  <div className="flex flex-row text-sm font-light">
-                    {trip.flights[1].legs[0].departure_airport_id} - {trip.flights[1].legs[trip.flights[0].legs.length-1].arrival_airport_id}
-                  </div>
-                </div>
-                <div>
-                  {trip.flights[0].legs.length == 1 ?
-                    <p>nonstop</p>
-                    :
-                    null
-                  }
-                </div>
+              <p className="font-light text-sm">{trip.flights[0].legs[0].airline}</p>
+            </div>
+            <div>
+              {trip.flights[0].total_duration}
+              <div className="flex flex-row text-sm font-light">
+                {trip.flights[0].legs[0].departure_airport_id} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_id}
               </div>
             </div>
-        :
-        <div className=' p-2 mx-auto w-4/5 bg-white border-0 rounded-lg border-gray-500'>
-          <FlightHotelSearch destinationTitle={trip.title} />
+            <div>
+              <p>nonstop</p>
+            </div>
+          </div>
+          :
+          <Accordion collapseAll className="bg-white w-full mx-auto h-auto border-0 border-green-500">
+            <Accordion.Panel className="bg-white w-full">
+              <Accordion.Title className="border-0 border-red-500 bg-white w-full">
+                <div className="flex flex-row py-1 ">
+                  <p className="">Departing Flight</p>
+                  <img className="h-12 mx-16" src={trip.flights[0].legs[0].airline_logo} alt="" />
+                  <div>
+                    <div className="flex flex-row">
+                      {trip.flights[0].legs[0].departure_day} <LuDot className="mt-1 mx-1" /> {trip.flights[0].legs[0].departure_airport_time} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_time}
+                    </div>
+                    <p className="font-light text-sm">{trip.flights[0].legs[0].airline}</p>
+                  </div>
+                  <div className="mx-16">
+                    {trip.flights[0].total_duration}
+                    <div className="flex flex-row text-sm font-light">
+                      {trip.flights[0].legs[0].departure_airport_id} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_id}
+                    </div>
+                  </div>
+                  <div>
+                    <p>{trip.flights[0].legs.length - 1} stop{trip.flights[0].legs.length > 2 ? 's':''}</p>
+                    <div>
+                      {trip.flights[0].layovers.map(layover => (
+                        <p key={layover.id} className="text-sm font-light">{layover.duration} &nbsp; {layover.airport_city}</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Accordion.Title>
+              <Accordion.Content >
+                <div className="ml-32">
+                  {trip.flights[0].legs.map((oneLeg, i) => (
+                  <div key={i}>
+                    <Timeline>
+                      <Timeline.Item>
+                        <Timeline.Point />
+                        <Timeline.Content>
+                          <Timeline.Time></Timeline.Time>
+                          <div className="flex flex-row">
+                            <Timeline.Title className="mb-2 flex flex-row">{oneLeg.departure_airport_time}<LuDot className="mt-1"/> {oneLeg.departure_airport_name} ({oneLeg.departure_airport_id})</Timeline.Title>
+                          </div>
+                          <Timeline.Body>
+                            Travel time: {oneLeg.duration}
+                          </Timeline.Body>
+                        </Timeline.Content>
+                      </Timeline.Item>
+                      <Timeline.Item className="-mt-6">
+                        <Timeline.Point />
+                        <Timeline.Content>
+                          <Timeline.Time></Timeline.Time>
+                          <Timeline.Title className=" flex flex-row">{oneLeg.arrival_airport_time}<LuDot className="mt-1"/> {oneLeg.arrival_airport_name} ({oneLeg.arrival_airport_id})</Timeline.Title>
+                          <Timeline.Body></Timeline.Body>
+                        </Timeline.Content>
+                      </Timeline.Item>
+                    </Timeline>
+                    { i != trip.flights.length - 1 ?
+                    <div className="-mt-2 mb-4 ml-4">
+                      <hr />
+                      <div className="my-3 ml-2 flex flex-row">
+                        {trip.flights[0].layovers[i].duration} layover <LuDot className="mt-1"/> {oneLeg.arrival_airport_name.slice(0, oneLeg.arrival_airport_name.indexOf(" "))} ({oneLeg.arrival_airport_id})
+                      </div>
+                      <hr />
+                    </div>
+                    :
+                    null
+                    }
+                  </div>
+                  ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Panel>
+          </Accordion>
+          }
         </div>
-      }
 
+
+        {/* RETURN flight */}
+        <div className="border-2 border-gray-300 flex flex-row justify-evenly rounded-md bg-white w-4/5">
+          {trip.flights[1].legs.length == 1 ?
+          <div className="flex flex-row justify-evenly w-full py-1">
+            <p className="-mx-12">Returning Flight</p>
+            <img className="h-12" src={trip.flights[1].legs[0].airline_logo} alt="" />
+            <div>
+              <div className="flex flex-row">
+                {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_day} <LuDot className="mt-1 mx-1" /> {trip.flights[1].legs[0].departure_airport_time} - {trip.flights[1].legs[trip.flights[0].legs.length-1].arrival_airport_time}
+              </div>
+              <p className="font-light text-sm">{trip.flights[1].legs[0].airline}</p>
+            </div>
+            <div>
+              {trip.flights[1].total_duration}
+              <div className="flex flex-row text-sm font-light">
+                {trip.flights[1].legs[0].departure_airport_id} - {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_airport_id}
+              </div>
+            </div>
+            <div>
+              <p>nonstop</p>
+            </div>
+          </div>
+          :
+          <Accordion collapseAll className="bg-white w-full mx-auto h-auto border-2">
+            <Accordion.Panel className="bg-white">
+              <Accordion.Title className="border-0 border-red-500 bg-white">
+                <div className="flex flex-row py-1 ">
+                  <p className="">Returning Flight</p>
+                  <img className="h-12 mx-16" src={trip.flights[1].legs[0].airline_logo} alt="" />
+                  <div>
+                    <div className="flex flex-row">
+                      {trip.flights[1].legs[0].departure_day} <LuDot className="mt-1 mx-1" /> {trip.flights[1].legs[0].departure_airport_time} - {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_airport_time}
+                    </div>
+                    <p className="font-light text-sm">{trip.flights[1].legs[0].airline}</p>
+                  </div>
+                  <div className="mx-16">
+                    {trip.flights[1].total_duration}
+                    <div className="flex flex-row text-sm font-light">
+                      {trip.flights[1].legs[0].departure_airport_id} - {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_airport_id}
+                    </div>
+                  </div>
+                  <div>
+                    <p>{trip.flights[1].legs.length - 1} stop{trip.flights[1].legs.length > 2 ? 's':''}</p>
+                    <div>
+                      {trip.flights[1].layovers.map(layover => (
+                        <p key={layover.id} className="text-sm font-light">{layover.duration} &nbsp; {layover.airport_city}</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>  
+              </Accordion.Title>
+              <Accordion.Content >
+                <div className="ml-32">
+                  {trip.flights[1].legs.map((oneLeg, i) => (
+                  <div key={i}>
+                    <Timeline>
+                      <Timeline.Item>
+                        <Timeline.Point />
+                        <Timeline.Content>
+                          <Timeline.Time></Timeline.Time>
+                          <div className="flex flex-row">
+                            <Timeline.Title className="mb-2 flex flex-row">{oneLeg.departure_airport_time}<LuDot className="mt-1"/> {oneLeg.departure_airport_name} ({oneLeg.departure_airport_id})</Timeline.Title>
+                          </div>
+                          <Timeline.Body>
+                            Travel time: {oneLeg.duration}
+                          </Timeline.Body>
+                        </Timeline.Content>
+                      </Timeline.Item>
+                      <Timeline.Item className="-mt-6">
+                        <Timeline.Point />
+                        <Timeline.Content>
+                          <Timeline.Time></Timeline.Time>
+                          <Timeline.Title className=" flex flex-row">{oneLeg.arrival_airport_time}<LuDot className="mt-1"/> {oneLeg.arrival_airport_name} ({oneLeg.arrival_airport_id})</Timeline.Title>
+                          <Timeline.Body></Timeline.Body>
+                        </Timeline.Content>
+                      </Timeline.Item>
+                    </Timeline>
+                    { i != trip.flights.length - 1 ?
+                    <div className="-mt-2 mb-4 ml-4">
+                      <hr />
+                      <div className="my-3 ml-2 flex flex-row">
+                        {trip.flights[1].layovers[i].duration} layover <LuDot className="mt-1"/> {oneLeg.arrival_airport_name.slice(0, oneLeg.arrival_airport_name.indexOf(" "))} ({oneLeg.arrival_airport_id})
+                      </div>
+                      <hr />
+                    </div>
+                    :
+                    null
+                    }
+                  </div>
+                  ))}
+                </div>
+              </Accordion.Content>
+            </Accordion.Panel>
+          </Accordion>
+          }
+        </div>
+      </div>
+      :
+      <div className=' p-2 mx-auto w-4/5 bg-white border-0 rounded-lg border-gray-500'>
+        <FlightHotelSearch destinationTitle={trip.title} />
+      </div>
+      }
 
       <div className="mx-auto w-4/5 items-center border-0 border-green-600 pt-1">
         <a className="underline text-white" href="/trips">{'<'}- back to Upcoming Trips</a>
