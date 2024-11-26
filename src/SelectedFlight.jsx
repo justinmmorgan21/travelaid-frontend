@@ -10,6 +10,7 @@ import { Modal } from "./Modal";
 import axios from 'axios'
 export function SelectedFlight() {
   const location = useLocation();
+  console.log("SELECTED FLIGHTS: ", location.state);
   const data = location.state;
   const departureFlight = data.selected_flights[0];
   const returnFlight = data.selected_flights[1];

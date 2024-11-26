@@ -9,10 +9,12 @@ import axios from "axios";
 import { UpdateTrip } from "./components/UpdateTrip";
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { PlacesUpdate } from "./PlacesUpdate";
+import { LuDot } from "react-icons/lu";
 // import { MdDeleteForever } from "react-icons/md";
 // import { TiDelete } from "react-icons/ti";
 export function TripsShowPage() {
   const trip = useLoaderData();
+  console.log("TRIP in Show: ", trip);
   // const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
   // const [editDate, setEditDate] = useState(false);
   const [placeToEdit, setPlaceToEdit] = useState(null);
@@ -104,9 +106,63 @@ export function TripsShowPage() {
 
   return (
     <div className="flex flex-col border-0 border-black">
-      <div className=' p-2 mx-auto w-4/5 bg-white border-0 rounded-lg border-gray-500'>
-        <FlightHotelSearch destinationTitle={trip.title} />
-      </div>
+      {
+        trip.flight_booked ?
+        <div className="flex flex-col items-center mb-2">
+              <p className="text-center text-white mb-1 font-bold">Booked Flights</p>
+              <div className="border-2 border-gray-300 flex flex-row justify-evenly rounded-md bg-white w-4/5">
+                <img className="h-12" src={trip.flights[0].legs[0].airline_logo} alt="" />
+                <div>
+                  <div className="flex flex-row">
+                    {trip.flights[0].legs[0].departure_day} <LuDot className="mt-1 mx-1" /> {trip.flights[0].legs[0].departure_airport_time} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_time}
+                  </div>
+                  <p className="font-light text-sm">{trip.flights[0].legs[0].airline}</p>
+                </div>
+                <div>
+                  {trip.flights[0].total_duration}
+                  <div className="flex flex-row text-sm font-light">
+                    {trip.flights[0].legs[0].departure_airport_id} - {trip.flights[0].legs[trip.flights[0].legs.length-1].arrival_airport_id}
+                  </div>
+                </div>
+                <div>
+                  {trip.flights[0].legs.length == 1 ?
+                    <p>nonstop</p>
+                    :
+                    null
+                  }
+                </div>
+              </div>
+              <br />
+              <div className="border-2 border-gray-300 flex flex-row justify-evenly rounded-md bg-white w-4/5">
+                <img className="h-12" src={trip.flights[0].legs[0].airline_logo} alt="" />
+                <div>
+                  <div className="flex flex-row">
+                    {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_day} <LuDot className="mt-1 mx-1" /> {trip.flights[1].legs[0].departure_airport_time} - {trip.flights[1].legs[trip.flights[0].legs.length-1].arrival_airport_time}
+                  </div>
+                  <p className="font-light text-sm">{trip.flights[0].legs[0].airline}</p>
+                </div>
+                <div>
+                  {trip.flights[1].total_duration}
+                  <div className="flex flex-row text-sm font-light">
+                    {trip.flights[1].legs[0].departure_airport_id} - {trip.flights[1].legs[trip.flights[0].legs.length-1].arrival_airport_id}
+                  </div>
+                </div>
+                <div>
+                  {trip.flights[0].legs.length == 1 ?
+                    <p>nonstop</p>
+                    :
+                    null
+                  }
+                </div>
+              </div>
+            </div>
+        :
+        <div className=' p-2 mx-auto w-4/5 bg-white border-0 rounded-lg border-gray-500'>
+          <FlightHotelSearch destinationTitle={trip.title} />
+        </div>
+      }
+
+
       <div className="mx-auto w-4/5 items-center border-0 border-green-600 pt-1">
         <a className="underline text-white" href="/trips">{'<'}- back to Upcoming Trips</a>
         <h1 className="text-4xl my-8 text-white">{trip.title}</h1>
