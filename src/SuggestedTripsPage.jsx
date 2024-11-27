@@ -6,7 +6,7 @@ import { MdFmdGood } from "react-icons/md";
 import { Button, Tooltip } from "flowbite-react";
 
 
-export function SuggestedTripsPage() {
+export function SuggestedTripsPage({modalShow, setShowHero}) {
   const suggestedTrips = useLoaderData();
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTrip, setCurrentTrip] = useState(null);
@@ -14,6 +14,12 @@ export function SuggestedTripsPage() {
   console.log("SuggestedPage")
   const handleClose = () => {
     setModalVisible(false);
+  }
+
+  const handleLogin = () => {
+    console.log("LOGIN");
+    modalShow();
+    setShowHero(true);
   }
 
   // const handleModalShow = () => {
@@ -68,8 +74,8 @@ export function SuggestedTripsPage() {
               </div>
               <div className="w-full flex justify-end flex-end">
                 {localStorage.jwt === undefined ?
-                <Tooltip content={`must be logged in to add Suggested Trips`} placement="top" style="dark" className="max-w-screen-md">
-                  <Button className="bg-blue-700 -px-4 -py-1 rounded-md text-white" type="button">Add to Trips</Button>
+                <Tooltip content={`must be logged in to add Suggested Trips`} placement="top" style="dark" className="py-2 px-4">
+                  <Button className="bg-blue-700 -px-4 -py-1 rounded-md text-white" type="button" onClick={()=>{handleLogin()}}>Add to Trips</Button>
                 </Tooltip>
                 :
                 <Button className="bg-blue-700 -px-4 -py-1 rounded-md text-white" type="button" onClick={() => { setModalVisible(true); setCurrentTrip(trip)}}>Add to Trips</Button>

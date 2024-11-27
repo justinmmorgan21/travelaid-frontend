@@ -30,6 +30,11 @@ export function Header({setShowHero, modalShow}) {
     setShowHero(true);
   }
 
+  const handleSuggestedClick = () => {
+    navigate("/suggested");
+    setShowHero(false);
+  }
+
   useEffect(loadUserData, []);
 
   console.log("HEADER USER", currentUser)
@@ -41,6 +46,19 @@ export function Header({setShowHero, modalShow}) {
         {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Travel Aid</span> */}
       </Navbar.Brand>
       <div className="flex md:order-2">
+        { localStorage.jwt === undefined ?
+        <Dropdown
+          arrowIcon={false}
+          inline
+          label={
+            <Avatar size="md" alt="User settings" img={currentUser.image_url} rounded />
+          }
+        >
+          <Dropdown.Item onClick={()=> {window.location.href = "/home"}}>Home</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item onClick={()=>handleLogin()}>Sign in</Dropdown.Item>
+        </Dropdown>
+        :
         <Dropdown
           arrowIcon={false}
           inline
@@ -53,17 +71,11 @@ export function Header({setShowHero, modalShow}) {
             <span className="block truncate text-sm ">{currentUser.email}</span>
           </Dropdown.Header>
           <Dropdown.Item onClick={()=> {window.location.href = "/home"}}>Home</Dropdown.Item>
-          <Dropdown.Item>
-            <Link to="/userSettings" state={{ currentUser }}>Settings</Link>
-          </Dropdown.Item>
+          <Dropdown.Item> <Link to="/userSettings" state={{ currentUser }}>Settings</Link></Dropdown.Item>
           <Dropdown.Divider />
-          {
-            localStorage.jwt === undefined ?
-            <Dropdown.Item onClick={()=>handleLogin()}>Sign in</Dropdown.Item>
-            :
-            <Dropdown.Item onClick={()=>handleLogout()}>Sign out</Dropdown.Item>
-          }
+          <Dropdown.Item onClick={()=>handleLogout()}>Sign out</Dropdown.Item>
         </Dropdown>
+        }
         <Navbar.Toggle />
       </div>
       {
@@ -72,12 +84,12 @@ export function Header({setShowHero, modalShow}) {
         <Navbar.Link onClick={()=>{setShowHero(true);}}  className="cursor-pointer text-white text-lg font-light">
           Home
         </Navbar.Link>
-        <Navbar.Link className="cursor-pointer text-white text-lg font-light">
-          <Tooltip content={`must be logged in to create New Trips`} placement="top" style="dark" className=" max-w-screen-md">
+        <Navbar.Link onClick={()=>{handleLogin()}} className="cursor-pointer text-white text-lg font-light">
+          <Tooltip content={`must be logged in to create New Trips`} placement="top" style="dark" className="py-2 px-4">
             New Trip
           </Tooltip>
         </Navbar.Link>
-        <Navbar.Link onClick={()=>{navigate("/suggested");setShowHero(false);}} className="cursor-pointer text-white text-lg font-light">Suggested Trips
+        <Navbar.Link onClick={()=>{handleSuggestedClick()}} className="cursor-pointer text-white text-lg font-light">Suggested Trips
         {/* <Navbar.Link onClick={()=>handleSuggestedNoLogIn()} className="custom-hover text-white text-lg font-light">Suggested Trips */}
         </Navbar.Link>
         <Navbar.Link onClick={()=>{navigate("/contact");setShowHero(false);}} className="cursor-pointer text-white text-lg font-light">Contact</Navbar.Link>
