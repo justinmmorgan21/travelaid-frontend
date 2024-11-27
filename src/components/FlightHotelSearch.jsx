@@ -34,6 +34,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
   const [ searchReturnResults, setSearchReturnResults ] = useState({predictions: [{structured_formatting: ""}]});
   const [ searchReturnInput, setSearchReturnInput ] = useState("");
   const [ showReturnAutocomplete, setShowReturnAutocomplete ] = useState(false)
+  
   const { latitude, longitude } = useGeoLocation();
 
   useEffect(() => {
@@ -129,7 +130,6 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
         types: "airport",
       },
     }).then(response=> {
-      console.log("Destination airport: ", response.data);
       if (depart)
         setSearchDepartureResults(response.data);
       else

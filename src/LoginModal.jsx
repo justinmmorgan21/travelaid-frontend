@@ -14,10 +14,6 @@ export function LoginModal({ children, show, onClose }) {
     <div className="modal-background" onClick={handleBackgroundClick}>
       <section className="login-modal-main" onClick={(e) => e.stopPropagation()}>
         {children}
-        {/* Close button, if needed */}
-        {/* <button className="close" type="button" onClick={onClose}>
-          &#x2715;
-        </button> */}
       </section>
     </div>
   );

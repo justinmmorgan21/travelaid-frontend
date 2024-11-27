@@ -3,13 +3,9 @@ import emailjs from '@emailjs/browser';
 import { Button, Textarea, Label, TextInput } from "flowbite-react";
 import { HiMail, HiPhone } from "react-icons/hi";
 import { useLoaderData } from "react-router-dom";
-// import PhoneInput from "react-phone-number-input";
-// import 'react-phone-number-input/style.css'
 
 export function Contact() {
   const current_user = useLoaderData();
-  console.log("Contact: ", current_user);
-  // const [phoneNumber, setPhoneNumber] = useState("");
   const form = useRef();
   
   const sendEmail = (e) => {
@@ -21,7 +17,6 @@ export function Contact() {
       })
       .then(
         () => {
-          console.log('SUCCESS!');
           e.target.reset();
           alert("Email has been successfully sent!");
         },
@@ -74,14 +69,4 @@ export function Contact() {
       </form>
     </div>
   );
-          // {/* <PhoneInput 
-          //   type="text" 
-          //   name="phone_number"
-          //   defaultCountry="US"
-          //   value={phoneNumber}
-          //   onChange={setPhoneNumber} 
-          //   placeholder="Phone Number" 
-          //   required
-          // /> */}
-
 }

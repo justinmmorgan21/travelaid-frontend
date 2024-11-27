@@ -3,19 +3,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Label, Datepicker } from "flowbite-react";
 export function PlacesUpdate({onClose, place, trip}) {
-  console.log("Place: ", place);
-  console.log("Trip: ", trip);
   const [selectedDate, setSelectedDate] = useState(place.start_time ? new Date(place.start_time) : trip.start_time ? new Date(trip.start_time) : new Date() );
   
   const navigate = useNavigate();
 
   const handleUpdate = (date) => {
-    console.log(date);
     const params = new FormData();
     setSelectedDate(date);
     params.append('start_time', date);
-    axios.patch(`http://localhost:3000/places/${place.id}.json`, params).then(response=> {
-      console.log(response.data);
+    axios.patch(`http://localhost:3000/places/${place.id}.json`, params).then(()=> {
       onClose();
       navigate(`/trips/${trip.id}`);
     });

@@ -15,41 +15,30 @@ import Home from "./Home";
 import { Contact } from "./Contact";
 import { FlightResult } from "./FlightResult";
 import { SuggestedTripsPage } from "./SuggestedTripsPage";
-import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg'; // Import your image
-
+import { TripsPastIndexPage } from "./TripsPastIndexPage";
+import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { SelectedFlight } from "./SelectedFlight";
 
 
 const AppLayout = () => {
   const [showHero, setShowHero] = useState(false);
-  // const [currentUser, setCurrentUser] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleModalShow = () => {
-    console.log("MODAL VISIBLE")
     setModalVisible(true);
   }
   const handleClose = () => {
     setModalVisible(false);
   }
 
-  // const getUser = () => {
-  //   axios.get("http://localhost:3000/users/current.json").then(response => {
-  //     setCurrentUser(response.data);
-  //   })
-  // }
-
-  // useEffect(getUser, []);
-
   useEffect(() => {
-    console.log("EFFECT")
     if (localStorage.jwt === undefined) {
       setShowHero(true);
     } else {
       setShowHero(false);
     }
-  }, []); // Empty dependency array ensures it runs only once
+  }, []);
 
   return (
     <div className="bg-cover bg-center bg-gradient-to-b from-blue-700 to-blue-200" 
@@ -106,6 +95,11 @@ const router = createBrowserRouter([
       {
         path: "/trips/new",
         element: <TripsCreatePage />
+      },
+      {
+        path: "/trips/past",
+        element: <TripsPastIndexPage />,
+        loader: () => axios.get("http://localhost:3000/trips/past.json").then(response => response.data)
       },
       {
         path: "/contact",

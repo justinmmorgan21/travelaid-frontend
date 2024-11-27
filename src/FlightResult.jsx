@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Flight } from './components/Flight';
 import axios from 'axios';
-// import { Spinner } from "flowbite-react";
 export function FlightResult() {
 
   const location = useLocation();
@@ -84,18 +83,6 @@ export function FlightResult() {
         </div>
          : null
       }
-
-      {/* <button className="bg-blue-500 px-4 py-1 rounded text-white my-12" onClick={()=>handleModalShow()}>Add Trip</button>
-      <Modal onClose={handleClose} show={modalVisible}>
-        <TripsCreateModal onClose={handleClose}/>
-      </Modal> */}
     </div>
   );
 }
-              // <div className='w-20 opacity-60' hidden={!returnSet}>
-              //   <ProgressBar >
-              //     <ProgressBar variant="success" now={30} key={1} />
-              //     <ProgressBar variant="warning" now={40} key={2} />
-              //     <ProgressBar variant="danger" now={30} key={3} />
-              //   </ProgressBar> */}
-              // </div>

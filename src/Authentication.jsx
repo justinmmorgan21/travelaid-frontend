@@ -1,7 +1,7 @@
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import { useState } from 'react';
-import Logo from './assets/Screenshot 2024-11-18 at 11.13.32 AM copy.png';
+import Logo from './assets/authentication-logo.png';
 export function Authentication() {
 
   const [switchAuth, setSwitchAuth] = useState(false);
@@ -9,7 +9,6 @@ export function Authentication() {
   return (
     <div className="flex justify-center items-center">
       <div className="bg-white m-2 w-full sm:w-96 flex justify-center flex-col p-5 rounded-md border shadow">
-        {/* <h1 className="text-center mt-8 mb-8 text-3xl font-bold">Welcome to TravelAid!</h1> */}
         <img src={Logo} alt="" />
         <div className="w-full h-1 bg-gray-300 "></div>
         <div className="m-4"></div>

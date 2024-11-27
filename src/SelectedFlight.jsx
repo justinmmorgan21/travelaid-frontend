@@ -10,7 +10,6 @@ import { Modal } from "./Modal";
 import axios from 'axios'
 export function SelectedFlight() {
   const location = useLocation();
-  console.log("SELECTED FLIGHTS: ", location.state);
   const data = location.state;
   const departureFlight = data.selected_flights[0];
   const returnFlight = data.selected_flights[1];
@@ -31,29 +30,6 @@ export function SelectedFlight() {
       setModalVisible(true);
     })
   }
-
-
-
-  // id of airport to city
-  // axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
-  //   params: {
-  //     type: "airport",
-  //     input: departureFlight.flights[0].departure_airport.id
-  //   },
-  // }).then((response) => {
-  //   console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
-  //   axios.get("http://127.0.0.1:3001/google-places-details", {
-  //     params: {
-  //       place_id: response.data.predictions[0].place_id,
-  //     },
-  //   }).then(resp => {
-  //     console.log(resp.data);
-  //     console.log("Airport PLACES-DETAIL result for airport city: ", resp.data.result.address_components.find(component => component.types.includes('locality')).long_name);
-  //   })
-  // })
-
-
-
 
   return (
     <div className="flex flex-col h-screen">
@@ -99,8 +75,6 @@ export function SelectedFlight() {
             <p className='text-gray-700 text-2xl'>${data.price_insights.lowest_price}</p>
             <p className='text-gray-700 text-sm font-light'>Lowest Total Price</p>
           </div>
-
-          {/* <Button className="bg-blue-500 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>onClose()}>Cancel</Button> */}
       </div>
       <div className="mx-auto">
         <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-3 rounded-md text-white ml-3" onClick={()=>handleAddFlights()}>Add flights to a trip</Button>

@@ -10,13 +10,8 @@ import { UpdateTrip } from "./components/UpdateTrip";
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { PlacesUpdate } from "./PlacesUpdate";
 import { LuDot } from "react-icons/lu";
-// import { MdDeleteForever } from "react-icons/md";
-// import { TiDelete } from "react-icons/ti";
 export function TripsShowPage() {
   const trip = useLoaderData();
-  console.log("TRIP in Show: ", trip);
-  // const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
-  // const [editDate, setEditDate] = useState(false);
   const [placeToEdit, setPlaceToEdit] = useState(null);
 
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
@@ -322,8 +317,7 @@ export function TripsShowPage() {
                 <APIProvider apiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY} onLoad={() => console.log('Maps API has loaded')}>
                   <Map
                     defaultZoom={trip.places.length != 0 ? trip.initial_zoom : 10}
-                    defaultCenter={ 
-                      { lat: trip.center[0] , lng: trip.center[1] }}
+                    defaultCenter={ { lat: trip.center[0] , lng: trip.center[1] } }
                       mapId='97aaa7a8b424bee5'
                       onCameraChanged={(ev) =>
                         console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)

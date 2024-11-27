@@ -8,9 +8,7 @@ export function TripsCreateModal({onClose}) {
   const handleCreate = (event) => {
     event.preventDefault();
     const params = new FormData(event.target);
-    console.log(params);
     axios.post("http://localhost:3000/trips.json", params).then(response=> {
-      console.log(response.data);
       onClose();
       navigate(`/trips/${response.data.id}`);
     });

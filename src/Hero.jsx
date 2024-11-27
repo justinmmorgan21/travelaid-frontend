@@ -1,5 +1,5 @@
 import SplashImage2 from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg';
-import Logo from './assets/Screenshot 2024-11-18 at 9.49.45 AM copy.png';
+import Logo from './assets/hero-image.png';
 import FlightHotelSearch from "./components/FlightHotelSearch";
 
 export function Hero({ modalShow, setShowHero }) {

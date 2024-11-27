@@ -8,12 +8,10 @@ export default function SignUp({ className , setSwitchAuth }) {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
-    // params.append('image', image);
     axios.post("http://localhost:3000/users.json", params)
-      .then((response) => {
-        console.log("SIGN UP", response.data);
+      .then(() => {
         axios.post("http://localhost:3000/sessions.json", params).then((resp) => {
-          console.log("AFTER SIGN UP, SIGN IN", resp.data);
+          // after sign up, continue with sign in
           axios.defaults.headers.common["Authorization"] = "Bearer " + resp.data.jwt;
           localStorage.setItem("jwt", resp.data.jwt);
           event.target.reset();

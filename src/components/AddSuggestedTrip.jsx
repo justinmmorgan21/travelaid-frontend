@@ -5,7 +5,6 @@ import { Button, Label, TextInput } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
 
 export function AddSuggestedTrip({onClose, trip}) {
-  console.log("TRIP: ", trip);
   const [title, setTitle] = useState(trip.title);
   const [dates, setDates] = useState({ 
     startDate: null, 
@@ -29,17 +28,6 @@ export function AddSuggestedTrip({onClose, trip}) {
 
     try {
       const tripResponse = await axios.post("http://localhost:3000/trips.json", params);
-      console.log("TRIP:", tripResponse.data);
-      // Trip has been created with
-      // id - generated through creation
-      // user_id - added by create action in backend
-      // title - through event
-      // image_url - appended
-      // dates - appended
-      // does not have the places yet
-      // map through trip.places and create a new Place
-      // for each one with a trip id to match the one
-      // just created
       const tripId = tripResponse.data.id;
       // Use Promise.all to wait for all places to be created
       const placeCreationPromises = trip.places.map(place => {
@@ -52,8 +40,7 @@ export function AddSuggestedTrip({onClose, trip}) {
         placeParams.append("description", place.description);
         placeParams.append("image_url", place.image_url);
   
-        return axios.post("http://localhost:3000/places.json", placeParams).then(placeResponse => {
-          console.log("PLACE:", placeResponse.data);
+        return axios.post("http://localhost:3000/places.json", placeParams).then(() => {
         });
       });
   

@@ -5,17 +5,15 @@ import { Accordion, Timeline } from "flowbite-react";
 import { LuDot } from "react-icons/lu";
 
 export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparting}) {
+  
   const convert_string_time = dateTime => {
     const date = new Date(dateTime);
-
     // Extract hours and minutes
     let hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, "0");
-
     // Determine AM or PM
     const period = hours >= 12 ? "pm" : "am";
     hours = hours % 12 || 12; // Convert to 12-hour format, with 12 as the fallback for 0
-
     // Format the time
     return `${hours}:${minutes}${period}`;
   }
@@ -162,13 +160,6 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                     <div hidden={selected} className="border-0">
                       <p className="text-xl font-bold text-gray-600 ml-8">${flight.price}</p>
                     </div>
-
-
-
-
-
-
-
                     <div hidden={!selected}>
                       { selected && bothFlights && bothFlights.baggage_prices && bothFlights.baggage_prices.together ?  
                           <div className="border-0 border-green-500 pl-2 -pr-6">
@@ -192,9 +183,7 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                                 <div className="border-0 border-red-500 ml-44"></div>
                             }
                           </div>
-
                         :
-                        
                           <div>
                             {selected && isDeparting && bothFlights? 
                                 <div className="flex flex-col ">
@@ -233,12 +222,6 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                           </div>
                       }
                     </div>
-
-
-
-
-
-
                   </div>
                 </div>
               </Accordion.Title>

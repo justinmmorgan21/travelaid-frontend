@@ -17,25 +17,17 @@ export function AddFlightsModal({onClose, trips, flights}) {
   let returnLayoversDone = returnFlight.flights.length == 1;
 
   const getCity = address => {
-    // console.log(address);
     for (let i = 0; i < 3; i++) {
       address = address.slice(0, address.lastIndexOf(" "));
-      // console.log(address);
     }
-    // console.log(address.slice(address.includes(" ") ? address.indexOf(" ") : 0, address.length - 1));
     return address.slice(address.includes(" ") ? address.indexOf(" ") : 0, address.length - 1);
   }
 
   const handleAddFlights = (trip) => {
     setSearching(true);
-    // add all flight info to trip in database
-    console.log("depart: ", departureFlight);
-    console.log("return: ", returnFlight);
-    // use spinning wheel while the below is executing...
     const tripUpdateFlightParams = new FormData();
     tripUpdateFlightParams.append('flight_booked', true);
     axios.patch(`http://localhost:3000/trips/${trip.id}.json`, tripUpdateFlightParams).then(() => {
-      // make a new Flight, like flight 12 with a trip_id = trip.id, "departing", and total_duration = departureFlight.total_duration
       const departureParams = new FormData();
       departureParams.append('trip_id', trip.id);
       departureParams.append('direction', "departing");
@@ -44,10 +36,8 @@ export function AddFlightsModal({onClose, trips, flights}) {
       // Create DEPARTING FLIGHT, then create legs and layovers for it, on last leg and last layover, check if all have been done
       axios.post("http://localhost:3000/flights.json", departureParams).then(flightCreateResponse=> 
       {
-        // console.log("Flight Create Response: ", flightCreateResponse.data);
         // make a new Leg for each element from departureFlight.flights : flight_id from flight just made, doing another proxy server request to get city, and convert times in backend
         departureFlight.flights.map((leg,i) => {
-          console.log("Leg " + i + ": ", leg);
           let departureCity = null;
           // id of airport to city
           axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
@@ -56,14 +46,11 @@ export function AddFlightsModal({onClose, trips, flights}) {
               input: leg.departure_airport.id
             },
           }).then((response) => {
-            // console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
             axios.get("http://127.0.0.1:3001/google-places-details", {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
             }).then(response => {
-              // console.log(response.data);
-              // console.log("Airport PLACES-DETAIL result for airport city: ", response.data.result.address_components.find(component => component.types.includes('locality')).long_name);
               departureCity = response.data.result.address_components.find(component => component.types.includes('locality')) ? response.data.result.address_components.find(component => component.types.includes('locality')).long_name : getCity(response.data.result.formatted_address);
 
               let arrivalCity = null;
@@ -74,15 +61,11 @@ export function AddFlightsModal({onClose, trips, flights}) {
                   input: leg.arrival_airport.id
                 },
               }).then((response) => {
-                // console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
                 axios.get("http://127.0.0.1:3001/google-places-details", {
                   params: {
                     place_id: response.data.predictions[0].place_id,
                   },
                 }).then(response => {
-                  // console.log(response.data);
-                  // console.log("Airport PLACES-DETAIL result for airport city: ", response.data.result.address_components.find(component => component.types.includes('locality')).long_name);
-                  // console.log("Airport PLACES-DETAIL result for airport city from formatted address: ", response.data.result.formatted_address);
                   arrivalCity = response.data.result.address_components.find(component => component.types.includes('locality')) ? response.data.result.address_components.find(component => component.types.includes('locality')).long_name : getCity(response.data.result.formatted_address);
 
                   const legParams = new FormData();
@@ -128,14 +111,11 @@ export function AddFlightsModal({onClose, trips, flights}) {
               input: layover.id
             },
           }).then((response) => {
-            // console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
             axios.get("http://127.0.0.1:3001/google-places-details", {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
             }).then(response => {
-              // console.log(response.data);
-              // console.log("Airport PLACES-DETAIL result for airport city: ", response.data.result.address_components.find(component => component.types.includes('locality')).long_name);
               layoverCity = response.data.result.address_components.find(component => component.types.includes('locality')) ? response.data.result.address_components.find(component => component.types.includes('locality')).long_name : getCity(response.data.result.formatted_address);
               
               const layoverParams = new FormData();
@@ -167,7 +147,6 @@ export function AddFlightsModal({onClose, trips, flights}) {
       returnParams.append('total_duration', returnFlight.total_duration);
       axios.post("http://localhost:3000/flights.json", returnParams).then(flightCreateResponse=> 
       {
-        // console.log(flightCreateResponse.data);
         // make a new Leg for each element from departureFlight.flights : flight_id from flight just made, doing another proxy server request to get city, and convert times in backend
         returnFlight.flights.map((leg,i) => {
           let departureCity = null;
@@ -178,14 +157,11 @@ export function AddFlightsModal({onClose, trips, flights}) {
               input: leg.departure_airport.id
             },
           }).then((response) => {
-            // console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
             axios.get("http://127.0.0.1:3001/google-places-details", {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
             }).then(response => {
-              // console.log(response.data);
-              // console.log("Airport PLACES-DETAIL result for airport city: ", response.data.result.address_components.find(component => component.types.includes('locality')).long_name);
               departureCity = response.data.result.address_components.find(component => component.types.includes('locality')) ? response.data.result.address_components.find(component => component.types.includes('locality')).long_name : getCity(response.data.result.formatted_address);
 
               let arrivalCity = null;
@@ -196,14 +172,11 @@ export function AddFlightsModal({onClose, trips, flights}) {
                   input: leg.arrival_airport.id
                 },
               }).then((response) => {
-                // console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
                 axios.get("http://127.0.0.1:3001/google-places-details", {
                   params: {
                     place_id: response.data.predictions[0].place_id,
                   },
                 }).then(response => {
-                  // console.log(response.data);
-                  // console.log("Airport PLACES-DETAIL result for airport city: ", response.data.result.address_components.find(component => component.types.includes('locality')).long_name);
                   arrivalCity = response.data.result.address_components.find(component => component.types.includes('locality')) ? response.data.result.address_components.find(component => component.types.includes('locality')).long_name : getCity(response.data.result.formatted_address);
                   const legParams = new FormData();
                   legParams.append('flight_id', flightCreateResponse.data.id);
@@ -248,14 +221,11 @@ export function AddFlightsModal({onClose, trips, flights}) {
               input: layover.id
             },
           }).then((response) => {
-            // console.log("Airport AUTOCOMPLETE result for place_id: ", response.data.predictions[0].place_id);
             axios.get("http://127.0.0.1:3001/google-places-details", {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
             }).then(response => {
-              // console.log(response.data);
-              // console.log("Airport PLACES-DETAIL result for airport city: ", response.data.result.address_components.find(component => component.types.includes('locality')).long_name);
               layoverCity = response.data.result.address_components.find(component => component.types.includes('locality')) ? response.data.result.address_components.find(component => component.types.includes('locality')).long_name : getCity(response.data.result.formatted_address);
               
               const layoverParams = new FormData();

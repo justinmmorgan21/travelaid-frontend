@@ -8,7 +8,6 @@ export default function UserSettings() {
   
   const { state } = useLocation();
   const currentUser = state?.currentUser;
-  console.log("SETTINGS USER", currentUser)
 
   const [image, setImage] = useState({});
   
@@ -23,8 +22,7 @@ export default function UserSettings() {
     const isFileSelected = image instanceof File;
     params.append('image', isFileSelected ? image : "no-image");
     axios.patch(`http://localhost:3000/users/${currentUser.id}.json`, params)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         event.target.reset();
         window.location.href = "/";
       })

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Textarea, Label, TextInput, Datepicker } from "flowbite-react";
 import { AiFillEnvironment } from "react-icons/ai";
 export function PlacesCreate({onClose, trip}) {
-  console.log(trip);
   const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
   
   const navigate = useNavigate();
@@ -13,8 +12,7 @@ export function PlacesCreate({onClose, trip}) {
     event.preventDefault();
     const params = new FormData(event.target);
     params.append('trip_id', trip_id);
-    axios.post("http://localhost:3000/places.json", params).then(response=> {
-      console.log(response.data);
+    axios.post("http://localhost:3000/places.json", params).then(()=> {
       onClose();
       navigate(`/trips/${trip_id}`);
     });

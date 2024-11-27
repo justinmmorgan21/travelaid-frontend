@@ -1,9 +1,7 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { SlActionRedo } from "react-icons/sl";
 
-export function TripsIndexPage() {
+export function TripsPastIndexPage() {
   const trips = useLoaderData();
-  
   const navigate = useNavigate();
 
   const handleTripsShow = (trip) => {
@@ -11,16 +9,10 @@ export function TripsIndexPage() {
   };
 
   return (
-    <div className="flex flex-col bg-transparent" >
+    <div className="flex flex-col bg-transparent h-screen" >
       <br />
       <div className="flex flex-row mb-6">
-        <h1 className="text-4xl flex-grow text-white">Upcoming Trips</h1>
-        <button className="bg-blue-500 rounded text-white flex-end px-2" onClick={()=>navigate(`/trips/past`)}>
-          <div className="flex flex-row">
-           <span >Past Trips</span>
-           <SlActionRedo className="ml-2 mt-1"/>
-          </div>
-        </button>
+        <h1 className="text-4xl flex-grow text-white">Past Trips</h1>
       </div>
       <hr className="mb-6"/>
       <div className="grid grid-cols-3 gap-16">
@@ -40,7 +32,8 @@ export function TripsIndexPage() {
           </div>
         ))}
       </div>
-      <br /><br />
+      <br />
+      <br />
     </div>
   );
 }

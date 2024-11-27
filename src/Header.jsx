@@ -1,4 +1,3 @@
-
 import { Avatar, Dropdown, Navbar, Tooltip } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
@@ -11,21 +10,17 @@ export function Header({setShowHero, modalShow}) {
 
   const loadUserData = () => {
     axios.get("http://localhost:3000/users/current.json").then(response=> {
-      console.log("LOADED", response.data);
       setCurrentUser(response.data);
     })
   }
 
   const handleLogout = () => {
-    console.log("LOGOUT")
-    // event.preventDefault();
     delete axios.defaults.headers.common["Authorization"];
     localStorage.removeItem("jwt");
     window.location.href = "/";
   };
 
   const handleLogin = () => {
-    console.log("LOGIN");
     modalShow();
     setShowHero(true);
   }
@@ -37,13 +32,10 @@ export function Header({setShowHero, modalShow}) {
 
   useEffect(loadUserData, []);
 
-  console.log("HEADER USER", currentUser)
-  //<Navbar className="fixed top-0 left-0 w-full z-[10000] h-16 bg-gray-600" />
   return (
     <Navbar  rounded className="bg-gray-600 text-white fixed h-16 top-0 left-0 w-full z-[10000]">
       <Navbar.Brand href="/home" >
         <img src={Logo} className="mr-3 sm:h-9 w-48" alt="Flowbite React Logo" />
-        {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Travel Aid</span> */}
       </Navbar.Brand>
       <div className="flex md:order-2">
         { localStorage.jwt === undefined ?
@@ -90,7 +82,6 @@ export function Header({setShowHero, modalShow}) {
           </Tooltip>
         </Navbar.Link>
         <Navbar.Link onClick={()=>{handleSuggestedClick()}} className="cursor-pointer text-white text-lg font-light">Suggested Trips
-        {/* <Navbar.Link onClick={()=>handleSuggestedNoLogIn()} className="custom-hover text-white text-lg font-light">Suggested Trips */}
         </Navbar.Link>
         <Navbar.Link onClick={()=>{navigate("/contact");setShowHero(false);}} className="cursor-pointer text-white text-lg font-light">Contact</Navbar.Link>
       </Navbar.Collapse>

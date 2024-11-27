@@ -10,35 +10,23 @@ export function SuggestedTripsPage({modalShow, setShowHero}) {
   const suggestedTrips = useLoaderData();
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTrip, setCurrentTrip] = useState(null);
-  // setShowHero(false);
-  console.log("SuggestedPage")
   const handleClose = () => {
     setModalVisible(false);
   }
 
   const handleLogin = () => {
-    console.log("LOGIN");
     modalShow();
     setShowHero(true);
   }
 
-  // const handleModalShow = () => {
-  //   setModalVisible(true);
-  // }
-  // const handleClose = () => {
-  //   setModalVisible(false);
-  // }
-
   return (
     <div className="mx-auto border-0">
-      {/* <div className="h-80 w-full border-2 border-gray-400 rounded-lg p-4 shadow-md"> */}
       <br />
         <p className="text-4xl pb-2 text-white">Suggested Trips</p>
         <hr className="my-6"/>
         <div className="grid grid-cols-2 gap-6">
           {suggestedTrips.map(trip => (
             <div key={trip.id} className="border-0 shadow-lg w-full p-4 flex flex-col rounded-md bg-white">
-              {console.log("trip")}
               <div className="text-2xl pb-2 text-gray-600">
                 {trip.title}
               </div>
@@ -50,7 +38,6 @@ export function SuggestedTripsPage({modalShow, setShowHero}) {
                   Points of Interest:
                   {trip.places.map(place => (
                     <div key={place.id} className="flex flex-row py-1" >
-                      {console.log("place")}
                       <div className="pt-1 pr-1">
                         <MdFmdGood />
                       </div>
