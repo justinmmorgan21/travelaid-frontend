@@ -284,7 +284,14 @@ export function AddFlightsModal({onClose, trips, flights}) {
 
   return (
     <div>
-      {
+      { localStorage.jwt === undefined?
+      
+        <p>
+          Must be logged in to make New Trips or Add Flights to Trips
+        </p>
+      
+      :
+      
         trips.map((trip,i) => (
           <div key={trip.id}>
             <div className="py-4 flex flex-row items-center">
@@ -295,6 +302,7 @@ export function AddFlightsModal({onClose, trips, flights}) {
             {i != trips.length-1 ? <hr /> : null}
           </div>
         ))
+      
       }
       {
         searching ? 

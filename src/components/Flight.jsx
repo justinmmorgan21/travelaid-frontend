@@ -53,7 +53,7 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                 <p className="text-center text-xl font-bold text-gray-600">${flight.price}</p>
               </div>
               <div hidden={!selected}>
-                { selected && bothFlights && bothFlights.baggage_prices.together ?
+                { selected && bothFlights && bothFlights.baggage_prices && bothFlights.baggage_prices.together ?
                   <div>
                     { isDeparting ?
                       <div className="flex flex-col ">
@@ -62,13 +62,13 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                           <div className="h-4 mt-1 text-gray-700">
                             <FaSuitcase />
                           </div>
-                          <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices.together[0]}</span>
+                          <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices ? bothFlights.baggage_prices.together[0] : `N/A`}</span>
                         </div>
                         <div className="flex flex-row border-0 text-gray-700">
                           <div className="h-4 mt-1 text-gray-700">
                             <FaSuitcaseRolling />
                           </div>
-                          <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices.together[1].slice(bothFlights.baggage_prices.together[1].lastIndexOf(" ")+1)}`}</span>
+                          <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices ? bothFlights.baggage_prices.together[1].slice(bothFlights.baggage_prices.together[1].lastIndexOf(" ")+1) : `N/A`}`}</span>
                         </div>
                       </div>
                       :
@@ -84,13 +84,13 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                       <div className="h-4 mt-1 text-gray-700">
                         <FaSuitcase />
                       </div>
-                      <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices.departing[0]}</span>
+                      <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices ? bothFlights.baggage_prices.departing[0] : `N/A`}</span>
                     </div>
                     <div className="flex flex-row border-0 text-gray-700">
                       <div className="h-4 mt-1 text-gray-700">
                         <FaSuitcaseRolling />
                       </div>
-                      <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices.departing[1].slice(bothFlights.baggage_prices.departing[1].lastIndexOf(" ")+1)}`}</span>
+                      <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices ? bothFlights.baggage_prices.departing[1].slice(bothFlights.baggage_prices.departing[1].lastIndexOf(" ")+1) : `N/A`}`}</span>
                     </div>
                   </div>
                   :
@@ -100,13 +100,13 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                       <div className="h-4 mt-1 text-gray-700">
                         <FaSuitcase />
                       </div>
-                      <span className="ml-2 font-light text-gray-700">{selected && bothFlights && bothFlights.baggage_prices.returning[0]}</span>
+                      <span className="ml-2 font-light text-gray-700">{selected && bothFlights && bothFlights.baggage_prices ? bothFlights.baggage_prices.returning[0] : `N/A`}</span>
                     </div>
                     <div className="flex flex-row border-0 text-gray-700">
                       <div className="h-4 mt-1 text-gray-700">
                         <FaSuitcaseRolling />
                       </div>
-                      <span className="ml-2 font-light text-gray-700">{selected && bothFlights && `1st checked bag: $${bothFlights.baggage_prices.returning[1].slice(bothFlights.baggage_prices.returning[1].lastIndexOf(" ")+1)}`}</span>
+                      <span className="ml-2 font-light text-gray-700">{selected && bothFlights && `1st checked bag: $${bothFlights.baggage_prices ? bothFlights.baggage_prices.returning[1].slice(bothFlights.baggage_prices.returning[1].lastIndexOf(" ")+1) : `N/A`}`}</span>
                     </div>
                   </div>
 
@@ -170,7 +170,7 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
 
 
                     <div hidden={!selected}>
-                      { selected && bothFlights && bothFlights.baggage_prices.together ?  
+                      { selected && bothFlights && bothFlights.baggage_prices && bothFlights.baggage_prices.together ?  
                           <div className="border-0 border-green-500 pl-2 -pr-6">
                             { isDeparting ?
                                 <div className="flex flex-col border-0 border-red-500 ">
@@ -203,13 +203,13 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                                     <div className="h-4 mt-1 text-gray-700">
                                       <FaSuitcase />
                                     </div>
-                                    <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices.departing[0]}</span>
+                                    <span className="ml-2 font-light text-gray-700">{bothFlights.baggage_prices ? bothFlights.baggage_prices.departing[0] : `N/A`}</span>
                                   </div>
                                   <div className="flex flex-row border-0 text-gray-700">
                                     <div className="h-4 mt-1 text-gray-700">
                                       <FaSuitcaseRolling />
                                     </div>
-                                    <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices.departing[1].slice(bothFlights.baggage_prices.departing[1].lastIndexOf(" ")+1)}`}</span>
+                                    <span className="ml-2 font-light text-gray-700">{`1st checked bag: $${bothFlights.baggage_prices ? bothFlights.baggage_prices.departing[1].slice(bothFlights.baggage_prices.departing[1].lastIndexOf(" ")+1) : `N/A`}`}</span>
                                   </div>
                                 </div>
                               :
@@ -219,13 +219,13 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                                     <div className="h-4 mt-1 text-gray-700">
                                       <FaSuitcase />
                                     </div>
-                                    <span className="ml-2 font-light text-gray-700">{selected && bothFlights && bothFlights.baggage_prices.returning[0]}</span>
+                                    <span className="ml-2 font-light text-gray-700">{selected && bothFlights && bothFlights.baggage_prices ? bothFlights.baggage_prices.returning[0] : `N/A`}</span>
                                   </div>
                                   <div className="flex flex-row border-0 text-gray-700">
                                     <div className="h-4 mt-1 text-gray-700">
                                       <FaSuitcaseRolling />
                                     </div>
-                                    <span className="ml-2 font-light text-gray-700">{selected && bothFlights && `1st checked bag: $${bothFlights.baggage_prices.returning[1].slice(bothFlights.baggage_prices.returning[1].lastIndexOf(" ")+1)}`}</span>
+                                    <span className="ml-2 font-light text-gray-700">{selected && bothFlights && `1st checked bag: $${bothFlights.baggage_prices ? bothFlights.baggage_prices.returning[1].slice(bothFlights.baggage_prices.returning[1].lastIndexOf(" ")+1) : `N/A`}`}</span>
                                   </div>
                                 </div>
 

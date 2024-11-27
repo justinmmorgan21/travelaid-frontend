@@ -1,12 +1,13 @@
 
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Avatar, Dropdown, Navbar, Tooltip } from "flowbite-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Logo from './assets/small logo.png';
-export function Header() {
+export function Header({setShowHero}) {
 
   const [currentUser, setCurrentUser] = useState({});
+  const navigate = useNavigate();
 
   const loadUserData = () => {
     axios.get("http://localhost:3000/users/current.json").then(response=> {
@@ -54,6 +55,23 @@ export function Header() {
         </Dropdown>
         <Navbar.Toggle />
       </div>
+      {
+        localStorage.jwt === undefined ?
+      <Navbar.Collapse className="pr-44" >
+        <Navbar.Link onClick={()=>{setShowHero(true);}}  className="cursor-pointer text-white text-lg font-light">
+          Home
+        </Navbar.Link>
+        <Navbar.Link className="cursor-pointer text-white text-lg font-light">
+          <Tooltip content={`must be logged in to create New Trips`} placement="top" style="dark" className=" max-w-screen-md">
+            New Trip
+          </Tooltip>
+        </Navbar.Link>
+        <Navbar.Link onClick={()=>{navigate("/suggested");setShowHero(false);}} className="cursor-pointer text-white text-lg font-light">Suggested Trips
+        {/* <Navbar.Link onClick={()=>handleSuggestedNoLogIn()} className="custom-hover text-white text-lg font-light">Suggested Trips */}
+        </Navbar.Link>
+        <Navbar.Link onClick={()=>{navigate("/contact");setShowHero(false);}} className="cursor-pointer text-white text-lg font-light">Contact</Navbar.Link>
+      </Navbar.Collapse>
+      :
       <Navbar.Collapse className="pr-44" >
         <Navbar.Link href="/home"  className="custom-hover text-white text-lg font-light">
           Home
@@ -64,6 +82,7 @@ export function Header() {
         </Navbar.Link>
         <Navbar.Link href="/contact" className="custom-hover text-white text-lg font-light">Contact</Navbar.Link>
       </Navbar.Collapse>
+      }
     </Navbar>
   );
 }

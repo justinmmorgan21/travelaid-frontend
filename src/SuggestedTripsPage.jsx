@@ -10,7 +10,8 @@ export function SuggestedTripsPage() {
   const suggestedTrips = useLoaderData();
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTrip, setCurrentTrip] = useState(null);
-
+  // setShowHero(false);
+  console.log("SuggestedPage")
   const handleClose = () => {
     setModalVisible(false);
   }
@@ -31,6 +32,7 @@ export function SuggestedTripsPage() {
         <div className="grid grid-cols-2 gap-6">
           {suggestedTrips.map(trip => (
             <div key={trip.id} className="border-0 shadow-lg w-full p-4 flex flex-col rounded-md bg-white">
+              {console.log("trip")}
               <div className="text-2xl pb-2 text-gray-600">
                 {trip.title}
               </div>
@@ -42,6 +44,7 @@ export function SuggestedTripsPage() {
                   Points of Interest:
                   {trip.places.map(place => (
                     <div key={place.id} className="flex flex-row py-1" >
+                      {console.log("place")}
                       <div className="pt-1 pr-1">
                         <MdFmdGood />
                       </div>
@@ -64,7 +67,13 @@ export function SuggestedTripsPage() {
                 </div>
               </div>
               <div className="w-full flex justify-end flex-end">
+                {localStorage.jwt === undefined ?
+                <Tooltip content={`must be logged in to add Suggested Trips`} placement="top" style="dark" className="max-w-screen-md">
+                  <Button className="bg-blue-700 -px-4 -py-1 rounded-md text-white" type="button">Add to Trips</Button>
+                </Tooltip>
+                :
                 <Button className="bg-blue-700 -px-4 -py-1 rounded-md text-white" type="button" onClick={() => { setModalVisible(true); setCurrentTrip(trip)}}>Add to Trips</Button>
+                }
               </div>
             </div>
           ))}

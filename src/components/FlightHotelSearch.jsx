@@ -7,7 +7,7 @@ import { useGeoLocation } from 'use-geo-location';
 import { Alert } from "flowbite-react";
 
 
-export default function FlightHotelSearch({destinationTitle}) {
+export default function FlightHotelSearch({destinationTitle, setShowHero}) {
   const [dates, setDates] = useState({ 
     startDate: null, 
     endDate: null
@@ -102,7 +102,8 @@ export default function FlightHotelSearch({destinationTitle}) {
         setShowAlert(true);
         setAlertMessage("No matching flights!")
       } else {
-        navigate("/flights", { state: response.data });
+        navigate("/flights", { state: response.data }); // NEED TO GO TO FLIGHT RESULTS FROM HERO PAGE
+        setShowHero(false);
       }
     }).catch(error => {
       setSearching(false);
@@ -150,7 +151,7 @@ export default function FlightHotelSearch({destinationTitle}) {
     return (
       <div id="autocomplete" 
       className="max-w-sm"
-      style={{position: "absolute", zIndex: 10, backgroundColor: "white", width: "100%",}}
+      style={{position: "absolute", zIndex: 1000, backgroundColor: "white", width: "100%",}}
       > 
         {
         depart ?

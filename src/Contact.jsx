@@ -8,6 +8,7 @@ import { useLoaderData } from "react-router-dom";
 
 export function Contact() {
   const current_user = useLoaderData();
+  console.log("Contact: ", current_user);
   // const [phoneNumber, setPhoneNumber] = useState("");
   const form = useRef();
   
@@ -40,13 +41,13 @@ export function Contact() {
           <div className="mb-2 block">
             <Label htmlFor="user_name" value="Name" className='text-white'/>
           </div>
-          <TextInput id="user_name" name="user_name" type="text" placeholder="your name" defaultValue={current_user.name} shadow required />
+          <TextInput id="user_name" name="user_name" type="text" placeholder="your name" defaultValue={localStorage.jwt === undefined ? "" : current_user.name} shadow required />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="email" value="Email" className='text-white'/>
           </div>
-          <TextInput icon={HiMail} id="email" name="email" type="text" placeholder="email" defaultValue={current_user.email} shadow required />
+          <TextInput icon={HiMail} id="email" name="email" type="text" placeholder="email" defaultValue={localStorage.jwt === undefined ? "" : current_user.email} shadow required />
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">

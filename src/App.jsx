@@ -42,6 +42,7 @@ const AppLayout = () => {
   // useEffect(getUser, []);
 
   useEffect(() => {
+    console.log("EFFECT")
     if (localStorage.jwt === undefined) {
       setShowHero(true);
     } else {
@@ -53,14 +54,14 @@ const AppLayout = () => {
     <div className="bg-cover bg-center bg-gradient-to-b from-blue-700 to-blue-200" 
     style={{ backgroundImage: `url(${BackgroundImage})`, backgroundAttachment: 'fixed', }}>
       <div id="main" hidden={showHero}  >
-        <Header />
+        <Header setShowHero={setShowHero}/>
           <div className="container mx-auto pt-24 pb-12 px-24 flex-auto">
             <Outlet />
           </div>
         <Footer />
       </div>
       <div hidden={!showHero}>
-        <Hero modalShow={handleModalShow} />
+        <Hero modalShow={handleModalShow} setShowHero={setShowHero} />
         <LoginModal onClose={handleClose} show={modalVisible}>
           <Authentication />
         </LoginModal>
@@ -76,10 +77,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => {
-           
-          return axios.get(`http://localhost:3000/trips/next.json`).then(response => response.data)
-        }
+        loader: () => axios.get(`http://localhost:3000/trips/next.json`).then(response => response.data)
       },
       {
         path: "/userSettings",
@@ -111,7 +109,7 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
-        loader: () => axios.get(`http://localhost:3000/users/current.json`).then(response => response.data)
+        loader: () => localStorage.jwt === undefined ? null : axios.get(`http://localhost:3000/users/current.json`).then(response => response.data)
       },
       {
         path: "/flights",
