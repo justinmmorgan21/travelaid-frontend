@@ -101,6 +101,10 @@ export function TripsShowPage() {
 
   return (
     <div className="flex flex-col border-0 border-black">
+      <div className="mx-auto w-4/5 items-center border-0 border-green-600 py-1">
+        <a className="underline text-white" href="/trips">{'<'}- back to Upcoming Trips</a>
+        <h1 className="text-4xl mt-6 mb-3 text-white">{trip.title}</h1>
+      </div>
       {trip.flight_booked ?
       <div className="flex flex-col items-center mb-2 space-y-1">
         <p className="text-white font-bold">Booked Flights</p>
@@ -307,8 +311,8 @@ export function TripsShowPage() {
       }
 
       <div className="mx-auto w-4/5 items-center border-0 border-green-600 pt-1">
-        <a className="underline text-white" href="/trips">{'<'}- back to Upcoming Trips</a>
-        <h1 className="text-4xl my-8 text-white">{trip.title}</h1>
+        
+        
         <div className="bg-white w-full">
           <div className="bg-white p-4 w-fit">
             <div className="flex flex-row w-full space-x-6">

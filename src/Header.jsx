@@ -73,17 +73,17 @@ export function Header({setShowHero, modalShow}) {
       {
         localStorage.jwt === undefined ?
       <Navbar.Collapse className="pr-44" >
-        <Navbar.Link onClick={()=>{setShowHero(true);}}  className="cursor-pointer text-white text-lg font-light">
+        <Navbar.Link onClick={()=>{setShowHero(true);}}  className="cursor-pointer hover:underline text-white text-lg font-light">
           Home
         </Navbar.Link>
-        <Navbar.Link onClick={()=>{handleLogin()}} className="cursor-pointer text-white text-lg font-light">
+        <Navbar.Link onClick={()=>{handleLogin()}} className="cursor-pointer hover:underline text-white text-lg font-light">
           <Tooltip content={`must be logged in to create New Trips`} placement="top" style="dark" className="py-2 px-4">
             New Trip
           </Tooltip>
         </Navbar.Link>
-        <Navbar.Link onClick={()=>{handleSuggestedClick()}} className="cursor-pointer text-white text-lg font-light">Suggested Trips
+        <Navbar.Link onClick={()=>{handleSuggestedClick()}} className="cursor-pointer hover:underline text-white text-lg font-light">Suggested Trips
         </Navbar.Link>
-        <Navbar.Link onClick={()=>{navigate("/contact");setShowHero(false);}} className="cursor-pointer text-white text-lg font-light">Contact</Navbar.Link>
+        <Navbar.Link onClick={()=>{navigate("/contact");setShowHero(false);}} className="cursor-pointer hover:underline text-white text-lg font-light">Contact</Navbar.Link>
       </Navbar.Collapse>
       :
       <Navbar.Collapse className="pr-44" >
