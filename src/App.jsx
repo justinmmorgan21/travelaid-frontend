@@ -27,6 +27,7 @@ const AppLayout = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleModalShow = () => {
+    console.log("MODAL VISIBLE")
     setModalVisible(true);
   }
   const handleClose = () => {
@@ -54,7 +55,7 @@ const AppLayout = () => {
     <div className="bg-cover bg-center bg-gradient-to-b from-blue-700 to-blue-200" 
     style={{ backgroundImage: `url(${BackgroundImage})`, backgroundAttachment: 'fixed', }}>
       <div id="main" hidden={showHero}  >
-        <Header setShowHero={setShowHero}/>
+        <Header setShowHero={setShowHero} modalShow={handleModalShow}/>
           <div className="container mx-auto pt-24 pb-12 px-24 flex-auto">
             <Outlet />
           </div>

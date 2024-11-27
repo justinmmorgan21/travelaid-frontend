@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Logo from './assets/small logo.png';
-export function Header({setShowHero}) {
+export function Header({setShowHero, modalShow}) {
 
   const [currentUser, setCurrentUser] = useState({});
   const navigate = useNavigate();
@@ -23,6 +23,12 @@ export function Header({setShowHero}) {
     localStorage.removeItem("jwt");
     window.location.href = "/";
   };
+
+  const handleLogin = () => {
+    console.log("LOGIN");
+    modalShow();
+    setShowHero(true);
+  }
 
   useEffect(loadUserData, []);
 
@@ -51,7 +57,12 @@ export function Header({setShowHero}) {
             <Link to="/userSettings" state={{ currentUser }}>Settings</Link>
           </Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item onClick={()=>handleLogout()}>Sign out</Dropdown.Item>
+          {
+            localStorage.jwt === undefined ?
+            <Dropdown.Item onClick={()=>handleLogin()}>Sign in</Dropdown.Item>
+            :
+            <Dropdown.Item onClick={()=>handleLogout()}>Sign out</Dropdown.Item>
+          }
         </Dropdown>
         <Navbar.Toggle />
       </div>
