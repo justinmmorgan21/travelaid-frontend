@@ -1,5 +1,5 @@
 # TravelAid - resource for planning Vacations, including Flight searching and Points of Interest
-
+[Link to backend repo](https://github.com/justinmmorgan21/vacation-planner-api)
 ### What the application does
 
 **A user not logged in can...**
@@ -68,6 +68,31 @@
 - suggested trips on Home page displayed in a carousel
 - points of interest created from an api (probably SerpAPI scraping Google results)
 - add hotel searching and booking
+
+### Required Dependencies to Run the Project
+
+**Backend api:**
+- run the following
+  ```
+  bundle install
+  rails db:create
+  rails db:migrate
+  rails db:seed
+  ```
+- Credentials?
+- API keys in env?
+
+**Frontend:**
+- run `npm install`
+- add your own API keys in a .env file:
+  - `VITE_APP_GOOGLE_MAPS_API_KEY=`your key here
+  - `GOOGLE_MAPS_API_KEY=`your key here
+  - `SERPAPI_API_KEY=`your key here
+
+### How to Use the App
+
+
+### Credits
 
 Made using
 React + Vite
