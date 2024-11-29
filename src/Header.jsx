@@ -95,6 +95,12 @@ export function Header({setShowHero, modalShow}) {
         <Navbar.Link href="/suggested" className="custom-hover text-white text-lg font-light">Suggested Trips
         </Navbar.Link>
         <Navbar.Link href="/contact" className="custom-hover text-white text-lg font-light">Contact</Navbar.Link>
+        {
+          currentUser.email === "admin@admin.com" ?
+          <Navbar.Link href="/admin" className="custom-hover text-white text-lg font-light">ADMIN</Navbar.Link>
+          :
+          null
+        }
       </Navbar.Collapse>
       }
     </Navbar>

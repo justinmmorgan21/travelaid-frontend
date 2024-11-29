@@ -16,6 +16,7 @@ import { Contact } from "./Contact";
 import { FlightResult } from "./FlightResult";
 import { SuggestedTripsPage } from "./SuggestedTripsPage";
 import { TripsPastIndexPage } from "./TripsPastIndexPage";
+import { Admin } from "./Admin";
 import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { SelectedFlight } from "./SelectedFlight";
@@ -118,6 +119,11 @@ const router = createBrowserRouter([
       {
         path: "/selected_flight",
         element: <SelectedFlight />
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
+        loader: () => axios.get("http://localhost:3000/users.json").then(response => response.data) 
       }
     ],
   },

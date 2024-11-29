@@ -1,4 +1,3 @@
-
 import { FaSuitcaseRolling } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa";
 import { Accordion, Timeline } from "flowbite-react";
@@ -225,47 +224,47 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                   </div>
                 </div>
               </Accordion.Title>
-                <Accordion.Content >
-                  <div className="ml-32">
-                  { flight.flights.map((oneLeg, i) => (
-                    <div key={i}>
-                      <Timeline>
-                        <Timeline.Item>
-                          <Timeline.Point />
-                          <Timeline.Content>
-                            <Timeline.Time></Timeline.Time>
-                            <div className="flex flex-row">
-                              <Timeline.Title className="mb-2 flex flex-row">{convert_string_time(oneLeg.departure_airport.time)}<LuDot className="mt-1"/> {oneLeg.departure_airport.name} ({oneLeg.departure_airport.id})</Timeline.Title>
-                            </div>
-                            <Timeline.Body>
-                              Travel time: {Math.floor(oneLeg.duration/60)}hr {oneLeg.duration%60}min
-                            </Timeline.Body>
-                          </Timeline.Content>
-                        </Timeline.Item>
-                        <Timeline.Item className="-mt-6">
-                          <Timeline.Point />
-                          <Timeline.Content>
-                            <Timeline.Time></Timeline.Time>
-                            <Timeline.Title className=" flex flex-row">{convert_string_time(oneLeg.arrival_airport.time)}<LuDot className="mt-1"/> {oneLeg.arrival_airport.name} ({oneLeg.arrival_airport.id})</Timeline.Title>
-                            <Timeline.Body></Timeline.Body>
-                          </Timeline.Content>
-                        </Timeline.Item>
-                      </Timeline>
-                      { i != flight.flights.length - 1 ?
-                        <div className="-mt-2 mb-4 ml-4">
-                          <hr />
-                            <div className="my-3 ml-2 flex flex-row">
-                            {Math.floor(flight.layovers[0].duration/60)}hr {flight.layovers[0].duration%60}min layover <LuDot className="mt-1"/> {oneLeg.arrival_airport.name.slice(0, oneLeg.arrival_airport.name.indexOf(" "))} ({oneLeg.arrival_airport.id})
-                            </div>
-                          <hr />
-                        </div>
-                        :
-                        null
-                      }
-                    </div>
-                  ))}
+              <Accordion.Content >
+                <div className="ml-32">
+                { flight.flights.map((oneLeg, i) => (
+                  <div key={i}>
+                    <Timeline>
+                      <Timeline.Item>
+                        <Timeline.Point />
+                        <Timeline.Content>
+                          <Timeline.Time></Timeline.Time>
+                          <div className="flex flex-row">
+                            <Timeline.Title className="mb-2 flex flex-row">{convert_string_time(oneLeg.departure_airport.time)}<LuDot className="mt-1"/> {oneLeg.departure_airport.name} ({oneLeg.departure_airport.id})</Timeline.Title>
+                          </div>
+                          <Timeline.Body>
+                            Travel time: {Math.floor(oneLeg.duration/60)}hr {oneLeg.duration%60}min
+                          </Timeline.Body>
+                        </Timeline.Content>
+                      </Timeline.Item>
+                      <Timeline.Item className="-mt-6">
+                        <Timeline.Point />
+                        <Timeline.Content>
+                          <Timeline.Time></Timeline.Time>
+                          <Timeline.Title className=" flex flex-row">{convert_string_time(oneLeg.arrival_airport.time)}<LuDot className="mt-1"/> {oneLeg.arrival_airport.name} ({oneLeg.arrival_airport.id})</Timeline.Title>
+                          <Timeline.Body></Timeline.Body>
+                        </Timeline.Content>
+                      </Timeline.Item>
+                    </Timeline>
+                    { i != flight.flights.length - 1 ?
+                      <div className="-mt-2 mb-4 ml-4">
+                        <hr />
+                          <div className="my-3 ml-2 flex flex-row">
+                          {Math.floor(flight.layovers[i].duration/60)}hr {flight.layovers[i].duration%60}min layover <LuDot className="mt-1"/> {oneLeg.arrival_airport.name.slice(0, oneLeg.arrival_airport.name.indexOf(" "))} ({oneLeg.arrival_airport.id})
+                          </div>
+                        <hr />
+                      </div>
+                      :
+                      null
+                    }
+                  </div>
+                ))}
                 </div>
-                </Accordion.Content>
+              </Accordion.Content>
             </Accordion.Panel>
           </Accordion>
       }

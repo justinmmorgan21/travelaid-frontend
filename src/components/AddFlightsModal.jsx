@@ -255,7 +255,7 @@ export function AddFlightsModal({onClose, trips, flights}) {
   return (
     <div>
       { localStorage.jwt === undefined?
-      
+
         <p>
           Must be logged in to make New Trips or Add Flights to Trips
         </p>
