@@ -44,7 +44,7 @@
 - Google Places:
   - To auto-fill in the departing flight location for flight search based on user's location, the combo of "nearby" and "autocomplete" searches takes in user's geolocation and results in a list of nearby airports.
   - To produce a list of possible airports when searching departing/return flight locations, an "autocomplete" search takes in whatever text is in input field and results in a list of closely matching airports.
-  - To center the Google Map for a trip with no points of interest, thencombo of "autocomplete" and "details" takes in the name of the trip and finds the geolocation most fitting for that title.
+  - To center the Google Map for a trip with no points of interest, the combo of "autocomplete" and "details" takes in the name of the trip and finds the geolocation most fitting for that title.
 - SerpAPI is an excellent data scraping tool that takes in two airport id's and returns back flight options for departure, then through additional tokens gives results for returning flights and finally a link to the matching flights in Google Flights to make a seamless ticket purchase process.
 - EmailJS is a very easy to use message provider that uses the inputs of a form to send me an email with the user's message.
 - To "store" images for the user accounts when they are uploaded, Cloudinary was used as a 3rd party image host to store the images and provides me with URLs to use when needing to display the image.
@@ -69,7 +69,7 @@
 - points of interest created from an api (probably SerpAPI scraping Google results)
 - add hotel searching and booking
 
-### Required Dependencies to Run the Project
+### Required Dependencies to Run the App
 
 **Backend api:**
 - run the following
@@ -79,20 +79,31 @@
   rails db:migrate
   rails db:seed
   ```
-- Credentials?
-- API keys in env?
+- add your own API keys in a .env file:
+  ```
+  GOOGLE_MAPS_API_KEY=your key here
+  CLOUDINARY_CLOUD_NAME=your cloud name here
+  CLOUDINARY_API_KEY=your key here
+  CLOUDINARY_API_SECRET=your secret here
+  ```
 
 **Frontend:**
-- run `npm install`
+- run the following
+  ```
+  npm install
+  ```
 - add your own API keys in a .env file:
-  - `VITE_APP_GOOGLE_MAPS_API_KEY=`your key here
-  - `GOOGLE_MAPS_API_KEY=`your key here
-  - `SERPAPI_API_KEY=`your key here
-
+  ```
+  VITE_APP_GOOGLE_MAPS_API_KEY=your key here
+  GOOGLE_MAPS_API_KEY=your key here
+  SERPAPI_API_KEY=your key here
+  ```
 ### How to Use the App
 
 
 ### Credits
+
+Thank you to Actualize fullstack bootcamp for helping me to learn all about building a fullstack application with Ruby on Rails and React. Thank you to Brian Rice for all of his dedication to educating us and empowering us to go out and do all of this on our own. I could not have built an application like this without Actualize and Brian.
 
 Made using
 React + Vite
