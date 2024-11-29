@@ -1,5 +1,5 @@
 # TravelAid - resource for planning Vacations, including Flight searching and Points of Interest
-[Link to backend repo](https://github.com/justinmmorgan21/vacation-planner-api)
+[Link to backend api repo](https://github.com/justinmmorgan21/vacation-planner-api)
 ### What the application does
 
 **A user not logged in can...**
@@ -20,7 +20,8 @@
 - update account info, including add an account image
 
 **An admin (unique login) can...**
-- create new suggested trips for viewing and adding by users.
+- create new suggested trips for viewing and adding by users
+- view all users and view/edit their associated trips
 
 **Flight Search...**
 - users enter departing/returning locations and dates to receive real-time departing flight options.
@@ -69,14 +70,25 @@
 - points of interest created from an api (probably SerpAPI scraping Google results)
 - add hotel searching and booking
 
-### Required Dependencies to Run the App
+### Required Dependencies/Initializations to Run the App
 
-**Backend api:**
+**Backend api: ([link here](https://github.com/justinmmorgan21/travelaid-api))**
 - run the following
   ```
   bundle install
   rails db:create
   rails db:migrate
+  ```
+- to start the app with a prebuilt admin, and two sample users...
+  in the db/seeds.rb file, find the following
+  ```
+  # Admin User 1
+  User.create(name: "admin",
+  email: "admin@admin.com", password: "password", password_confirmation: "password")
+  ```
+  update the password with a password of your choosing,
+  modify the rest of the seeds file to your liking, then run
+  ```
   rails db:seed
   ```
 - add your own API keys in a .env file:
@@ -86,7 +98,7 @@
   CLOUDINARY_API_KEY=your key here
   CLOUDINARY_API_SECRET=your secret here
   ```
-
+  
 **Frontend:**
 - run the following
   ```
@@ -97,13 +109,25 @@
   VITE_APP_GOOGLE_MAPS_API_KEY=your key here
   GOOGLE_MAPS_API_KEY=your key here
   SERPAPI_API_KEY=your key here
+  VITE_APP_SERVICE_ID=your EmailJS service id here
+  VITE_APP_TEMPLATE_ID=your EmailJS template id here
+  VITE_APP_PUBLIC_KEY=your EmailJS key here
   ```
+  
 ### How to Use the App
 
+:bust_in_silhouette: **For personal use**
+
+You can search flights (no login required). To store trips, create an account. When logged in, make new Trips, add points of interest, and book flights for your trip. You can also upload an image for your account.
+
+:busts_in_silhouette::busts_in_silhouette: **To run as admin, for others to use**
+
+If you run the seeds file as is when initializing the backend api, there will be a default admin account. If you did not, you can create an account with name: `admin` and email: `admin@admin.com` to initialize the admin capability, use a password of your choosing. When logged in, you can create new Trips which will be added to all user's Suggested Trips. Also, you can select the ADMIN tab to view all users and all trips. You can modify each trip using the same UI as the user.
+Public users you expose the app to can access the site similarly to that of personal use above. They can search flights and view suggested trips without creating an account. Additionally, they can create an account and log in to make new trips, add points of interest, and book flights, as well as add suggested trips and add an account image.
 
 ### Credits
 
-Thank you to Actualize fullstack bootcamp for helping me to learn all about building a fullstack application with Ruby on Rails and React. Thank you to Brian Rice for all of his dedication to educating us and empowering us to go out and do all of this on our own. I could not have built an application like this without Actualize and Brian.
+Thank you to Actualize fullstack bootcamp for helping me to learn all about how to build a fullstack application with Ruby on Rails and React. Thank you to Brian Rice for all of his dedication to educating us and empowering us to go out and do all of this on our own. I could not have built an application like this without Actualize and Brian.
 
 Made using
 React + Vite
