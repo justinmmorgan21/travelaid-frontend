@@ -19,6 +19,7 @@ import { Admin } from "./Admin";
 import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg';
 import { SelectedFlight } from "./SelectedFlight";
 
+
 const AppLayout = () => {
   const [showHero, setShowHero] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,7 +40,7 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <div className="bg-cover bg-center bg-gradient-to-b from-blue-700 to-blue-200" 
+    <div className="bg-cover bg-center bg-gradient-to-b from-blue-700 to-blue-200 min-h-screen" 
     style={{ backgroundImage: `url(${BackgroundImage})`, backgroundAttachment: 'fixed', }}>
       <div id="main" hidden={showHero}  >
         <Header setShowHero={setShowHero} modalShow={handleModalShow}/>
