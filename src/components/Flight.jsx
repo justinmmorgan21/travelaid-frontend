@@ -7,13 +7,10 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
   
   const convert_string_time = dateTime => {
     const date = new Date(dateTime);
-    // Extract hours and minutes
     let hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, "0");
-    // Determine AM or PM
     const period = hours >= 12 ? "pm" : "am";
-    hours = hours % 12 || 12; // Convert to 12-hour format, with 12 as the fallback for 0
-    // Format the time
+    hours = hours % 12 || 12;
     return `${hours}:${minutes}${period}`;
   }
 
@@ -111,14 +108,6 @@ export function Flight({flight, onFlightSelect, selected, bothFlights, isDeparti
                 </div>
               }
               </div>
-
-              {/* <div className='w-20 opacity-60' hidden={!returnSet}>
-                <ProgressBar >
-                  <ProgressBar variant="success" now={30} key={1} />
-                  <ProgressBar variant="warning" now={40} key={2} />
-                  <ProgressBar variant="danger" now={30} key={3} />
-                </ProgressBar>
-              </div> */}
             </div>
           </div>
 

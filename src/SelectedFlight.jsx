@@ -1,7 +1,6 @@
 import { Button } from "flowbite-react";
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react'
-// import { ProgressBar } from 'react-bootstrap';
 import { Flight } from './components/Flight';
 import { LuDot } from "react-icons/lu";
 import { FaRepeat } from "react-icons/fa6";
@@ -85,10 +84,3 @@ export function SelectedFlight() {
     </div>
   );
 }
-              // <div className='w-20 opacity-60' hidden={!returnSet}>
-              //   <ProgressBar >
-              //     <ProgressBar variant="success" now={30} key={1} />
-              //     <ProgressBar variant="warning" now={40} key={2} />
-              //     <ProgressBar variant="danger" now={30} key={3} />
-              //   </ProgressBar> */}
-              // </div>

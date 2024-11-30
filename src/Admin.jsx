@@ -2,7 +2,6 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 
 export function Admin() {
   const users = useLoaderData();
-  console.log(users);
   const navigate = useNavigate();
 
   const handleTripsShow = (trip) => {
@@ -13,7 +12,7 @@ export function Admin() {
     <div className="flex flex-col bg-transparent" >
       <br />
       <div className="flex flex-row mb-6">
-        <h1 className="text-4xl flex-grow text-white">All Users</h1>
+        <h1 className="text-4xl flex-grow text-white">All Users/Trips</h1>
       </div>
       <hr className="mb-6"/>
       <div className="grid grid-cols-3 gap-16">

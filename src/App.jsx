@@ -8,7 +8,6 @@ import { TripsShowPage } from "./TripsShowPage";
 import { Footer } from "./Footer";
 import { TripsCreatePage } from "./TripsCreatePage";
 import { Hero } from "./Hero";
-import { About } from "./About";
 import { LoginModal } from "./LoginModal";
 import UserSettings from "./UserSettings";
 import Home from "./Home";
@@ -18,7 +17,6 @@ import { SuggestedTripsPage } from "./SuggestedTripsPage";
 import { TripsPastIndexPage } from "./TripsPastIndexPage";
 import { Admin } from "./Admin";
 import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { SelectedFlight } from "./SelectedFlight";
 
 
@@ -78,10 +76,6 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
         loader: () => axios.get(`http://localhost:3000/trips/next.json`).then(response => response.data)
-      },
-      {
-        path: "/about",
-        element: <About />
       },
       {
         path: "/trips",
