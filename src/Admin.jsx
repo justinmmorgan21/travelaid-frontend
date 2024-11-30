@@ -20,14 +20,18 @@ export function Admin() {
           <div key={i} className="bg-white p-2">
             <p>User: {user.name}</p>
             <p>email: {user.email}</p>
-              {user.trips.length == 0 ? <p className="m-4">NO TRIPS</p> : user.trips.map((trip, i) => (
-              <div onClick={() => handleTripsShow(trip)} key={trip.id} className="border-2 border-gray-300 p-6 rounded-lg flex flex-col w-96 cursor-pointer bg-white mb-4">
-                <h2 className="text-xl">Trip #{i + 1}:&nbsp; {trip.title}</h2>
-                <div>Dates:&nbsp; {trip.start_time} - {trip.end_time}</div>
-                <div>Places:&nbsp; {trip.places.map((place,i)=>(<span key={place.id}>{place.name}{i==trip.places.length-1?"":","} </span>))}</div>
-                <div>Flights Booked: &nbsp; {"" + trip.flight_booked}</div>
-              </div>
-              ))}
+            { user.trips.length == 0 ? (
+              <p className="m-4">NO TRIPS</p> 
+            ) : ( 
+              user.trips.map((trip, i) => (
+                <div onClick={() => handleTripsShow(trip)} key={trip.id} className="border-2 border-gray-300 p-6 rounded-lg flex flex-col w-96 cursor-pointer bg-white mb-4">
+                  <h2 className="text-xl">Trip #{i + 1}:&nbsp; {trip.title}</h2>
+                  <div>Dates:&nbsp; {trip.start_time} - {trip.end_time}</div>
+                  <div>Places:&nbsp; {trip.places.map((place,i)=>(<span key={place.id}>{place.name}{i==trip.places.length-1?"":","} </span>))}</div>
+                  <div>Flights Booked: &nbsp; {"" + trip.flight_booked}</div>
+                </div>
+              ))
+            )}
           </div>
         ))}
       </div>

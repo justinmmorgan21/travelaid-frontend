@@ -2,8 +2,8 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import { useState } from 'react';
 import Logo from './assets/authentication-logo.png';
-export function Authentication() {
 
+export function Authentication() {
   const [switchAuth, setSwitchAuth] = useState(false);
   
   return (

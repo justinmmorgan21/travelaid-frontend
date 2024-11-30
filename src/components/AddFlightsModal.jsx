@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Spinner } from './Spinner';
-import axios from 'axios'
+import axios from 'axios';
+
 export function AddFlightsModal({onClose, trips, flights}) {
   const navigate = useNavigate();
   const [searching, setSearching] = useState(false);
@@ -254,26 +255,21 @@ export function AddFlightsModal({onClose, trips, flights}) {
   }
 
   return (
-    <div>
-      { localStorage.jwt === undefined?
-      <p>Must be logged in to make New Trips or Add Flights to Trips</p>
-      :
-      trips.map((trip,i) => (
-        <div key={trip.id}>
-          <div className="py-4 flex flex-row items-center">
-            {/* <Button className="bg-blue-700 -px-1">add to trip</Button> */}
-            <button className="bg-blue-700 text-white px-2 py-1 rounded mr-3 text-sm" onClick={()=>handleAddFlights(trip)}>add flights</button>
-            <p>{trip.title}</p>
+    <div> 
+      { localStorage.jwt === undefined ? (
+        <p>Must be logged in to make New Trips or Add Flights to Trips</p>
+      ) : (
+        trips.map((trip,i) => (
+          <div key={trip.id}>
+            <div className="py-4 flex flex-row items-center">
+              <button className="bg-blue-700 text-white px-2 py-1 rounded mr-3 text-sm" onClick={()=>handleAddFlights(trip)}>add flights</button>
+              <p>{trip.title}</p>
+            </div>
+            {i != trips.length-1 && <hr /> }
           </div>
-          {i != trips.length-1 ? <hr /> : null}
-        </div>
-      ))
-      }
-      { searching ? 
-      <Spinner />
-      : 
-      null
-      }
+        ))
+      )}
+      { searching && <Spinner /> }
     </div>
   )
 }

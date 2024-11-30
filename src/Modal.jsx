@@ -14,10 +14,6 @@ export function Modal({ children, show, onClose }) {
     <div className="modal-background" onClick={handleBackgroundClick}>
       <section className="modal-main" onClick={(e) => e.stopPropagation()}>
         {children}
-        {/* Close button, if needed */}
-        {/* <button className="close" type="button" onClick={onClose}>
-          &#x2715;
-        </button> */}
       </section>
     </div>
   );

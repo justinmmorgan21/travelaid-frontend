@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Header } from "./Header";
 import { Authentication } from "./Authentication";
@@ -18,7 +18,6 @@ import { TripsPastIndexPage } from "./TripsPastIndexPage";
 import { Admin } from "./Admin";
 import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg';
 import { SelectedFlight } from "./SelectedFlight";
-
 
 const AppLayout = () => {
   const [showHero, setShowHero] = useState(false);

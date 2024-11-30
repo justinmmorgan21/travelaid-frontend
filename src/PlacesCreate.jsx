@@ -1,8 +1,9 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Textarea, Label, TextInput, Datepicker } from "flowbite-react";
 import { AiFillEnvironment } from "react-icons/ai";
+
 export function PlacesCreate({onClose, trip}) {
   const [selectedDate, setSelectedDate] = useState(new Date(trip.start_time));
   
@@ -19,12 +20,11 @@ export function PlacesCreate({onClose, trip}) {
   }
 
   return (
-    <div className='w-full border-0 border-blue-700'>
+    <div className='w-full'>
       <h1 className='text-xl'>New Point of Interest</h1>
       <hr className='my-4'/> 
-      <form className="flex flex-col gap-4 items-center w-full border-0 border-red-600" onSubmit={(event) => handleCreate(event, trip.id)}>
-        <div className='mx-auto border-0'>
-
+      <form className="flex flex-col gap-4 items-center w-full" onSubmit={(event) => handleCreate(event, trip.id)}>
+        <div className='mx-auto'>
         <div>
           <div className="mb-2 block w-80">
             <Label htmlFor="name" value="Name" />

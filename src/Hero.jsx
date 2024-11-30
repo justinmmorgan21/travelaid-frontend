@@ -10,7 +10,7 @@ export function Hero({ modalShow, setShowHero }) {
       <div className='absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-md'>
         <FlightHotelSearch setShowHero={setShowHero}/>
       </div>
-      <button className='absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 left-1/2 z-10 px-8 py-2 text-lg border-0 border-gray-500 bg-white rounded-md text-gray-600 shadow-xl' onClick={()=>modalShow()}>Sign in</button>
+      <button className='absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 left-1/2 z-10 px-8 py-2 text-lg bg-white rounded-md text-gray-600 shadow-xl' onClick={()=>modalShow()}>Sign in</button>
     </div>
   )
 }

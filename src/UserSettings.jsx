@@ -5,10 +5,8 @@ import { HiMail } from "react-icons/hi";
 import { Button, Label, TextInput, FileInput, Avatar } from "flowbite-react";
 
 export default function UserSettings() {
-  
   const { state } = useLocation();
   const currentUser = state?.currentUser;
-
   const [image, setImage] = useState({});
   
   const handleChange = e => {

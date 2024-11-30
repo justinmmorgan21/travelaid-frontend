@@ -12,23 +12,20 @@ export default function SignIn({ className , setSwitchAuth}) {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
-    axios
-      .post("http://localhost:3000/sessions.json", params)
-      .then((response) => {
-        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
-        localStorage.setItem("jwt", response.data.jwt);
-        event.target.reset();
-        axios.get("http://localhost:3000/trips.json").then(resp => {
-          if (resp.data.length == 0)
-            window.location.href = "/trips/new";
-          else
-            window.location.href = "/trips";
-        })
+    axios.post("http://localhost:3000/sessions.json", params).then((response) => {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
+      localStorage.setItem("jwt", response.data.jwt);
+      event.target.reset();
+      axios.get("http://localhost:3000/trips.json").then(resp => {
+        if (resp.data.length == 0)
+          window.location.href = "/trips/new";
+        else
+          window.location.href = "/trips";
       })
-      .catch((error) => {
-        console.log(error.response);
-        setErrors(["Invalid email or password"]);
-      });
+    }).catch((error) => {
+      console.log(error.response);
+      setErrors(["Invalid email or password"]);
+    });
   };
 
   return (

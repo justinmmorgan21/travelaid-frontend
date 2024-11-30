@@ -22,12 +22,11 @@ export function TripsPastIndexPage() {
             <img  className="max-h-64 w-fit mx-auto" src={trip.image_url} />
             <div className="flex-grow"></div>
             <div className="flex-end">
-              {
-                trip.start_time ? 
-                <p className="my-2">{trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
-                :
-                <p>No Date Set</p>
-              }
+            { trip.start_time ? (
+              <p className="my-2">{trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
+            ) : (
+              <p>No Date Set</p>
+            )}
             </div>
           </div>
         ))}

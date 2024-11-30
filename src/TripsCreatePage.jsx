@@ -1,9 +1,9 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Label, TextInput } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
-import FlightHotelSearch from "./components/FlightHotelSearch"
+import FlightHotelSearch from "./components/FlightHotelSearch";
 
 export function TripsCreatePage() {
   const [title, setTitle] = useState('');
@@ -65,7 +65,7 @@ export function TripsCreatePage() {
             <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>handleReset()}>Clear</Button>
           </div>
         </form>
-        <div className="border-0 rounded-lg p-4 border-gray-400 shadow-lg mx-auto w-fit h-fit bg-white" >
+        <div className="rounded-lg p-4 shadow-lg mx-auto w-fit h-fit bg-white" >
           <FlightHotelSearch />
         </div>
       </div>

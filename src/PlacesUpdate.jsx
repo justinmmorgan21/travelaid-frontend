@@ -1,7 +1,8 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Label, Datepicker } from "flowbite-react";
+
 export function PlacesUpdate({onClose, place, trip}) {
   const [selectedDate, setSelectedDate] = useState(place.start_time ? new Date(place.start_time) : trip.start_time ? new Date(trip.start_time) : new Date() );
   

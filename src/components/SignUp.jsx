@@ -8,20 +8,18 @@ export default function SignUp({ className , setSwitchAuth }) {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
-    axios.post("http://localhost:3000/users.json", params)
-      .then(() => {
-        axios.post("http://localhost:3000/sessions.json", params).then((resp) => {
-          // after sign up, continue with sign in
-          axios.defaults.headers.common["Authorization"] = "Bearer " + resp.data.jwt;
-          localStorage.setItem("jwt", resp.data.jwt);
-          event.target.reset();
-          window.location.href = "/trips/new";
-        })
+    axios.post("http://localhost:3000/users.json", params).then(() => {
+      axios.post("http://localhost:3000/sessions.json", params).then((resp) => {
+        // after sign up, continue with sign in
+        axios.defaults.headers.common["Authorization"] = "Bearer " + resp.data.jwt;
+        localStorage.setItem("jwt", resp.data.jwt);
+        event.target.reset();
+        window.location.href = "/trips/new";
       })
-      .catch((error) => {
-        console.log("ERRORS", error.response.data.errors);
-        setErrors(error.response.data.errors);
-      });
+    }).catch((error) => {
+      console.log("ERRORS", error.response.data.errors);
+      setErrors(error.response.data.errors);
+    });
   };
 
   return (

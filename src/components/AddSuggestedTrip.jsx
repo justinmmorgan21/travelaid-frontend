@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Label, TextInput } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
 
@@ -40,8 +40,7 @@ export function AddSuggestedTrip({onClose, trip}) {
         placeParams.append("description", place.description);
         placeParams.append("image_url", place.image_url);
   
-        return axios.post("http://localhost:3000/places.json", placeParams).then(() => {
-        });
+        return axios.post("http://localhost:3000/places.json", placeParams).then(() => {});
       });
   
       await Promise.all(placeCreationPromises);

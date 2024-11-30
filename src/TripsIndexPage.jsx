@@ -3,7 +3,6 @@ import { SlActionRedo } from "react-icons/sl";
 
 export function TripsIndexPage() {
   const trips = useLoaderData();
-  
   const navigate = useNavigate();
 
   const handleTripsShow = (trip) => {
@@ -30,17 +29,17 @@ export function TripsIndexPage() {
             <img  className="max-h-64 w-fit mx-auto" src={trip.image_url} />
             <div className="flex-grow"></div>
             <div className="flex-end">
-              {
-                trip.start_time ? 
+              { trip.start_time ? (
                 <p className="my-2">{trip.start_time || "No Date Set"} {` to `} {trip.end_time || "No Date Set"}</p>
-                :
+              ) : (
                 <p>No Date Set</p>
-              }
+              )}
             </div>
           </div>
         ))}
       </div>
-      <br /><br />
+      <br />
+      <br />
     </div>
   );
 }

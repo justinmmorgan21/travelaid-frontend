@@ -1,12 +1,13 @@
 import { Button } from "flowbite-react";
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react'
+import { useState } from 'react';
 import { Flight } from './components/Flight';
 import { LuDot } from "react-icons/lu";
 import { FaRepeat } from "react-icons/fa6";
 import { AddFlightsModal } from "./components/AddFlightsModal";
 import { Modal } from "./Modal";
-import axios from 'axios'
+import axios from 'axios';
+
 export function SelectedFlight() {
   const location = useLocation();
   const data = location.state;
@@ -37,7 +38,7 @@ export function SelectedFlight() {
         <h1 className="text-4xl text-white">Flight Search Results</h1>
       </div>
       <hr className="mb-6"/>
-      <div className="grid grid-cols space-y-4 border-0 border-purple-700 " >
+      <div className="grid grid-cols space-y-4" >
         <div >
           <h1 className='ml-48 text-4xl text-white flex flex-row items-center' >{data.selected_flights[0].flights[0].departure_airport.id} &nbsp; <FaRepeat /> &nbsp;
           {data.selected_flights[1].flights[0].departure_airport.id} </h1>
@@ -50,9 +51,7 @@ export function SelectedFlight() {
             {new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date(departureFlight.flights[0].departure_airport["time"]))
             }
           </div>
-
           <Flight flight={departureFlight} selected={true} bothFlights={data} isDeparting={true}/>
-
           <br />  
           <div className='mx-48 flex flex-row mb-2 text-white'>
             <p >Returning flight</p>
@@ -62,13 +61,10 @@ export function SelectedFlight() {
             {new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date(returnFlight.flights[0].departure_airport["time"]))
             }
           </div>
-
           <Flight flight={returnFlight} selected={true} bothFlights={data} isDeparting={false}/>
-
         </div>
       </div>
-
-      <div className='mx-auto ml-20 flex flex-row w-full text-white border-0 border-black'>
+      <div className='mx-auto ml-20 flex flex-row w-full text-white'>
           <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-2 rounded-md text-white mx-auto" onClick={()=>handleConfirmBooking()}>Continue to Booking</Button>
           <div className='mr-72 -ml-72  py-1 px-4 bg-white mt-2 rounded-md'>
             <p className='text-gray-700 text-2xl'>${data.price_insights.lowest_price}</p>
