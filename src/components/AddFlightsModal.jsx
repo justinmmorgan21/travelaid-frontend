@@ -44,7 +44,6 @@ export function AddFlightsModal({onClose, trips, flights}) {
           // id of airport to city
           axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
             params: {
-              type: "airport",
               input: leg.departure_airport.id
             },
           }).then((response) => {
@@ -59,7 +58,6 @@ export function AddFlightsModal({onClose, trips, flights}) {
               // id of airport to city
               axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
                 params: {
-                  type: "airport",
                   input: leg.arrival_airport.id
                 },
               }).then((response) => {
@@ -109,7 +107,6 @@ export function AddFlightsModal({onClose, trips, flights}) {
           // id of airport to city
           axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
             params: {
-              type: "airport",
               input: layover.id
             },
           }).then((response) => {
@@ -155,7 +152,6 @@ export function AddFlightsModal({onClose, trips, flights}) {
           // id of airport to city
           axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
             params: {
-              type: "airport",
               input: leg.departure_airport.id
             },
           }).then((response) => {
@@ -170,7 +166,6 @@ export function AddFlightsModal({onClose, trips, flights}) {
               // id of airport to city
               axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
                 params: {
-                  type: "airport",
                   input: leg.arrival_airport.id
                 },
               }).then((response) => {
@@ -219,7 +214,6 @@ export function AddFlightsModal({onClose, trips, flights}) {
           // id of airport to city
           axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
             params: {
-              type: "airport",
               input: layover.id
             },
           }).then((response) => {

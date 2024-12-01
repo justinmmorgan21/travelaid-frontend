@@ -28,7 +28,7 @@ export default function UserSettings() {
 
   return (
     <div>
-      <h1 className='text-xl text-white'>Profile Settings</h1>
+      <h1 className='text-4xl text-white'>Profile Settings</h1>
       <hr className='my-4'/> 
       <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => handleSubmit(event)}>
         <div>

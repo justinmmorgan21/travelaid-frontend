@@ -210,7 +210,7 @@ export function TripsShowPage() {
               <img className="h-12" src={trip.flights[1].legs[0].airline_logo} alt="" />
               <div>
                 <div className="flex flex-row">
-                  {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_day} <LuDot className="mt-1 mx-1" /> {trip.flights[1].legs[0].departure_airport_time} - {trip.flights[1].legs[trip.flights[0].legs.length-1].arrival_airport_time}
+                  {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_day} <LuDot className="mt-1 mx-1" /> {trip.flights[1].legs[0].departure_airport_time} - {trip.flights[1].legs[trip.flights[1].legs.length-1].arrival_airport_time}
                 </div>
                 <p className="font-light text-sm">{trip.flights[1].legs[0].airline}</p>
               </div>

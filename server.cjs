@@ -67,7 +67,6 @@ const server = createServer(async (req, res) => {
   } else if (path === "/google-places-autocomplete") {
     // Handle the request for Google Places Autocomplete for airports being entered into input fields
     const input = searchParams.get("input");
-    const radius = searchParams.get("radius") || 500;
     const types = searchParams.get("types");
 
     if (!input) {
@@ -83,7 +82,6 @@ const server = createServer(async (req, res) => {
         {
           params: {
             input,
-            radius,
             types,
             key: googleMapsKey,
           },

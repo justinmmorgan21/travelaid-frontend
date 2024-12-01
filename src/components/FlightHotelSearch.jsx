@@ -49,7 +49,6 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
         axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
           params: {
             input: response.data.results[0].name,
-            radius: 500,
             types: "airport",
           },
         })
@@ -65,7 +64,6 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
       axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
         params: {
           input: destinationTitle,
-          radius: 500,
           types: "airport",
         },
       }).then(response=> {
@@ -101,7 +99,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
         setAlertMessage("No matching flights!")
       } else {
         navigate("/flights", { state: response.data });
-        setShowHero(false);
+        setShowHero && setShowHero(false);
       }
     }).catch(error => {
       setSearching(false);
@@ -122,7 +120,6 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
     axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
       params: {
         input: text,
-        radius: 500,
         types: "airport",
       },
     }).then(response=> {
