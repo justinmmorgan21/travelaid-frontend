@@ -3,7 +3,6 @@ const { getJson } = require("serpapi");
 const { createServer } = require('node:http');
 const axios = require("axios");
 
-const hostname = '127.0.0.1';
 const port = 3001;
 
 const serpApiKey = process.env.SERPAPI_API_KEY;
@@ -169,6 +168,6 @@ const server = createServer(async (req, res) => {
   } 
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Server running at http://0.0.0.0:${port}/`);
 });
