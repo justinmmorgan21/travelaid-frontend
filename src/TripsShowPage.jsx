@@ -10,6 +10,7 @@ import { UpdateTrip } from "./components/UpdateTrip";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { PlacesUpdate } from "./PlacesUpdate";
 import { LuDot } from "react-icons/lu";
+import apiConfig from './apiConfig';
 
 export function TripsShowPage() {
   const trip = useLoaderData();
@@ -18,12 +19,12 @@ export function TripsShowPage() {
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
 
   const fetchDefaultCenter = useCallback(() => {
-    axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+    axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
       params: {
         input: trip.title,
       },
     }).then(response=> {
-      axios.get("http://127.0.0.1:3001/google-places-details", {
+      axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
         params: {
           place_id: response.data.predictions[0].place_id,
         },
@@ -70,7 +71,7 @@ export function TripsShowPage() {
   }
 
   const handleDeletePlace = (place) => {
-    axios.delete(`http://localhost:3000/places/${place.id}.json`).then(() => {
+    axios.delete(`${apiConfig.backendBaseUrl}/places/${place.id}.json`).then(() => {
       navigate(`/trips/${trip.id}`);
     })
   }

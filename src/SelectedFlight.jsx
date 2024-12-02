@@ -7,6 +7,7 @@ import { FaRepeat } from "react-icons/fa6";
 import { AddFlightsModal } from "./components/AddFlightsModal";
 import { Modal } from "./Modal";
 import axios from 'axios';
+import apiConfig from './apiConfig';
 
 export function SelectedFlight() {
   const location = useLocation();
@@ -25,7 +26,7 @@ export function SelectedFlight() {
   }
 
   const handleAddFlights = () => {
-    axios.get("http://localhost:3000/trips.json").then(response => {
+    axios.get(`${apiConfig.backendBaseUrl}/trips.json`).then(response => {
       setTrips(response.data);
       setModalVisible(true);
     })

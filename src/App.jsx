@@ -18,7 +18,7 @@ import { TripsPastIndexPage } from "./TripsPastIndexPage";
 import { Admin } from "./Admin";
 import BackgroundImage from './assets/clouds-4k-for-pc-in-hd-wallpaper-preview.jpg';
 import { SelectedFlight } from "./SelectedFlight";
-
+import apiConfig from './apiConfig';
 
 const AppLayout = () => {
   const [showHero, setShowHero] = useState(false);
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => axios.get(`http://localhost:3000/trips/next.json`).then(response => response.data)
+        loader: () => axios.get(`${apiConfig.backendBaseUrl}/trips/next.json`).then(response => response.data)
       },
       {
         path: "/userSettings",
@@ -75,17 +75,17 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
-        loader: () => axios.get(`http://localhost:3000/trips/next.json`).then(response => response.data)
+        loader: () => axios.get(`${apiConfig.backendBaseUrl}/trips/next.json`).then(response => response.data)
       },
       {
         path: "/trips",
         element: <TripsIndexPage />,
-        loader: () => axios.get("http://localhost:3000/trips.json").then(response => response.data)
+        loader: () => axios.get(`${apiConfig.backendBaseUrl}/trips.json`).then(response => response.data)
       },
       {
         path: "/trips/:id",
         element: <TripsShowPage />,
-        loader: ({ params }) => axios.get(`http://localhost:3000/trips/${params.id}.json`).then(response => response.data)
+        loader: ({ params }) => axios.get(`${apiConfig.backendBaseUrl}/trips/${params.id}.json`).then(response => response.data)
       },
       {
         path: "/trips/new",
@@ -94,12 +94,12 @@ const router = createBrowserRouter([
       {
         path: "/trips/past",
         element: <TripsPastIndexPage />,
-        loader: () => axios.get("http://localhost:3000/trips/past.json").then(response => response.data)
+        loader: () => axios.get(`${apiConfig.backendBaseUrl}/trips/past.json`).then(response => response.data)
       },
       {
         path: "/contact",
         element: <Contact />,
-        loader: () => localStorage.jwt === undefined ? null : axios.get(`http://localhost:3000/users/current.json`).then(response => response.data)
+        loader: () => localStorage.jwt === undefined ? null : axios.get(`${apiConfig.backendBaseUrl}/users/current.json`).then(response => response.data)
       },
       {
         path: "/flights",
@@ -108,7 +108,7 @@ const router = createBrowserRouter([
       {
         path: "/suggested",
         element: <SuggestedTripsPage />,
-        loader: () => axios.get("http://localhost:3000/trips/suggested.json").then(response => response.data)
+        loader: () => axios.get(`${apiConfig.backendBaseUrl}/trips/suggested.json`).then(response => response.data)
       },
       {
         path: "/selected_flight",
@@ -117,7 +117,7 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin />,
-        loader: () => axios.get("http://localhost:3000/users.json").then(response => response.data) 
+        loader: () => axios.get(`${apiConfig.backendBaseUrl}/users.json`).then(response => response.data) 
       }
     ],
   },

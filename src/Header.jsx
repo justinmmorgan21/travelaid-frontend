@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Logo from './assets/small logo.png';
+import apiConfig from './apiConfig';
 
 export function Header({setShowHero, modalShow}) {
   const [currentUser, setCurrentUser] = useState({});
   const navigate = useNavigate();
 
   const loadUserData = () => {
-    axios.get("http://localhost:3000/users/current.json").then(response=> {
+    axios.get(`${apiConfig.backendBaseUrl}/users/current.json`).then(response=> {
       setCurrentUser(response.data);
     })
   }

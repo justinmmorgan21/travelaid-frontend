@@ -12,7 +12,7 @@ export function PlacesUpdate({onClose, place, trip}) {
     const params = new FormData();
     setSelectedDate(date);
     params.append('start_time', date);
-    axios.patch(`http://localhost:3000/places/${place.id}.json`, params).then(()=> {
+    axios.patch(`${apiConfig.backendBaseUrl}/places/${place.id}.json`, params).then(()=> {
       onClose();
       navigate(`/trips/${trip.id}`);
     });

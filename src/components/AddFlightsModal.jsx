@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Spinner } from './Spinner';
 import axios from 'axios';
+import apiConfig from '../apiConfig';
 
 export function AddFlightsModal({onClose, trips, flights}) {
   const navigate = useNavigate();
@@ -29,25 +30,25 @@ export function AddFlightsModal({onClose, trips, flights}) {
     setSearching(true);
     const tripUpdateFlightParams = new FormData();
     tripUpdateFlightParams.append('flight_booked', true);
-    axios.patch(`http://localhost:3000/trips/${trip.id}.json`, tripUpdateFlightParams).then(() => {
+    axios.patch(`${apiConfig.backendBaseUrl}/trips/${trip.id}.json`, tripUpdateFlightParams).then(() => {
       const departureParams = new FormData();
       departureParams.append('trip_id', trip.id);
       departureParams.append('direction', "departing");
       departureParams.append('total_duration', departureFlight.total_duration);
 
       // Create DEPARTING FLIGHT, then create legs and layovers for it, on last leg and last layover, check if all have been done
-      axios.post("http://localhost:3000/flights.json", departureParams).then(flightCreateResponse=> 
+      axios.post(`${apiConfig.backendBaseUrl}/flights.json`, departureParams).then(flightCreateResponse=> 
       {
         // make a new Leg for each element from departureFlight.flights : flight_id from flight just made, doing another proxy server request to get city, and convert times in backend
         departureFlight.flights.map((leg,i) => {
           let departureCity = null;
           // id of airport to city
-          axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+          axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
             params: {
               input: leg.departure_airport.id
             },
           }).then((response) => {
-            axios.get("http://127.0.0.1:3001/google-places-details", {
+            axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
@@ -56,12 +57,12 @@ export function AddFlightsModal({onClose, trips, flights}) {
 
               let arrivalCity = null;
               // id of airport to city
-              axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+              axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
                 params: {
                   input: leg.arrival_airport.id
                 },
               }).then((response) => {
-                axios.get("http://127.0.0.1:3001/google-places-details", {
+                axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
                   params: {
                     place_id: response.data.predictions[0].place_id,
                   },
@@ -84,7 +85,7 @@ export function AddFlightsModal({onClose, trips, flights}) {
                   legParams.append('arrival_airport_city', arrivalCity);
                   legParams.append('duration', leg.duration);
                   legParams.append('flight_number', leg.flight_number);
-                  axios.post("http://localhost:3000/legs.json", legParams).then(() => {
+                  axios.post(`${apiConfig.backendBaseUrl}/legs.json`, legParams).then(() => {
                     departLegsCount++;
                     if (departLegsCount == departureFlight.flights.length) { //this is the last leg to complete
                       departLegsDone = true;
@@ -105,12 +106,12 @@ export function AddFlightsModal({onClose, trips, flights}) {
         departureFlight.layovers && departureFlight.layovers.map((layover) => {
           let layoverCity = null;
           // id of airport to city
-          axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+          axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
             params: {
               input: layover.id
             },
           }).then((response) => {
-            axios.get("http://127.0.0.1:3001/google-places-details", {
+            axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
@@ -123,7 +124,7 @@ export function AddFlightsModal({onClose, trips, flights}) {
               layoverParams.append('airport_id', layover.id);
               layoverParams.append('airport_name', layover.name);
               layoverParams.append('airport_city', layoverCity);
-              axios.post("http://localhost:3000/layovers.json", layoverParams).then(() => {
+              axios.post(`${apiConfig.backendBaseUrl}/layovers.json`, layoverParams).then(() => {
                 departLayoversCount++;
                 if (departLayoversCount == departureFlight.layovers.length) { //this is the last layover to complete
                   departLayoversDone = true;
@@ -144,18 +145,18 @@ export function AddFlightsModal({onClose, trips, flights}) {
       returnParams.append('trip_id', trip.id);
       returnParams.append('direction', "returning");
       returnParams.append('total_duration', returnFlight.total_duration);
-      axios.post("http://localhost:3000/flights.json", returnParams).then(flightCreateResponse => 
+      axios.post(`${apiConfig.backendBaseUrl}/flights.json`, returnParams).then(flightCreateResponse => 
       {
         // make a new Leg for each element from departureFlight.flights : flight_id from flight just made, doing another proxy server request to get city, and convert times in backend
         returnFlight.flights.map((leg,i) => {
           let departureCity = null;
           // id of airport to city
-          axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+          axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
             params: {
               input: leg.departure_airport.id
             },
           }).then((response) => {
-            axios.get("http://127.0.0.1:3001/google-places-details", {
+            axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
@@ -164,12 +165,12 @@ export function AddFlightsModal({onClose, trips, flights}) {
 
               let arrivalCity = null;
               // id of airport to city
-              axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+              axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
                 params: {
                   input: leg.arrival_airport.id
                 },
               }).then((response) => {
-                axios.get("http://127.0.0.1:3001/google-places-details", {
+                axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
                   params: {
                     place_id: response.data.predictions[0].place_id,
                   },
@@ -191,7 +192,7 @@ export function AddFlightsModal({onClose, trips, flights}) {
                   legParams.append('arrival_airport_city', arrivalCity);
                   legParams.append('duration', leg.duration);
                   legParams.append('flight_number', leg.flight_number);
-                  axios.post("http://localhost:3000/legs.json", legParams).then(() => {
+                  axios.post(`${apiConfig.backendBaseUrl}/legs.json`, legParams).then(() => {
                     returnLegsCount++;
                     if (returnLegsCount == returnFlight.flights.length) { //this is the last leg to complete
                       returnLegsDone = true;
@@ -212,12 +213,12 @@ export function AddFlightsModal({onClose, trips, flights}) {
         returnFlight.layovers && returnFlight.layovers.map((layover) => {
           let layoverCity = null;
           // id of airport to city
-          axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+          axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
             params: {
               input: layover.id
             },
           }).then((response) => {
-            axios.get("http://127.0.0.1:3001/google-places-details", {
+            axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
               params: {
                 place_id: response.data.predictions[0].place_id,
               },
@@ -230,7 +231,7 @@ export function AddFlightsModal({onClose, trips, flights}) {
               layoverParams.append('airport_id', layover.id);
               layoverParams.append('airport_name', layover.name);
               layoverParams.append('airport_city', layoverCity);
-              axios.post("http://localhost:3000/layovers.json", layoverParams).then(() => {
+              axios.post(`${apiConfig.backendBaseUrl}/layovers.json`, layoverParams).then(() => {
                 returnLayoversCount++;
                 if (returnLayoversCount == returnFlight.layovers.length) { //this is the last leg to complete
                   returnLayoversDone = true;

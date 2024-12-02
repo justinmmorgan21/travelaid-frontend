@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import apiConfig from '../apiConfig';
 
 export default function SignUp({ className , setSwitchAuth }) {
   const [errors, setErrors] = useState([]);
@@ -8,8 +9,8 @@ export default function SignUp({ className , setSwitchAuth }) {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
-    axios.post("http://localhost:3000/users.json", params).then(() => {
-      axios.post("http://localhost:3000/sessions.json", params).then((resp) => {
+    axios.post(`${apiConfig.backendBaseUrl}/users.json`, params).then(() => {
+      axios.post(`${apiConfig.backendBaseUrl}/sessions.json`, params).then((resp) => {
         // after sign up, continue with sign in
         axios.defaults.headers.common["Authorization"] = "Bearer " + resp.data.jwt;
         localStorage.setItem("jwt", resp.data.jwt);

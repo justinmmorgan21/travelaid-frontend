@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Label, TextInput } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
 import FlightHotelSearch from "./components/FlightHotelSearch";
+import apiConfig from './apiConfig';
 
 export function TripsCreatePage() {
   const [title, setTitle] = useState('');
@@ -16,7 +17,7 @@ export function TripsCreatePage() {
     const params = new FormData(event.target);
     params.append('start_time', dates.startDate);
     params.append('end_time', dates.endDate);
-    axios.post("http://localhost:3000/trips.json", params).then(response=> {
+    axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
       navigate(`/trips/${response.data.id}`);
     });
   }

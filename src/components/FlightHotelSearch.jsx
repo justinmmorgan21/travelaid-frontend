@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useGeoLocation } from 'use-geo-location';
 import { Alert } from "flowbite-react";
 import { Spinner } from "./Spinner";
+import apiConfig from '../apiConfig';
 
 export default function FlightHotelSearch({destinationTitle, setShowHero}) {
   const [dates, setDates] = useState({ 
@@ -39,14 +40,14 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
 
   useEffect(() => {
     if (latitude && longitude) {
-      axios.get("http://127.0.0.1:3001/google-places-nearby", {
+      axios.get(`${apiConfig.proxyServerUrl}/google-places-nearby`, {
         params: {
           location: `${latitude},${longitude}`,
           radius: 50000,
           type: "airport",
         },
       }).then((response) => {
-        axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+        axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
           params: {
             input: response.data.results[0].name,
             types: "airport",
@@ -61,7 +62,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
 
   useEffect(() => {
     if (destinationTitle) {
-      axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+      axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
         params: {
           input: destinationTitle,
           types: "airport",
@@ -84,7 +85,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
     const outbound_date = new Date(dates.startDate).toISOString().split('T')[0];
     const return_date = new Date(dates.endDate).toISOString().split('T')[0];
     setSearching(true);
-    axios.get("http://localhost:3001/search-flights", {
+    axios.get(`${apiConfig.proxyServerUrl}/search-flights`, {
       params: {
         engine,
         departure_id,
@@ -117,7 +118,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
       setSearchReturnInput(text);
       setShowReturnAutocomplete(text === "" ? false : true);
     }
-    axios.get("http://127.0.0.1:3001/google-places-autocomplete", {
+    axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
       params: {
         input: text,
         types: "airport",

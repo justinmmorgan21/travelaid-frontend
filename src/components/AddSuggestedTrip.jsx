@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Label, TextInput } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
+import apiConfig from '../apiConfig';
 
 export function AddSuggestedTrip({onClose, trip}) {
   const [title, setTitle] = useState(trip.title);
@@ -27,7 +28,7 @@ export function AddSuggestedTrip({onClose, trip}) {
     params.append('end_time', dates.endDate);
 
     try {
-      const tripResponse = await axios.post("http://localhost:3000/trips.json", params);
+      const tripResponse = await axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params);
       const tripId = tripResponse.data.id;
       // Use Promise.all to wait for all places to be created
       const placeCreationPromises = trip.places.map(place => {
@@ -40,7 +41,7 @@ export function AddSuggestedTrip({onClose, trip}) {
         placeParams.append("description", place.description);
         placeParams.append("image_url", place.image_url);
   
-        return axios.post("http://localhost:3000/places.json", placeParams).then(() => {});
+        return axios.post(`${apiConfig.backendBaseUrl}/places.json`, placeParams).then(() => {});
       });
   
       await Promise.all(placeCreationPromises);

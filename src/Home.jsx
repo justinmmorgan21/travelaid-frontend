@@ -7,6 +7,7 @@ import { HiChevronDoubleRight } from "react-icons/hi";
 import { Button } from "flowbite-react";
 import { Modal } from "./Modal";
 import { AddSuggestedTrip } from "./components/AddSuggestedTrip";
+import apiConfig from './apiConfig';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function Home() {
   const nextDate = nextTrip ? nextTrip.start_time : "";
   const [ suggestedTrips, setSuggestedTrips ] = useState([]);
   const handleSuggestedTrips = () => {
-    axios.get("http://localhost:3000/trips/suggested.json").then(response => {
+    axios.get(`${apiConfig.backendBaseUrl}/trips/suggested.json`).then(response => {
       setSuggestedTrips(response.data);
     })
   }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Label, TextInput } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
+import apiConfig from '../apiConfig';
 
 export function UpdateTrip({onClose, trip}) {
   const [title, setTitle] = useState(trip.title);
@@ -19,7 +20,7 @@ export function UpdateTrip({onClose, trip}) {
     const params = new FormData(event.target);
     params.append('start_time', dates.startDate);
     params.append('end_time', dates.endDate);
-    axios.patch(`http://localhost:3000/trips/${trip.id}.json`, params).then(response=> {
+    axios.patch(`${apiConfig.backendBaseUrl}/trips/${trip.id}.json`, params).then(response=> {
       onClose();
       navigate(`/trips/${response.data.id}`);
     });

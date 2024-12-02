@@ -19,7 +19,7 @@ export default function UserSettings() {
     const params = new FormData(event.target);
     const isFileSelected = image instanceof File;
     params.append('image', isFileSelected ? image : "no-image");
-    axios.patch(`http://localhost:3000/users/${currentUser.id}.json`, params)
+    axios.patch(`${apiConfig.backendBaseUrl}/users/${currentUser.id}.json`, params)
       .then(() => {
         event.target.reset();
         window.location.href = "/";
