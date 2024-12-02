@@ -29,9 +29,10 @@ export function TripsShowPage() {
         },
       }).then(resp => {
         setCoords(resp.data.result.geometry.location)
+        useMap.panTo(coords)
       })
     });
-  }, [trip]);
+  }, [trip, coords]);
 
   useEffect(() => {
     if (trip.places.length === 0) {
@@ -80,7 +81,7 @@ export function TripsShowPage() {
       if (!map) return;
       if (!ev.latLng) return;
       map.panTo(ev.latLng);
-    })
+    }, [map])
   
     return (
       <>
@@ -313,12 +314,7 @@ export function TripsShowPage() {
                     defaultZoom={trip.places.length != 0 ? trip.initial_zoom : 10}
                     defaultCenter={ { lat: trip.center[0] , lng: trip.center[1] } }
                       mapId='97aaa7a8b424bee5'
-                      onCameraChanged={(ev) =>
-                        console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
-                      }
-                      center = {trip.places.length != 0 ?
-                        { lat: trip.center[0] , lng: trip.center[1] } : coords}
-                        >
+                  >
                     <PoiMarkers pois={locations} />
                   </Map>
                 </APIProvider>

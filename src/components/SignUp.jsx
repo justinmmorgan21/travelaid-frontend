@@ -17,7 +17,6 @@ export default function SignUp({ className , setSwitchAuth }) {
         window.location.href = "/trips/new";
       })
     }).catch((error) => {
-      console.log("ERRORS", error.response.data.errors);
       setErrors(error.response.data.errors);
     });
   };

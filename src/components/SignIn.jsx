@@ -22,8 +22,7 @@ export default function SignIn({ className , setSwitchAuth}) {
         else
           window.location.href = "/trips";
       })
-    }).catch((error) => {
-      console.log(error.response);
+    }).catch(() => {
       setErrors(["Invalid email or password"]);
     });
   };
