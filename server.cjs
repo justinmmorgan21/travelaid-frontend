@@ -3,7 +3,7 @@ const { getJson } = require("serpapi");
 const { createServer } = require('node:http');
 const axios = require("axios");
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const serpApiKey = process.env.SERPAPI_API_KEY;
 const googleMapsKey = process.env.GOOGLE_MAPS_API_KEY;
