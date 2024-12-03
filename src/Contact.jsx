@@ -10,8 +10,9 @@ export function Contact() {
   
   const sendEmail = (e) => {
     e.preventDefault();
-
-    emailjs.sendForm(import.meta.env.VITE_APP_SERVICE_ID, import.meta.env.VITE_APP_TEMPLATE_ID, form.current, import.meta.env.VITE_APP_PUBLIC_KEY).then(
+    emailjs.sendForm(import.meta.env.VITE_APP_SERVICE_ID, import.meta.env.VITE_APP_TEMPLATE_ID, form.current, {
+      publicKey: import.meta.env.VITE_APP_PUBLIC_KEY,
+    }).then(
       () => {
         e.target.reset();
         alert("Email has been successfully sent!");
@@ -27,7 +28,7 @@ export function Contact() {
       <br />
       <h1 className='text-4xl text-white'>Contact Me</h1>
       <hr className='my-4'/> 
-      <form className="flex max-w-md flex-col gap-4" onSubmit={(event) => sendEmail(event)}>
+      <form ref={form} className="flex max-w-md flex-col gap-4" onSubmit={(event) => sendEmail(event)}>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="user_name" value="Name" className='text-white'/>
