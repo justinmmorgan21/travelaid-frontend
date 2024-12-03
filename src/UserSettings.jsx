@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { HiMail } from "react-icons/hi";
 import { Button, Label, TextInput, FileInput, Avatar } from "flowbite-react";
+import apiConfig from './apiConfig';
 
 export default function UserSettings() {
   const { state } = useLocation();
