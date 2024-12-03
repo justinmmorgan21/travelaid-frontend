@@ -11,15 +11,13 @@ export function Contact() {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm(import.meta.env.VITE_APP_SERVICE_ID, import.meta.env.VITE_APP_TEMPLATE_ID, form.current, {
-      publicKey: import.meta.env.VITE_APP_PUBLIC_KEY,
-    }).then(
+    emailjs.sendForm(import.meta.env.VITE_APP_SERVICE_ID, import.meta.env.VITE_APP_TEMPLATE_ID, form.current, import.meta.env.VITE_APP_PUBLIC_KEY).then(
       () => {
         e.target.reset();
         alert("Email has been successfully sent!");
       },
       (error) => {
-        console.log('FAILED...', error.text);
+        console.log('FAILED...', error);
       },
     );
   };
