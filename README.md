@@ -62,6 +62,7 @@
   - The Google Map has a default center and zoom upon initial display. It was a bit confusing on how to most appropriately assign values to these when showing a Trip. I landed on a mathematical process for calculating these. First, I found the average latitude and longitude of the points of interest to determine a center value. Then, I set up an automated calculation for the point of interest furthest out from the center since I needed to ensure it would be shown. After testing out the needed zoom level for 4 different Trips, I developed a function that defined an input of furthest point of interest distance and an output of zoom level needed to show it.
 
   🎯 **Future goals** 
+  - make it dynamic
   - sort options for the flight results
   - budget feature to track all expenses for a Trip
   - add ratings and/or comments to Trips or Points of Interest or both
