@@ -66,14 +66,14 @@ export function SelectedFlight() {
         </div>
       </div>
       <div className='mx-auto ml-20 flex flex-row w-full text-white'>
-          <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-2 rounded-md text-white mx-auto" onClick={()=>handleConfirmBooking()}>Continue to Booking</Button>
+          <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-10 rounded-md text-white mx-auto" onClick={()=>handleConfirmBooking()}>Continue to Booking</Button>
           <div className='mr-72 -ml-72  py-1 px-4 bg-white mt-2 rounded-md'>
             <p className='text-gray-700 text-2xl'>${data.price_insights.lowest_price}</p>
             <p className='text-gray-700 text-sm font-light'>Lowest Total Price</p>
           </div>
       </div>
       <div className="mx-auto">
-        <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-3 rounded-md text-white ml-3" onClick={()=>handleAddFlights()}>Add flights to a trip</Button>
+        <Button className=" pt-1 mt-4 bg-blue-700 h-12 px-3 rounded-md text-white ml-3" onClick={()=>handleAddFlights()}>Add flights to an existing trip</Button>
       </div>
       <Modal onClose={handleClose} show={modalVisible}>
         <AddFlightsModal onClose={handleClose} trips={trips} flights={data.selected_flights}/>

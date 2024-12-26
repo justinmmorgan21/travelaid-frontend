@@ -250,19 +250,23 @@ export function AddFlightsModal({onClose, trips, flights}) {
   }
 
   return (
-    <div> 
+    <div className='text-center'> 
       { localStorage.jwt === undefined ? (
         <p>Must be logged in to make New Trips or Add Flights to Trips</p>
       ) : (
-        trips.map((trip,i) => (
-          <div key={trip.id}>
+        trips.length == 0 ? (
+          <p>You have no existing Trips</p>
+        ) : (
+          trips.map((trip,i) => (
+            <div key={trip.id}>
             <div className="py-4 flex flex-row items-center">
-              <button className="bg-blue-700 text-white px-2 py-1 rounded mr-3 text-sm" onClick={()=>handleAddFlights(trip)}>add flights</button>
-              <p>{trip.title}</p>
+            <button className="bg-blue-700 text-white px-2 py-1 rounded mr-3 text-sm" onClick={()=>handleAddFlights(trip)}>add flights</button>
+            <p>{trip.title}</p>
             </div>
             {i != trips.length-1 && <hr /> }
-          </div>
-        ))
+            </div>
+          ))
+        )
       )}
       { searching && <Spinner /> }
     </div>
