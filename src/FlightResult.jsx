@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Flight } from './components/Flight';
 import { Spinner } from './components/Spinner';
+import apiConfig from './apiConfig';
 import axios from 'axios';
 
 export function FlightResult() {
@@ -17,7 +18,7 @@ export function FlightResult() {
     if (!departSet) {
       setDepartureFlight(flight);
       setSearching(true);
-      axios.get("http://localhost:3001/search-flights", {
+      axios.get(`${apiConfig.proxyServerUrl}/search-flights`, {
         params: {
           engine: data.search_parameters.engine,
           departure_id: data.search_parameters.departure_id,
@@ -35,7 +36,7 @@ export function FlightResult() {
     } else {
       setReturnFlight(flight);
       setSearching(true);
-      axios.get("http://localhost:3001/search-flights", {
+      axios.get(`${apiConfig.proxyServerUrl}/search-flights`, {
         params: {
           engine: data.search_parameters.engine,
           departure_id: data.search_parameters.departure_id,
