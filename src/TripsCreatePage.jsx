@@ -17,9 +17,20 @@ export function TripsCreatePage() {
     const params = new FormData(event.target);
     params.append('start_time', dates.startDate);
     params.append('end_time', dates.endDate);
-    axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
-      navigate(`/trips/${response.data.id}`);
-    });
+    if (params.get('image_url') === "") {
+      const query = params.get("title");
+      axios.get(`${apiConfig.proxyServerUrl}/get-image`, { params: {query} }).then(response => {
+        const image_url = response.data.images_results[0].thumbnail;
+        params.set('image_url', image_url)
+        axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
+          navigate(`/trips/${response.data.id}`);
+        });
+      })
+    } else {
+      axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
+        navigate(`/trips/${response.data.id}`);
+      });
+    }
   }
 
   const handleReset = () => {
@@ -59,7 +70,7 @@ export function TripsCreatePage() {
             <div className="mb-2 block">
               <Label htmlFor="image_url" value="URL of trip image" className='text-white'/>
             </div>
-            <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow required value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
+            <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
           </div>
           <div className=' flex flex-row space-x-2'>
             <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
