@@ -30,10 +30,11 @@ export function TripsShowPage() {
         },
       }).then(resp => {
         setCoords(resp.data.result.geometry.location)
+        // console.log("coords: ", coords);
         useMap.panTo(coords)
       })
     });
-  }, [trip, coords]);
+  }, [trip]);
 
   useEffect(() => {
     if (trip.places.length === 0) {

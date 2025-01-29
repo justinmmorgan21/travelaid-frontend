@@ -11,6 +11,15 @@ export function TripsCreatePage() {
   const [imageUrl, setImageUrl] = useState('');
 
   const navigate = useNavigate();
+
+  function isImgUrl(url) {
+    const img = new Image();
+    img.src = url;
+    return new Promise((resolve) => {
+      img.onerror = () => resolve(false);
+      img.onload = () => resolve(true);
+    });
+  }
   
   const handleCreate = (event) => {
     event.preventDefault();
@@ -27,9 +36,27 @@ export function TripsCreatePage() {
         });
       })
     } else {
-      axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
-        navigate(`/trips/${response.data.id}`);
+      const url = params.get("image_url");
+      isImgUrl(url).then(result => {
+        if (result === true) {
+          console.log("result: true");
+          axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
+            navigate(`/trips/${response.data.id}`);
+          });
+        } else {
+          console.log("result: false");
+          const query = params.get("title");
+          axios.get(`${apiConfig.proxyServerUrl}/get-image`, { params: {query} }).then(response => {
+            const image_url = response.data.images_results[0].thumbnail;
+            params.set('image_url', image_url)
+            axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
+              navigate(`/trips/${response.data.id}`);
+            });
+          })
+        }
       });
+
+
     }
   }
 
