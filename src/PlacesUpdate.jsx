@@ -20,14 +20,17 @@ export function PlacesUpdate({onClose, place, trip}) {
   }
 
   return (
-    <div >
-      <h1 className='text-xl'>Update Trip</h1>
+    <div>
+      <h1 className='text-xl'>Update Date</h1>
       <hr className='my-4'/>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="title" value="Date" />
         </div>
         <Datepicker id="date-picker" title="Date" name="start_time" value={selectedDate} onChange={(date) => handleUpdate(date)} datepicker-buttons="true"/>
+      </div>
+      <div className='width-100% flex flex-row-reverse mt-2'>
+        <button className="bg-blue-700 px-4 h-8 mt-2 rounded text-white" onClick={()=>onClose()}>Cancel</button>
       </div>
     </div>
   );
