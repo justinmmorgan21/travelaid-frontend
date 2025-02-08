@@ -14,16 +14,19 @@ import apiConfig from './apiConfig';
 
 export function TripsShowPage() {
   const trip = useLoaderData();
+  console.log("TRIP: ", trip);
   const navigate = useNavigate();
   const [placeToEdit, setPlaceToEdit] = useState(null);
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
 
   const fetchDefaultCenter = useCallback(() => {
+    console.log("google-places-autocomplete - TRIPS SHOW PAGE");
     axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
       params: {
         input: trip.title,
       },
     }).then(response=> {
+      console.log("google-places-details - TRIPS SHOW PAGE")
       axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
         params: {
           place_id: response.data.predictions[0].place_id,
@@ -34,7 +37,7 @@ export function TripsShowPage() {
         useMap.panTo(coords)
       })
     });
-  }, [trip]);
+  }, []);
 
   useEffect(() => {
     if (trip.places.length === 0) {
@@ -314,8 +317,8 @@ export function TripsShowPage() {
                 <APIProvider apiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY} onLoad={() => console.log('Maps API has loaded')}>
                   <Map
                     defaultZoom={trip.places.length != 0 ? trip.initial_zoom : 10}
-                    defaultCenter={ { lat: trip.center[0] , lng: trip.center[1] } }
-                      mapId='97aaa7a8b424bee5'
+                    defaultCenter={ { lat: trip.lat , lng: trip.lng } }
+                    mapId='97aaa7a8b424bee5'
                   >
                     <PoiMarkers pois={locations} />
                   </Map>

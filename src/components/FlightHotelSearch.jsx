@@ -40,6 +40,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
 
   useEffect(() => {
     if (latitude && longitude) {
+      console.log("google-places-nearby - FLIGHT HOTEL SEARCH");
       axios.get(`${apiConfig.proxyServerUrl}/google-places-nearby`, {
         params: {
           location: `${latitude},${longitude}`,
@@ -47,6 +48,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
           type: "airport",
         },
       }).then((response) => {
+        console.log("google-places-autocomplete 1 - FLIGHT HOTEL SEARCH");
         axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
           params: {
             input: response.data.results[0].name,
@@ -62,6 +64,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
 
   useEffect(() => {
     if (destinationTitle) {
+      console.log("google-places-autocomplete 2 - FLIGHT HOTEL SEARCH");
       axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
         params: {
           input: destinationTitle,
@@ -118,6 +121,7 @@ export default function FlightHotelSearch({destinationTitle, setShowHero}) {
       setSearchReturnInput(text);
       setShowReturnAutocomplete(text === "" ? false : true);
     }
+    console.log("google-places-autocomplete 3 - FLIGHT HOTEL SEARCH");
     axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
       params: {
         input: text,
