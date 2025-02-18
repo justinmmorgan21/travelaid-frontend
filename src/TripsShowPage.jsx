@@ -18,32 +18,37 @@ export function TripsShowPage() {
   const navigate = useNavigate();
   const [placeToEdit, setPlaceToEdit] = useState(null);
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
+  const [map, setMap] = useState(null);
 
-  const fetchDefaultCenter = useCallback(() => {
-    console.log("google-places-autocomplete - TRIPS SHOW PAGE");
-    axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
-      params: {
-        input: trip.title,
-      },
-    }).then(response=> {
-      console.log("google-places-details - TRIPS SHOW PAGE")
-      axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
-        params: {
-          place_id: response.data.predictions[0].place_id,
-        },
-      }).then(resp => {
-        setCoords(resp.data.result.geometry.location)
-        // console.log("coords: ", coords);
-        useMap.panTo(coords)
-      })
-    });
-  }, []);
+  // const fetchDefaultCenter = useCallback(() => {
+  //   const coords = {lat: trip.lat, lng: trip.lng}
+  //   console.log("COORDS: ", coords)
+  //   map.panTo(coords)
+  //   // console.log("google-places-autocomplete - TRIPS SHOW PAGE");
+  //   // axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
+  //   //   params: {
+  //   //     input: trip.title,
+  //   //   },
+  //   // }).then(response=> {
+  //   //   console.log("results from no location trip name: ", response.data);
+  //   //   console.log("google-places-details - TRIPS SHOW PAGE")
+  //   //   axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
+  //   //     params: {
+  //   //       place_id: response.data.predictions[0].place_id,
+  //   //     },
+  //   //   }).then(resp => {
+  //   //     setCoords(resp.data.result.geometry.location)
+  //   //     console.log("resp.data.result.geometry.location: ", resp.data.result.geometry.location)
+  //   //     console.log("coords: ", coords);
+  //   //     map.panTo(coords)
+  //   //   })
+  //   // });
+  // }, [trip, map, ]);
 
   useEffect(() => {
-    if (trip.places.length === 0) {
-      fetchDefaultCenter();
-    }
-  }, [trip.places, fetchDefaultCenter]);
+    map?.panTo({lat: trip.lat, lng: trip.lng})
+    map?.setZoom(trip.initial_zoom)
+  }, [trip.places]);
 
   const locations = trip.places.map((place, i) => {
     return {key: String.fromCharCode(65+i), location: { lat: place.lat, lng: place.lng } }
@@ -81,8 +86,9 @@ export function TripsShowPage() {
   }
 
   const PoiMarkers = ({ pois }) => {
-    const map = useMap();
+    setMap(useMap());
     const handleClick = useCallback((ev) => {
+      console.log("MAP: ", map);
       if (!map) return;
       if (!ev.latLng) return;
       map.panTo(ev.latLng);

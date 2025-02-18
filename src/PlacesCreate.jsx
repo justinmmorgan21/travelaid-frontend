@@ -34,9 +34,9 @@ export function PlacesCreate({onClose, trip}) {
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="address" value="Address" />
+            <Label htmlFor="address" value="Address (optional)" />
           </div>
-          <TextInput icon={AiFillEnvironment} id="address" name="address" type="text" placeholder="address" shadow required />
+          <TextInput icon={AiFillEnvironment} id="address" name="address" type="text" placeholder="address" shadow />
         </div>
         <div>
           <div className="mb-2 block">
@@ -48,13 +48,13 @@ export function PlacesCreate({onClose, trip}) {
         </div>
         <div className="max-w-md">
           <div className="mb-2 block">
-            <Label htmlFor="description" value="Description of this place" />
+            <Label htmlFor="description" value="Description/Notes for this Point of Interest (optional)" />
           </div>
-          <Textarea id="description" name="description" placeholder="description..." shadow required rows={2} />
+          <Textarea id="description" name="description" placeholder="description..." shadow rows={2} />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="image_url" value="URL of place image" />
+            <Label htmlFor="image_url" value="URL of image for Point of Interest" />
           </div>
           <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow required />
         </div>

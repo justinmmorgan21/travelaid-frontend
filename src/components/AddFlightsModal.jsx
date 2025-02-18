@@ -43,6 +43,7 @@ export function AddFlightsModal({onClose, trips, flights}) {
         departureFlight.flights.map((leg,i) => {
           let departureCity = null;
           // id of airport to city
+          console.log("google-places-autocomplete - ADD FLIGHTS MODAL");
           axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
             params: {
               input: leg.departure_airport.id
