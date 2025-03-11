@@ -14,36 +14,9 @@ import apiConfig from './apiConfig';
 
 export function TripsShowPage() {
   const trip = useLoaderData();
-  console.log("TRIP: ", trip);
   const navigate = useNavigate();
   const [placeToEdit, setPlaceToEdit] = useState(null);
-  const [coords, setCoords] = useState({ lat: 0, lng: 0 });
   const [map, setMap] = useState(null);
-
-  // const fetchDefaultCenter = useCallback(() => {
-  //   const coords = {lat: trip.lat, lng: trip.lng}
-  //   console.log("COORDS: ", coords)
-  //   map.panTo(coords)
-  //   // console.log("google-places-autocomplete - TRIPS SHOW PAGE");
-  //   // axios.get(`${apiConfig.proxyServerUrl}/google-places-autocomplete`, {
-  //   //   params: {
-  //   //     input: trip.title,
-  //   //   },
-  //   // }).then(response=> {
-  //   //   console.log("results from no location trip name: ", response.data);
-  //   //   console.log("google-places-details - TRIPS SHOW PAGE")
-  //   //   axios.get(`${apiConfig.proxyServerUrl}/google-places-details`, {
-  //   //     params: {
-  //   //       place_id: response.data.predictions[0].place_id,
-  //   //     },
-  //   //   }).then(resp => {
-  //   //     setCoords(resp.data.result.geometry.location)
-  //   //     console.log("resp.data.result.geometry.location: ", resp.data.result.geometry.location)
-  //   //     console.log("coords: ", coords);
-  //   //     map.panTo(coords)
-  //   //   })
-  //   // });
-  // }, [trip, map, ]);
 
   useEffect(() => {
     map?.panTo({lat: trip.lat, lng: trip.lng})
@@ -88,7 +61,6 @@ export function TripsShowPage() {
   const PoiMarkers = ({ pois }) => {
     setMap(useMap());
     const handleClick = useCallback((ev) => {
-      console.log("MAP: ", map);
       if (!map) return;
       if (!ev.latLng) return;
       map.panTo(ev.latLng);

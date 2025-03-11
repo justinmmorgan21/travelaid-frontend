@@ -5,8 +5,11 @@ import { Button, Label, TextInput } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
 import FlightHotelSearch from "./components/FlightHotelSearch";
 import apiConfig from './apiConfig';
+import { ImagePickerModal } from './ImagePickerModal';
+import { TripImagePicker } from "./components/TripImagePicker";
 
 export function TripsCreatePage() {
+
   const [title, setTitle] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
@@ -26,7 +29,7 @@ export function TripsCreatePage() {
     const params = new FormData(event.target);
     params.append('start_time', dates.startDate);
     params.append('end_time', dates.endDate);
-    if (params.get('image_url') === "") {
+    if (imageUrl === "") {
       const query = params.get("title");
       axios.get(`${apiConfig.proxyServerUrl}/get-image`, { params: {query} }).then(response => {
         const image_url = response.data.images_results[0].thumbnail;
@@ -35,16 +38,14 @@ export function TripsCreatePage() {
           navigate(`/trips/${response.data.id}`);
         });
       })
-    } else {
-      const url = params.get("image_url");
-      isImgUrl(url).then(result => {
+    } else {;
+      isImgUrl(imageUrl).then(result => {
         if (result === true) {
-          console.log("result: true");
+          params.set('image_url', imageUrl)
           axios.post(`${apiConfig.backendBaseUrl}/trips.json`, params).then(response=> {
             navigate(`/trips/${response.data.id}`);
           });
         } else {
-          console.log("result: false");
           const query = params.get("title");
           axios.get(`${apiConfig.proxyServerUrl}/get-image`, { params: {query} }).then(response => {
             const image_url = response.data.images_results[0].thumbnail;
@@ -55,8 +56,6 @@ export function TripsCreatePage() {
           })
         }
       });
-
-
     }
   }
 
@@ -73,6 +72,15 @@ export function TripsCreatePage() {
     startDate: null, 
     endDate: null
   });
+
+  const [tripImagePickerModalVisible, setTripImagePickerModalVisible] = useState(false);
+  const handleTripImagePickerResult = (url) => {
+    setImageUrl(url)
+    setTripImagePickerModalVisible(false);
+  }
+  const handleTripImagePickerClose = () => {
+    setTripImagePickerModalVisible(false);
+  }
 
   return (
     <div className='h-screen'>
@@ -93,12 +101,10 @@ export function TripsCreatePage() {
               onChange={newValue => setDates(newValue)}
               />
           </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="image_url" value="URL of trip image" className='text-white'/>
-            </div>
-            <TextInput id="image_url" name="image_url" type="text" placeholder="http://" shadow value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
-          </div>
+          {imageUrl && <div>
+            <img src={imageUrl} alt="Chosen trip image" />
+          </div>}
+          <Button className="bg-blue-700 px-2 py-0 rounded-md text-white" onClick={()=>{setTripImagePickerModalVisible(true)}}>{imageUrl ? "Change Image" : "Choose Image"}</Button>
           <div className=' flex flex-row space-x-2'>
             <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" type="submit">Submit</Button>
             <Button className="bg-blue-700 px-2 py-0 rounded-md text-white my-12 w-1/2" onClick={()=>handleReset()}>Clear</Button>
@@ -108,6 +114,9 @@ export function TripsCreatePage() {
           <FlightHotelSearch />
         </div>
       </div>
+      <ImagePickerModal onClose={handleTripImagePickerClose} show={tripImagePickerModalVisible} >
+        <TripImagePicker onClose={handleTripImagePickerClose} onResult={handleTripImagePickerResult} title={title}/>
+      </ImagePickerModal>
     </div>
   );
 }

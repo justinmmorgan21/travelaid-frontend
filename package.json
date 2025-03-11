@@ -17,7 +17,7 @@
     "@vis.gl/react-google-maps": "^1.4.0",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.12",
     "dotenv": "^16.4.5",
     "flowbite-react": "^0.10.2",
     "node-fetch": "^3.3.2",
