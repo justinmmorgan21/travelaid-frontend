@@ -19,13 +19,13 @@ export function TripImagePicker({onClose, onResult, title}) {
   const generateImage = async () => {
     setOpenAILoading(true);
     try {
-        const generateImageResponse = await axios.post("http://localhost:3001/generate-image", {
+        const generateImageResponse = await axios.post(`${apiConfig.proxyServerUrl}/generate-image`, {
             title: title,
         });
         const base64String = generateImageResponse.data.base64Image;
         const formattedBase64 = `data:image/png;base64,${base64String}`;
           
-        const uploadResponse = await axios.post("http://localhost:3001/upload-image", {
+        const uploadResponse = await axios.post(`${apiConfig.proxyServerUrl}/upload-image`, {
             imageBinary: formattedBase64,
             fileName: `user-${Date.now()}.png`,
         });
